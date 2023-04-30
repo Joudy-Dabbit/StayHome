@@ -16,8 +16,4 @@
       <ProjectReference Include="..\StayHome.Domain\StayHome.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Repositories\" />
-    </ItemGroup>
-
 </Project>

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Neptunee.BaseCleanArchitecture.BaseEntity;
 
 namespace Domain.Entities;
 
-public class User : IdentityUser<Guid>
+public class User : BaseAggregateIdentityUser<Guid>
 {
     public User()
     {
@@ -14,6 +15,8 @@ public class User : IdentityUser<Guid>
     public string LastName { get; set; }
     public string? ImageUrl { get; set; }
     public DateOnly? BirthDate { get; set; }
+
+    public DateTimeOffset? DateBlocked { get; set; }
 
     public string FullName => $"{FirstName} {LastName}";
 }

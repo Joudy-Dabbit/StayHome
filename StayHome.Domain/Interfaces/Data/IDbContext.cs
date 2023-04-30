@@ -1,6 +1,8 @@
+using Neptunee.BaseCleanArchitecture.Database;
+
 namespace Domain.Interfaces.Data;
 
-public interface IDbContext
+public interface IDbContext : IBaseDbContext
 {
     
 }

@@ -1,4 +1,6 @@
 using System.ComponentModel;
+using System.Linq.Expressions;
+using Domain.Entities.Security;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts;
@@ -17,5 +19,15 @@ public class LogInEmployeeCommand
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
+        
+        public static Expression<Func<Employee, Response>> Selector(string accessToken)
+            => e => new()
+            {
+                Id = e.Id,
+                Email = e.Email,
+                RefreshToken = e.PasswordHash!,
+                AccessToken = accessToken,
+            };
+
     }
 }
