@@ -13,6 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Customer\Commands\" />
+      <Folder Include="Customer\Queries\GetAll\" />
+      <Folder Include="Customer\Queries\GetById\" />
       <Folder Include="Employees\Queries\" />
     </ItemGroup>
 
