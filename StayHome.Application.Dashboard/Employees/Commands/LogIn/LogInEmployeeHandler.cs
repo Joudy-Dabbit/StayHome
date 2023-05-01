@@ -36,6 +36,7 @@ public class LogInEmployeeHandler : IRequestHandler<LogInEmployeeCommand.Request
          if (user.DateBlocked.HasValue)
              return DomainError.User.Blocked;
         
-        // var accessToken = await _userRepository.GetAccessToken(user);
-         return await _userRepository.GetAsync(user.Id, LogInEmployeeCommand.Response.Selector("accessToken"));    }
+         //var accessToken = await _userRepository.GetAccessToken(user);
+         return await _userRepository.GetAsync(user.Id, LogInEmployeeCommand.Response.Selector("accessToken"));
+    }
 }
