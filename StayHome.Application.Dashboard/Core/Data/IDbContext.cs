@@ -1,4 +1,4 @@
-using Neptunee.BaseCleanArchitecture.Database;
+using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;
 
 namespace Domain.Interfaces.Data;
 
