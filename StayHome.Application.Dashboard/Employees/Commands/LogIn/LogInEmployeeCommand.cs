@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Domain.Entities.Security;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Contracts;
+using StayHome.Contracts.Shared;
 
 namespace Application.Dashboard.Employees;
 

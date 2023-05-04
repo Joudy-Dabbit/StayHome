@@ -1,7 +1,7 @@
 using Neptunee.BaseCleanArchitecture.Repository;
-using Presentation.Context;
+using StayHome.Presentation.Context;
 
-namespace Presentation.Repositories;
+namespace StayHome.Presentation.Repositories;
 
 public class StayHomeRepository : Repository<Guid, StayHomeDbContext>
 {

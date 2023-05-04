@@ -9,9 +9,9 @@ using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;
 using Neptunee.BaseCleanArchitecture.Clock;
 using Neptunee.BaseCleanArchitecture.Dispatchers.DomainEventDispatcher;
 
-namespace Presentation.Context;
+namespace StayHome.Presentation.Context;
 
-public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IDbContext, IBaseDbContext<Guid>
+public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbContext, IBaseDbContext<Guid>
 {
     public StayHomeDbContext(DbContextOptions options, IClock clock, IDomainEventDispatcher domainEventDispatcher) : base(options, clock, domainEventDispatcher)
     {

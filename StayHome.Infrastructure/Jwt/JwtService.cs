@@ -2,11 +2,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Application.Dashboard.Core.Jwt;
-using Infrastructure.Jwt.Option;
+using StayHome.Infrastructure.Jwt.Option;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Infrastructure.Jwt;
+namespace StayHome.Infrastructure.Jwt;
 
 public class JwtService : IJwtService
 {

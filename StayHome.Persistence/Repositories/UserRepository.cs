@@ -6,13 +6,14 @@ using Domain;
 using Domain.Entities;
 using Domain.Entities.Security;
 using Domain.Repositories;
-using Infrastructure.Jwt.Claims;
+using StayHome.Infrastructure.Jwt.Claims;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Neptunee.BaseCleanArchitecture.Repository;
-using Presentation.Context;
+using StayHome.Presentation.Context;
+using StayHome.Presentation.Repositories;
 
-namespace Presentation.Repositories;
+namespace StayHome.Presentation.Repositories;
 
 public class UserRepository : StayHomeRepository, IUserRepository
 {

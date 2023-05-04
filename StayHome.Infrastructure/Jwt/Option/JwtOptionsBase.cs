@@ -1,4 +1,4 @@
-namespace Infrastructure.Jwt.Option;
+namespace StayHome.Infrastructure.Jwt.Option;
 
 public class JwtOptionsBase
 {

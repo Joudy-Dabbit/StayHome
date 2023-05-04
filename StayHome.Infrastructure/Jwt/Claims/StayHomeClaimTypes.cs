@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Infrastructure.Jwt.Claims;
+namespace StayHome.Infrastructure.Jwt.Claims;
 
 public class StayHomeClaimTypes
 {

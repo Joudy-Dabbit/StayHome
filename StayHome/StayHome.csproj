@@ -16,6 +16,14 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Neptunee.BaseCleanArchitecture" Version="1.0.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StayHome.Application.Mobile\StayHome.Application.Mobile.csproj" />
+      <ProjectReference Include="..\StayHome.Infrastructure\StayHome.Infrastructure.csproj" />
+      <ProjectReference Include="..\StayHome.Persistence\StayHome.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

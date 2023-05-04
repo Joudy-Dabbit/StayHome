@@ -1,4 +1,4 @@
-namespace StayHome.Contracts;
+namespace StayHome.Contracts.Shared;
 
 public class TokenDto
 {
