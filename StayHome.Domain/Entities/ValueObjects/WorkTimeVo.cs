@@ -1,10 +1,10 @@
 namespace Domain.Entities.ValueObjects;
 
-public class WorkTime
+public class WorkTimeVo
 {
-    private WorkTime() {}
+    private WorkTimeVo() {}
     
-    public WorkTime(List<DayOfWeek> daysOfWeek, List<Time> times)
+    public WorkTimeVo(List<DayOfWeek> daysOfWeek, List<Time> times)
     {
         DaysOfWeek = daysOfWeek;
         Times = times;

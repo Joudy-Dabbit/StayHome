@@ -5,7 +5,7 @@ namespace Domain.Entities.Main;
 public class Shop : AggregateRoot
 {
     public Shop(string name,string imageUrl,
-        Guid cityId, Guid categoryId, Guid areaId, List<WorkTime> workTimes)
+        Guid cityId, Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
     {
         CityId = cityId;
         CategoryId = categoryId;
@@ -16,7 +16,7 @@ public class Shop : AggregateRoot
     }
     public string Name { get; private set; }
     public string ImageUrl { get; set; }
-    public List<WorkTime> WorkTimes { get; private set; }
+    public List<WorkTimeVo> WorkTimes { get; private set; }
     
     public Guid CategoryId { get; private set; }
     public Category Category { get; private set; }
@@ -35,7 +35,7 @@ public class Shop : AggregateRoot
                             wt.Times.Any(t => t.StartTime <= DateTime.Now.TimeOfDay && DateTime.Now.TimeOfDay <= t.EndTime));
 
     public void Modify(string name,string imageUrl,
-        Guid cityId, Guid categoryId, Guid areaId, List<WorkTime> workTimes)
+        Guid cityId, Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
     {
         CityId = cityId;
         CategoryId = categoryId;
