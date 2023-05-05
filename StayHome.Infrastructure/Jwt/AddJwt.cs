@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace StayHome.Infrastructure.Jwt;
 
 public static class AddJwt
-{ 
+{
     public static IServiceCollection AddJwtSecurity(this IServiceCollection services, 
         IConfiguration Configuration)
     {
@@ -56,5 +56,4 @@ public static class AddJwt
 
         return services;
     }
-
 }

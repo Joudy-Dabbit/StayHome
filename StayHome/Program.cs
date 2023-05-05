@@ -1,4 +1,8 @@
 using System.Reflection.Metadata;
+using Domain;
+using Domain.Entities;
+using EasyRefreshToken.DependencyInjection;
+using EasyRefreshToken.Models;
 using Microsoft.OpenApi.Models;
 using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
@@ -46,10 +50,19 @@ builder.Services.AddCors(o =>
     });
 });
 
+builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, User, Guid>
+(op =>
+    {
+        op.TokenExpiredDays = ConstValues.ExpireRefreshTokenDay;
+
+        op.PreventingLoginWhenAccessToMaxNumberOfActiveDevices = false;
+    }
+);
+
 var app = builder.Build();
 
-app
-    .UseSwaggerApi(o => o.AddEndpoint("All").AddEndpoints<ApiGroupNames>().SetDocExpansion());
+app.UseSwaggerApi(o => o.AddEndpoint("All")
+    .AddEndpoints<ApiGroupNames>().SetDocExpansion());
 app.UseCors("Policy");
 app.UseAuthentication();
 app.UseRouting();

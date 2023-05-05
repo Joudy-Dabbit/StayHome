@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EasyRefreshToken.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Neptunee.BaseCleanArchitecture.BaseEntity;
 
 namespace Domain.Entities;
 
-public class User : BaseAggregateIdentityUser<Guid>
+public class User : BaseAggregateIdentityUser<Guid>, IUser<Guid>
 {
     public User()
     {
