@@ -1,7 +1,10 @@
+using Neptunee.BaseCleanArchitecture.BaseEntity;
+
 namespace Domain.Entities.ValueObjects;
 
-public class PersonOrderVo
+public record PersonOrderVo
 {
+    private PersonOrderVo(){}
     public PersonOrderVo(string fullName, string email,
         string? phoneNumber, string? telephone)
     {

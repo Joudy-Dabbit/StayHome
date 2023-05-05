@@ -1,6 +1,6 @@
 namespace Domain.Entities.Main;
 
-public class Category
+public class Category : AggregateRoot
 {
     
 }

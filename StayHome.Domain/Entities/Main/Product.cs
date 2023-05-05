@@ -2,6 +2,8 @@ namespace Domain.Entities.Main;
 
 public class Product : AggregateRoot
 {
+    private Product(){}
+    
     public Product(string name,string imageUrl, double cost)
     {
         Cost = cost;

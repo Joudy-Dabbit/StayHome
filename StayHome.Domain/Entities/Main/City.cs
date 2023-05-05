@@ -2,6 +2,7 @@ namespace Domain.Entities.Main;
 
 public class City : AggregateRoot
 {
+    private City(){}
     public City(string name)
     {
         Name = name;

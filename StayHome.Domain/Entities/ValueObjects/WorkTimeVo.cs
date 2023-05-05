@@ -1,6 +1,8 @@
+using Neptunee.BaseCleanArchitecture.BaseEntity;
+
 namespace Domain.Entities.ValueObjects;
 
-public class WorkTimeVo
+public record WorkTimeVo
 {
     private WorkTimeVo() {}
     
@@ -14,7 +16,7 @@ public class WorkTimeVo
     public List<Time> Times { get; private set; }
 }
 
-public class Time
+public record Time
 {
     private Time(){}
     

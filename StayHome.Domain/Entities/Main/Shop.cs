@@ -4,6 +4,8 @@ namespace Domain.Entities.Main;
 
 public class Shop : AggregateRoot
 {
+    private Shop(){}
+    
     public Shop(string name,string imageUrl,
         Guid cityId, Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
     {

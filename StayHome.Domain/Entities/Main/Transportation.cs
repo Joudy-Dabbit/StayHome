@@ -4,6 +4,7 @@ namespace Domain.Entities.Main;
 
 public class Transportation : AggregateRoot
 {
+    private Transportation(){}
     public Transportation(TransportationType type, double maxCapacity, 
         string color, string number)
     {

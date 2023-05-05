@@ -1,8 +1,9 @@
 using Microsoft.IdentityModel.Tokens;
+using Neptunee.BaseCleanArchitecture.BaseEntity;
 
 namespace Domain.Entities.ValueObjects;
 
-public class AddressOrderVo
+public record AddressOrderVo 
 {
     private AddressOrderVo(){}
     

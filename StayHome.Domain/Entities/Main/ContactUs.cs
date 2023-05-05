@@ -4,6 +4,8 @@ namespace Domain.Entities.Main;
 
 public class ContactUs : AggregateRoot
 {
+    private ContactUs() { }
+    
     public ContactUs(string title, string content,
         string? email, string? phoneNumber,
         string? name)
