@@ -8,20 +8,17 @@ using StayHome.Infrastructure;
 using StayHome.Presentation.Context;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
-
-
+builder.Services.AddControllers();
 builder.Services
     .AddSwaggerApi(o =>
     {
         o.AddBearerSecurityScheme();
         o.AddApiGroupDocs<ApiGroupNames>();
-        o.SwaggerDoc("All", new OpenApiInfo
+        o.SwaggerDoc("All", new OpenApiInfo()
         {
             Title = "All",
-            Version = string.Empty,
+            Version = "v1"
         });
     })
     .AddExceptionHandlerFilter()
@@ -32,5 +29,29 @@ builder.Services
         StayHome.Application.Mobile.AssemblyReference.Assembly,
         StayHome.Presentation.AssemblyReference.Assembly);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("Policy", policyBuilder =>
+    {
+        policyBuilder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .AllowCredentials()
+            .WithOrigins("https://localhost:4000")
+            .SetIsOriginAllowed(_ => true);
+    });
+});
+
+var app = builder.Build();
+
+app
+    .UseSwaggerApi(o => o.AddEndpoint("All").AddEndpoints<ApiGroupNames>().SetDocExpansion());
+app.UseCors("Policy");
+app.UseAuthentication();
+app.UseRouting();
+app.MapControllers();
 app.Run();

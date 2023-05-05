@@ -11,4 +11,9 @@
       <PackageReference Include="Neptunee.BaseCleanArchitecture" Version="1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\StayHome.Contracts\StayHome.Contracts.csproj" />
+      <ProjectReference Include="..\StayHome.Domain\StayHome.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

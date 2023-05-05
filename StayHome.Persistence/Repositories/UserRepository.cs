@@ -5,7 +5,9 @@ using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
 using Domain.Entities.Security;
+using Domain.Enum;
 using Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
 using StayHome.Infrastructure.Jwt.Claims;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,15 +19,34 @@ namespace StayHome.Presentation.Repositories;
 
 public class UserRepository : StayHomeRepository, IUserRepository
 {
-    private readonly IJwtService _jwt;
-    private readonly IUserRepository _userRepository;
+   // private readonly IJwtService _jwt;
+    private readonly UserManager<User> _userManager;
 
-    public UserRepository(StayHomeDbContext context, IJwtService jwt, IUserRepository userRepository) : base(context)
+    public UserRepository(StayHomeDbContext context /* ,IJwtService jwt*/, UserManager<User> userManager) : base(context)
     {
-        _jwt = jwt;
-        _userRepository = userRepository;
+       // _jwt = jwt;
+        _userManager = userManager;
     }
+    public async Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string? password = null)
+    {
+        IdentityResult identityResult;
+        if (password != null)
+        {
+            identityResult =  await _userManager.CreateAsync(user, password);
+            if (!identityResult.Succeeded) 
+                return identityResult;
+        }       
+        
+        else
+        {
+            identityResult =  await _userManager.CreateAsync(user);
+            if (!identityResult.Succeeded)
+                return identityResult;
+        }
 
+        identityResult = await _userManager.AddToRoleAsync(user, role.ToString());
+        return identityResult;
+    }
     // public async Task<string> GetEmployeeAccessToken(Employee employee)
     // {
     //     var claims = await _userRepository.GetAllClaimsAsync(employee.Id);

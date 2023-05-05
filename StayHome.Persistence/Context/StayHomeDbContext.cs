@@ -13,7 +13,7 @@ namespace StayHome.Presentation.Context;
 
 public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbContext
 {
-    public StayHomeDbContext(DbContextOptions options, IClock clock,
+    public StayHomeDbContext(DbContextOptions<StayHomeDbContext> options, IClock clock,
         IDomainEventDispatcher domainEventDispatcher) : 
         base(options, clock, domainEventDispatcher)
     {
