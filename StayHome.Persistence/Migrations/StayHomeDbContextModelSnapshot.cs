@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using StayHome.Presentation.Context;
+using StayHome.Persistence.Context;
 
 #nullable disable
 
-namespace StayHome.Presentation.Migrations
+namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
     partial class StayHomeDbContextModelSnapshot : ModelSnapshot

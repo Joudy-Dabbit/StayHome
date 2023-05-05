@@ -17,43 +17,35 @@ using Microsoft.IdentityModel.Tokens;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Repository;
 using StayHome.Contracts.Shared;
-using StayHome.Presentation.Context;
-using StayHome.Presentation.Repositories;
+using StayHome.Persistence.Context;
+using StayHome.Persistence.Repositories;
 
-namespace StayHome.Presentation.Repositories;
+namespace StayHome.Persistence.Repositories;
 
 public class UserRepository : StayHomeRepository, IUserRepository
 {
     private readonly IJwtService _jwt;
     private readonly UserManager<User> _userManager;
     private readonly IConfiguration _configuration;
-    private readonly ITokenService<Guid> tokenService;
+    private readonly ITokenService<Guid> _tokenService;
 
-    public UserRepository(StayHomeDbContext context ,IJwtService jwt, UserManager<User> userManager, IConfiguration configuration, ITokenService<Guid> tokenService) : base(context)
+    public UserRepository(StayHomeDbContext context ,IJwtService jwt,
+        UserManager<User> userManager, IConfiguration configuration,
+        ITokenService<Guid> tokenService) : base(context)
     {
         _jwt = jwt;
         _userManager = userManager;
         _configuration = configuration;
-        this.tokenService = tokenService;
+        _tokenService = tokenService;
     }
     public async Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string? password = null)
     {
         IdentityResult identityResult;
-        if (password != null)
-        {
-            identityResult =  await _userManager.CreateAsync(user, password);
+        identityResult =  await _userManager.CreateAsync(user, password);
             if (!identityResult.Succeeded) 
                 return identityResult;
-        }       
-        
-        else
-        {
-            identityResult =  await _userManager.CreateAsync(user);
-            if (!identityResult.Succeeded)
-                return identityResult;
-        }
 
-        identityResult = await _userManager.AddToRoleAsync(user, role.ToString());
+            identityResult = await _userManager.AddToRoleAsync(user, role.ToString());
         return identityResult;
     }
     public string GenerateAccessToken(User user, IList<string> roles, DateTime expierDate)
@@ -92,7 +84,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
         if (user == null)
             return OperationResponse.With(HttpStatusCode.NotFound, "NotExist").ToResponse<TokenDto>();;
 
-        var tokenResult = await tokenService.OnAccessTokenExpired(user.Id, refreshToken);
+        var tokenResult = await _tokenService.OnAccessTokenExpired(user.Id, refreshToken);
 
         if (!tokenResult.IsSucceded)
             return OperationResponse.WithBadRequest(tokenResult.ErrorMessage).ToResponse<TokenDto>();

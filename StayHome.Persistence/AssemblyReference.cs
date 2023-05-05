@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace StayHome.Presentation;
+namespace StayHome.Persistence;
 
 public static class AssemblyReference
 {

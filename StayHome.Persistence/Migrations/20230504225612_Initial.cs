@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StayHome.Presentation.Migrations
+namespace StayHome.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

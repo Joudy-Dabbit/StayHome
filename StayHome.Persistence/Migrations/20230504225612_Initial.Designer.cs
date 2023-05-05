@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using StayHome.Presentation.Context;
+using StayHome.Persistence.Context;
 
 #nullable disable
 
-namespace StayHome.Presentation.Migrations
+namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
     [Migration("20230504225612_Initial")]

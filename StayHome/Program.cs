@@ -7,11 +7,11 @@ using EasyRefreshToken.Models;
 using Microsoft.OpenApi.Models;
 using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
-using StayHome.Presentation;
+using StayHome.Persistence;
 using StayHome;
 using StayHome.Infrastructure;
 using StayHome.Infrastructure.Jwt;
-using StayHome.Presentation.Context;
+using StayHome.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +29,11 @@ builder.Services
     })
     .AddExceptionHandlerFilter()
     .AddInfrastructure(builder.Configuration)
-    .AddPersistence(builder.Configuration,builder.Environment)
+    .AddPersistence(builder.Configuration, builder.Environment)
     .AddBaseCleanArchitecture(
         StayHome.Application.Dashboard.AssemblyReference.Assembly,
         StayHome.Application.Mobile.AssemblyReference.Assembly,
-        StayHome.Presentation.AssemblyReference.Assembly);
+        StayHome.Persistence.AssemblyReference.Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

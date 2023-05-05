@@ -9,7 +9,7 @@ using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;
 using Neptunee.BaseCleanArchitecture.Clock;
 using Neptunee.BaseCleanArchitecture.Dispatchers.DomainEventDispatcher;
 
-namespace StayHome.Presentation.Context;
+namespace StayHome.Persistence.Context;
 
 public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbContext
 {

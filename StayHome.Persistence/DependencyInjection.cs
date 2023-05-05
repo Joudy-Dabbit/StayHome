@@ -6,16 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StayHome.Presentation.Context;
+using StayHome.Persistence.Context;
 
-namespace StayHome.Presentation;
+namespace StayHome.Persistence;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         IConfiguration configuration, IWebHostEnvironment environment)
     {
-
         services.AddDbContext<IStayHomeDbContext, StayHomeDbContext>(o =>
                {
                    o.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
