@@ -28,7 +28,7 @@ public class CreateCustomerCommand
         public string Email { get; set; }
         public DateOnly? BirthDate { get; set; }
 
-        public static Expression<Func<Customer, Response>> Selector(string accessToken) => c
+        public static Expression<Func<Customer, Response>> Selector(string accessToken, string refreshToken) => c
             => new()
             {
                 Id = c.Id,
@@ -38,7 +38,8 @@ public class CreateCustomerCommand
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber,
                 AccessToken = accessToken,
-                ImageUrl = c.ImageUrl
+                ImageUrl = c.ImageUrl,
+                RefreshToken = refreshToken
             };
     }
 }

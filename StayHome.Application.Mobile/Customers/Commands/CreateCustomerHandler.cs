@@ -1,3 +1,4 @@
+using System.Net;
 using Domain.Entities;
 using Domain.Enum;
 using Domain.Repositories;
@@ -27,6 +28,12 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
         
         var accessToken = _userRepository.GenerateAccessToken(customer, 
             new List<string>(){StayHomeRoles.Customer.ToString()}, DateTime.UtcNow.AddMinutes(10));
-        return await _userRepository.GetAsync(customer.Id, CreateCustomerCommand.Response.Selector("accessToken"));
+        var refreshToken = await _userRepository.GenerateRefreshToken(customer.Id);
+        
+        if (!refreshToken.IsSucceded)
+            return OperationResponse.WithBadRequest(refreshToken.ErrorMessage).ToResponse<CreateCustomerCommand.Response>();
+        
+        return await _userRepository.GetAsync(customer.Id, 
+            CreateCustomerCommand.Response.Selector(accessToken, refreshToken.Token));
     }
 }

@@ -5,6 +5,7 @@ using Domain.Entities.Notification;
 using Domain.Entities.Orders;
 using Domain.Entities.Security;
 using Domain.Interfaces.Data;
+using EasyRefreshToken.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,7 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<RefreshToken<User, Guid>> RefreshTokens { get; set; }
     #endregion
         
      #region -Main-

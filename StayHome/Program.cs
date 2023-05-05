@@ -5,6 +5,7 @@ using Domain.Entities;
 using EasyRefreshToken.DependencyInjection;
 using EasyRefreshToken.Models;
 using Microsoft.OpenApi.Models;
+using Neptunee.BaseCleanArchitecture.AppBuilder.InitialAppBuilder;
 using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using StayHome.Persistence;
@@ -12,6 +13,7 @@ using StayHome;
 using StayHome.Infrastructure;
 using StayHome.Infrastructure.Jwt;
 using StayHome.Persistence.Context;
+using StayHome.Persistence.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,4 +73,7 @@ app.UseCors("Policy");
 app.UseAuthentication();
 app.UseRouting();
 app.MapControllers();
+
+await app.MigrationAsync<StayHomeDbContext>(DataSeed.Seed);
+
 app.Run();

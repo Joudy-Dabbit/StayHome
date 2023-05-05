@@ -8,6 +8,7 @@ using Domain.Entities;
 using Domain.Entities.Security;
 using Domain.Enum;
 using Domain.Repositories;
+using EasyRefreshToken.Result;
 using EasyRefreshToken.Service;
 using Microsoft.AspNetCore.Identity;
 using StayHome.Infrastructure.Jwt.Claims;
@@ -38,6 +39,10 @@ public class UserRepository : StayHomeRepository, IUserRepository
         _configuration = configuration;
         _tokenService = tokenService;
     }
+
+    public async Task<TokenResult> GenerateRefreshToken(Guid userId)
+        => await _tokenService.OnLogin(userId);
+
     public async Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string? password = null)
     {
         IdentityResult identityResult;
@@ -54,7 +59,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.UserName.ToString()),
-            new Claim(ConstValues.AppClaims.Type, user.GetType().ToString()),
+            new Claim(ConstValues.AppClaims.Type, user.GetType().Name),
         };
 
         foreach (var role in roles)
