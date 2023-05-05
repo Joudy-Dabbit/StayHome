@@ -1,4 +1,5 @@
 using System.Reflection.Metadata;
+using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
 using EasyRefreshToken.DependencyInjection;
@@ -9,6 +10,7 @@ using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using StayHome.Presentation;
 using StayHome;
 using StayHome.Infrastructure;
+using StayHome.Infrastructure.Jwt;
 using StayHome.Presentation.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +51,8 @@ builder.Services.AddCors(o =>
             .SetIsOriginAllowed(_ => true);
     });
 });
+
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, User, Guid>
 (op =>
