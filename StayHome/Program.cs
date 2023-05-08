@@ -2,6 +2,7 @@ using System.Reflection.Metadata;
 using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
+using Domain.Entities.Security;
 using EasyRefreshToken.DependencyInjection;
 using EasyRefreshToken.Models;
 using Microsoft.OpenApi.Models;
@@ -60,8 +61,8 @@ builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, Us
 (op =>
     {
         op.TokenExpiredDays = ConstValues.ExpireRefreshTokenDay;
-
-        op.PreventingLoginWhenAccessToMaxNumberOfActiveDevices = false;
+        op.MaxNumberOfActiveDevices = MaxNumberOfActiveDevices
+            .Configure((typeof(Driver), 1), (typeof(Customer), 1), (typeof(Employee), 10));
     }
 );
 
