@@ -67,6 +67,7 @@ namespace StayHome.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -162,11 +163,12 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transportations",
+                name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
+                    VehicleTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    VehicleType_Name = table.Column<string>(type: "text", nullable: false),
                     Color = table.Column<string>(type: "text", nullable: false),
                     Number = table.Column<string>(type: "text", nullable: false),
                     MaxCapacity = table.Column<double>(type: "double precision", nullable: false),
@@ -176,7 +178,7 @@ namespace StayHome.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transportations", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,10 +294,9 @@ namespace StayHome.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
                     Reply = table.Column<string>(type: "text", nullable: true),
                     EmployeeId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -304,10 +305,36 @@ namespace StayHome.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ContactsUs", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_ContactsUs_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_ContactsUs_AspNetUsers_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "text", nullable: true),
+                    ExpiredDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -333,6 +360,37 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    HouseNumber = table.Column<string>(type: "text", nullable: false),
+                    Street = table.Column<string>(type: "text", nullable: false),
+                    Additional = table.Column<string>(type: "text", nullable: true),
+                    AreaId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: true),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Address_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Address_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shops",
                 columns: table => new
                 {
@@ -340,7 +398,6 @@ namespace StayHome.Persistence.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CityId = table.Column<Guid>(type: "uuid", nullable: false),
                     AreaId = table.Column<Guid>(type: "uuid", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -361,12 +418,6 @@ namespace StayHome.Persistence.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Shops_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -375,28 +426,31 @@ namespace StayHome.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ScheduleDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeliveryCoast = table.Column<double>(type: "double precision", nullable: false),
+                    Destination_AreaId = table.Column<Guid>(type: "uuid", nullable: true),
                     Destination_HouseNumber = table.Column<string>(type: "text", nullable: true),
                     Destination_Street = table.Column<string>(type: "text", nullable: true),
                     Destination_Additional = table.Column<string>(type: "text", nullable: true),
+                    Source_AreaId = table.Column<Guid>(type: "uuid", nullable: true),
                     Source_HouseNumber = table.Column<string>(type: "text", nullable: true),
                     Source_Street = table.Column<string>(type: "text", nullable: true),
                     Source_Additional = table.Column<string>(type: "text", nullable: true),
-                    DeliveryCoast = table.Column<double>(type: "double precision", nullable: false),
                     EmployeeHandlerId = table.Column<Guid>(type: "uuid", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: true),
                     DriverId = table.Column<Guid>(type: "uuid", nullable: true),
-                    TransportationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    VehicleId = table.Column<Guid>(type: "uuid", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
                     Coast = table.Column<double>(type: "double precision", nullable: true),
                     PersonInfo_FullName = table.Column<string>(type: "text", nullable: true),
                     PersonInfo_Email = table.Column<string>(type: "text", nullable: true),
                     PersonInfo_PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     PersonInfo_Telephone = table.Column<string>(type: "text", nullable: true),
+                    ShopId = table.Column<Guid>(type: "uuid", nullable: true),
                     NumberOfPassenger = table.Column<int>(type: "integer", nullable: true),
                     Weight = table.Column<double>(type: "double precision", nullable: true),
                     ShippingOrder_Coast = table.Column<double>(type: "double precision", nullable: true),
                     CityId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ShopId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ShippingOrder_ShopId = table.Column<Guid>(type: "uuid", nullable: true),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -404,6 +458,18 @@ namespace StayHome.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Areas_Destination_AreaId",
+                        column: x => x.Destination_AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Areas_Source_AreaId",
+                        column: x => x.Source_AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
@@ -426,14 +492,19 @@ namespace StayHome.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Orders_Shops_ShippingOrder_ShopId",
+                        column: x => x.ShippingOrder_ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Orders_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Orders_Transportations_TransportationId",
-                        column: x => x.TransportationId,
-                        principalTable: "Transportations",
+                        name: "FK_Orders_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
                         principalColumn: "Id");
                 });
 
@@ -465,9 +536,9 @@ namespace StayHome.Persistence.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     Cost = table.Column<double>(type: "double precision", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uuid", nullable: false),
                     DeliveryOrderId = table.Column<Guid>(type: "uuid", nullable: true),
                     ShippingOrderId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ShopId = table.Column<Guid>(type: "uuid", nullable: true),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -489,35 +560,6 @@ namespace StayHome.Persistence.Migrations
                         name: "FK_Products_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rates",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Stars = table.Column<double>(type: "double precision", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rates_AspNetUsers_DriverId",
-                        column: x => x.DriverId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Rates_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -543,6 +585,16 @@ namespace StayHome.Persistence.Migrations
                         principalColumns: new[] { "ShopId", "Id" },
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_AreaId",
+                table: "Address",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_CustomerId",
+                table: "Address",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Areas_CityId",
@@ -587,6 +639,11 @@ namespace StayHome.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContactsUs_CustomerId",
+                table: "ContactsUs",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ContactsUs_EmployeeId",
                 table: "ContactsUs",
                 column: "EmployeeId");
@@ -602,6 +659,11 @@ namespace StayHome.Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_Destination_AreaId",
+                table: "Orders",
+                column: "Destination_AreaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_DriverId",
                 table: "Orders",
                 column: "DriverId");
@@ -612,14 +674,24 @@ namespace StayHome.Persistence.Migrations
                 column: "EmployeeHandlerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_ShippingOrder_ShopId",
+                table: "Orders",
+                column: "ShippingOrder_ShopId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ShopId",
                 table: "Orders",
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_TransportationId",
+                name: "IX_Orders_Source_AreaId",
                 table: "Orders",
-                column: "TransportationId");
+                column: "Source_AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_VehicleId",
+                table: "Orders",
+                column: "VehicleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_DeliveryOrderId",
@@ -637,14 +709,9 @@ namespace StayHome.Persistence.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rates_DriverId",
-                table: "Rates",
-                column: "DriverId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rates_OrderId",
-                table: "Rates",
-                column: "OrderId");
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shops_AreaId",
@@ -655,16 +722,14 @@ namespace StayHome.Persistence.Migrations
                 name: "IX_Shops_CategoryId",
                 table: "Shops",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Shops_CityId",
-                table: "Shops",
-                column: "CityId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Address");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -699,7 +764,7 @@ namespace StayHome.Persistence.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Rates");
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "Settings");
@@ -720,7 +785,7 @@ namespace StayHome.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Transportations");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Shops");

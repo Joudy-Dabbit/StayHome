@@ -22,7 +22,52 @@ namespace StayHome.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Main.Area", b =>
+            modelBuilder.Entity("Domain.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Additional")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("AreaId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("HouseNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Area", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,11 +96,15 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("Areas");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Category", b =>
+            modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -71,7 +120,7 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.City", b =>
+            modelBuilder.Entity("Domain.Entities.City", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +144,7 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.ContactUs", b =>
+            modelBuilder.Entity("Domain.Entities.ContactUs", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,16 +154,11 @@ namespace StayHome.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("EmployeeId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Reply")
                         .HasColumnType("text");
@@ -134,12 +178,148 @@ namespace StayHome.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("ContactsUs");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Product", b =>
+            modelBuilder.Entity("Domain.Entities.CostumerNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CostumerNotifications");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DashNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DashNotifications");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DriverNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DriverNotifications");
+                });
+
+            modelBuilder.Entity("Domain.Entities.MobileNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MobileNotifications");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("DeliveryCoast")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("EmployeeHandlerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ScheduleDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("VehicleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("DriverId");
+
+                    b.HasIndex("EmployeeHandlerId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Orders");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Order");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +342,7 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid?>("ShippingOrderId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ShopId")
+                    b.Property<Guid>("ShopId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -185,44 +365,7 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Rate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<double>("Stars")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Rates");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Main.Setting", b =>
+            modelBuilder.Entity("Domain.Entities.Setting", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +385,7 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Shop", b =>
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -252,9 +395,6 @@ namespace StayHome.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ImageUrl")
@@ -280,177 +420,7 @@ namespace StayHome.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CityId");
-
                     b.ToTable("Shops");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Main.Transportation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("MaxCapacity")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Transportations");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Notification.CostumerNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CostumerNotifications");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Notification.DashNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DashNotifications");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Notification.DriverNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DriverNotifications");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Notification.MobileNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MobileNotifications");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Orders.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<double>("DeliveryCoast")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("DriverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("EmployeeHandlerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("ScheduleDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("TransportationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("EmployeeHandlerId");
-
-                    b.HasIndex("TransportationId");
-
-                    b.ToTable("Orders");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Order");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -550,6 +520,40 @@ namespace StayHome.Persistence.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("MaxCapacity")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("VehicleTypeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>
@@ -704,19 +708,24 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.DeliveryOrder", b =>
+            modelBuilder.Entity("Domain.Entities.DeliveryOrder", b =>
                 {
-                    b.HasBaseType("Domain.Entities.Orders.Order");
+                    b.HasBaseType("Domain.Entities.Order");
 
                     b.Property<double>("Coast")
                         .HasColumnType("double precision");
 
+                    b.Property<Guid?>("ShopId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("ShopId");
+
                     b.HasDiscriminator().HasValue("DeliveryOrder");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.PassengerOrder", b =>
+            modelBuilder.Entity("Domain.Entities.PassengerOrder", b =>
                 {
-                    b.HasBaseType("Domain.Entities.Orders.Order");
+                    b.HasBaseType("Domain.Entities.Order");
 
                     b.Property<int>("NumberOfPassenger")
                         .HasColumnType("integer");
@@ -724,9 +733,9 @@ namespace StayHome.Persistence.Migrations
                     b.HasDiscriminator().HasValue("PassengerOrder");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.ShippingOrder", b =>
+            modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
-                    b.HasBaseType("Domain.Entities.Orders.Order");
+                    b.HasBaseType("Domain.Entities.Order");
 
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
@@ -748,6 +757,9 @@ namespace StayHome.Persistence.Migrations
                         {
                             t.Property("Coast")
                                 .HasColumnName("ShippingOrder_Coast");
+
+                            t.Property("ShopId")
+                                .HasColumnName("ShippingOrder_ShopId");
                         });
 
                     b.HasDiscriminator().HasValue("ShippingOrder");
@@ -779,16 +791,31 @@ namespace StayHome.Persistence.Migrations
                     b.HasDiscriminator().HasValue("Driver");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Security.Employee", b =>
+            modelBuilder.Entity("Domain.Entities.Employee", b =>
                 {
                     b.HasBaseType("Domain.Entities.User");
 
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Area", b =>
+            modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
-                    b.HasOne("Domain.Entities.Main.City", "City")
+                    b.HasOne("Domain.Entities.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Customer", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Area");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Area", b =>
+                {
+                    b.HasOne("Domain.Entities.City", "City")
                         .WithMany("Areas")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -797,70 +824,162 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.ContactUs", b =>
+            modelBuilder.Entity("Domain.Entities.ContactUs", b =>
                 {
-                    b.HasOne("Domain.Entities.Security.Employee", "Employee")
+                    b.HasOne("Domain.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Product", b =>
+            modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
-                    b.HasOne("Domain.Entities.Orders.DeliveryOrder", null)
-                        .WithMany("Products")
-                        .HasForeignKey("DeliveryOrderId");
+                    b.HasOne("Domain.Entities.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
 
-                    b.HasOne("Domain.Entities.Orders.ShippingOrder", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShippingOrderId");
-
-                    b.HasOne("Domain.Entities.Main.Shop", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShopId");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Main.Rate", b =>
-                {
                     b.HasOne("Domain.Entities.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Orders")
+                        .HasForeignKey("DriverId");
 
-                    b.HasOne("Domain.Entities.Orders.Order", "Order")
+                    b.HasOne("Domain.Entities.Employee", "EmployeeHandler")
+                        .WithMany("Orders")
+                        .HasForeignKey("EmployeeHandlerId");
+
+                    b.HasOne("Domain.Entities.Vehicle", "Vehicle")
                         .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VehicleId");
+
+                    b.OwnsOne("Domain.Entities.AddressOrderVo", "Destination", b1 =>
+                        {
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Additional")
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("AreaId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("HouseNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("AreaId");
+
+                            b1.ToTable("Orders");
+
+                            b1.HasOne("Domain.Entities.Area", "Area")
+                                .WithMany()
+                                .HasForeignKey("AreaId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.Navigation("Area");
+                        });
+
+                    b.OwnsOne("Domain.Entities.AddressOrderVo", "Source", b1 =>
+                        {
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Additional")
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("AreaId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("HouseNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("AreaId");
+
+                            b1.ToTable("Orders");
+
+                            b1.HasOne("Domain.Entities.Area", "Area")
+                                .WithMany()
+                                .HasForeignKey("AreaId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.Navigation("Area");
+                        });
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Destination");
 
                     b.Navigation("Driver");
 
-                    b.Navigation("Order");
+                    b.Navigation("EmployeeHandler");
+
+                    b.Navigation("Source");
+
+                    b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Shop", b =>
+            modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Domain.Entities.Main.Area", "Area")
+                    b.HasOne("Domain.Entities.DeliveryOrder", null)
+                        .WithMany("Products")
+                        .HasForeignKey("DeliveryOrderId");
+
+                    b.HasOne("Domain.Entities.ShippingOrder", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ShippingOrderId");
+
+                    b.HasOne("Domain.Entities.Shop", "Shop")
+                        .WithMany("Products")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
+                {
+                    b.HasOne("Domain.Entities.Area", "Area")
                         .WithMany("Shops")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Main.Category", "Category")
-                        .WithMany()
+                    b.HasOne("Domain.Entities.Category", "Category")
+                        .WithMany("Shops")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Main.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsMany("Domain.Entities.ValueObjects.WorkTimeVo", "WorkTimes", b1 =>
+                    b.OwnsMany("Domain.Entities.WorkTimeVo", "WorkTimes", b1 =>
                         {
                             b1.Property<Guid>("ShopId")
                                 .HasColumnType("uuid");
@@ -882,7 +1001,7 @@ namespace StayHome.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ShopId");
 
-                            b1.OwnsMany("Domain.Entities.ValueObjects.Time", "Times", b2 =>
+                            b1.OwnsMany("Domain.Entities.Time", "Times", b2 =>
                                 {
                                     b2.Property<Guid>("WorkTimeVoShopId")
                                         .HasColumnType("uuid");
@@ -917,88 +1036,30 @@ namespace StayHome.Persistence.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("City");
-
                     b.Navigation("WorkTimes");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.Order", b =>
+            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
                 {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("Domain.Entities.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId");
-
-                    b.HasOne("Domain.Entities.Security.Employee", "EmployeeHandler")
-                        .WithMany()
-                        .HasForeignKey("EmployeeHandlerId");
-
-                    b.HasOne("Domain.Entities.Main.Transportation", "Transportation")
-                        .WithMany()
-                        .HasForeignKey("TransportationId");
-
-                    b.OwnsOne("Domain.Entities.ValueObjects.AddressOrderVo", "Destination", b1 =>
+                    b.OwnsOne("Domain.Entities.VehicleType", "VehicleType", b1 =>
                         {
-                            b1.Property<Guid>("OrderId")
+                            b1.Property<Guid>("VehicleId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<string>("Additional")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("HouseNumber")
+                            b1.Property<string>("Name")
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasColumnType("text");
+                            b1.HasKey("VehicleId");
 
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
+                            b1.ToTable("Vehicles");
 
                             b1.WithOwner()
-                                .HasForeignKey("OrderId");
+                                .HasForeignKey("VehicleId");
                         });
 
-                    b.OwnsOne("Domain.Entities.ValueObjects.AddressOrderVo", "Source", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Additional")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("HouseNumber")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Destination");
-
-                    b.Navigation("Driver");
-
-                    b.Navigation("EmployeeHandler");
-
-                    b.Navigation("Source");
-
-                    b.Navigation("Transportation");
+                    b.Navigation("VehicleType")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>
@@ -1063,9 +1124,13 @@ namespace StayHome.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.DeliveryOrder", b =>
+            modelBuilder.Entity("Domain.Entities.DeliveryOrder", b =>
                 {
-                    b.OwnsOne("Domain.Entities.ValueObjects.PersonOrderVo", "PersonInfo", b1 =>
+                    b.HasOne("Domain.Entities.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId");
+
+                    b.OwnsOne("Domain.Entities.PersonOrderVo", "PersonInfo", b1 =>
                         {
                             b1.Property<Guid>("DeliveryOrderId")
                                 .HasColumnType("uuid");
@@ -1098,21 +1163,23 @@ namespace StayHome.Persistence.Migrations
 
                     b.Navigation("PersonInfo")
                         .IsRequired();
+
+                    b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.ShippingOrder", b =>
+            modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
-                    b.HasOne("Domain.Entities.Main.City", "City")
-                        .WithMany()
+                    b.HasOne("Domain.Entities.City", "City")
+                        .WithMany("ShippingOrders")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Main.Shop", "Shop")
+                    b.HasOne("Domain.Entities.Shop", "Shop")
                         .WithMany()
                         .HasForeignKey("ShopId");
 
-                    b.OwnsOne("Domain.Entities.ValueObjects.PersonOrderVo", "PersonInfo", b1 =>
+                    b.OwnsOne("Domain.Entities.PersonOrderVo", "PersonInfo", b1 =>
                         {
                             b1.Property<Guid>("ShippingOrderId")
                                 .HasColumnType("uuid");
@@ -1151,29 +1218,53 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Area", b =>
+            modelBuilder.Entity("Domain.Entities.Area", b =>
                 {
                     b.Navigation("Shops");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.City", b =>
+            modelBuilder.Entity("Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Shops");
+                });
+
+            modelBuilder.Entity("Domain.Entities.City", b =>
                 {
                     b.Navigation("Areas");
+
+                    b.Navigation("ShippingOrders");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.Shop", b =>
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.DeliveryOrder", b =>
+            modelBuilder.Entity("Domain.Entities.DeliveryOrder", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Orders.ShippingOrder", b =>
+            modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Driver", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Employee", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

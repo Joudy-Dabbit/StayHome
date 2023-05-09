@@ -2,7 +2,7 @@ namespace Domain.Entities;
 
 public class VehicleType
 {
-    //private VehicleType() { }
+    private VehicleType() { }
 
     public VehicleType(string name)
     {
@@ -10,7 +10,11 @@ public class VehicleType
     }
 
     public string Name { get; private set; }
-
+    
+    
+    private readonly List<Vehicle> _vehicles = new();
+    public IReadOnlyCollection<Vehicle> Orders => _vehicles.AsReadOnly();   
+    
     public void Modify(string name)
     {
         Name = name;
