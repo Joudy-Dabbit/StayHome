@@ -16,6 +16,7 @@ public class Shop : AggregateRoot
         WorkTimes = workTimes;
         ImageUrl = imageUrl;
     }
+    
     public string Name { get; private set; }
     public string ImageUrl { get; set; }
     public List<WorkTimeVo> WorkTimes { get; private set; }

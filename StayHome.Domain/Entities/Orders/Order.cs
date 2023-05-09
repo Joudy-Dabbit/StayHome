@@ -22,6 +22,6 @@ public class Order : AggregateRoot
     public Guid? DriverId { get; private set; }
     public Driver? Driver { get; private set; }
     
-    public Guid? TransportationId { get; private set; }
-    public Transportation? Transportation { get; private set; }
+    public Guid? VehicleId { get; private set; }
+    public Vehicle? Vehicle { get; private set; }
 }

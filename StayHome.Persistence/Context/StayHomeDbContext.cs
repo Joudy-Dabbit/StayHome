@@ -45,7 +45,7 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
      public DbSet<Rate> Rates => Set<Rate>();
      public DbSet<Setting> Settings => Set<Setting>();
      public DbSet<Shop> Shops => Set<Shop>();
-     public DbSet<Transportation> Transportations => Set<Transportation>();
+     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
      #endregion
 
      #region -Notification-

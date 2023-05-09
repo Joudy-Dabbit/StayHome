@@ -14,6 +14,8 @@ public class Product : AggregateRoot
     public string ImageUrl { get; set; }
     public double Cost { get; private set; }
 
+    public Guid ShopId { get; private set; }
+    public Shop  Shop { get; private set; }
 
     public void Modify(string name,string imageUrl, double cost)
     {

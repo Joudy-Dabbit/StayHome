@@ -6,26 +6,22 @@ public class ContactUs : AggregateRoot
 {
     private ContactUs() { }
     
-    public ContactUs(string title, string content,
-        string? email, string? phoneNumber,
-        string? name)
+    public ContactUs(string title, string content)
     {
         Title = title;
         Content = content;
-        Email = email;
-        Name = name;
     }
 
     public string Title { get; private set; }
     public string Content { get; private set; }
-
-    public string Email { get; private set; }
-    public string Name { get; private set; }
-
+    
     public string? Reply { get; private set; }
 
     public Guid? EmployeeId { get; private set; }
-    public Employee? Employee { get; private set; }
+    public Employee? Employee { get; private set; }   
+    
+    public Guid CustomerId { get; private set; }
+    public Customer  Customer { get; private set; }
 
     public void SetReply(string reply, Guid employeeId)
     {

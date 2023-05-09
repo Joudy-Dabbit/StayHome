@@ -2,10 +2,10 @@ using Domain.Enum;
 
 namespace Domain.Entities.Main;
 
-public class Transportation : AggregateRoot
+public class Vehicle : AggregateRoot
 {
-    private Transportation(){}
-    public Transportation(TransportationType type, double maxCapacity, 
+    private Vehicle(){}
+    public Vehicle(VehicleType type, double maxCapacity, 
         string color, string number)
     {
         Type = type;
@@ -14,12 +14,12 @@ public class Transportation : AggregateRoot
         Number = number;
     }
     
-    public TransportationType Type { get; private set; }    
+    public VehicleType Type { get; private set; }    
     public string Color { get; private set; }    
     public string Number { get; private set; }    
     public double MaxCapacity { get; private set; }
 
-    public void Modify(TransportationType type, double maxCapacity, 
+    public void Modify(VehicleType type, double maxCapacity, 
         string color, string number)
     {
         Type = type;
