@@ -3,11 +3,10 @@ namespace Domain.Entities;
 public class Order : AggregateRoot
 {
     public DateTime? ScheduleDate { get; private set; }
+    public double DeliveryCoast { get; set; }
 
     public AddressOrderVo? Destination { get; set; }
     public AddressOrderVo? Source { get; private set; }
-     
-    public double DeliveryCoast { get; set; }
     
     public Guid? EmployeeHandlerId { get; private set; }
     public Employee? EmployeeHandler { get; private set; }

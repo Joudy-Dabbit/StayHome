@@ -4,7 +4,7 @@ namespace Domain.Entities;
 public class ShippingOrder : Order
 {
     public double Weight { get; private set; }
-    public double Coast { get; set; }
+    public double Coast { get; private set; }
     public PersonOrderVo PersonInfo { get; private set; }
 
     public Guid CityId { get; private set; }

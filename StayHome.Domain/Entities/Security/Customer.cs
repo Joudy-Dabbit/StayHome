@@ -17,4 +17,12 @@ public class Customer : User
         Email = email;
     }
     public string? DeviceToken { get; private set; }
+    
+    
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();    
+    
+    
+    private readonly List<Address> _addresses = new();
+    public IReadOnlyCollection<Address> Addresses => _addresses.AsReadOnly();
 }

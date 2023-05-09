@@ -2,14 +2,18 @@ namespace Domain.Entities;
 
 public class Product : AggregateRoot
 {
-    private Product(){}
+    private Product(Guid shopId)
+    {
+        ShopId = shopId;
+    }
     
-    public Product(string name,string imageUrl, double cost)
+    public Product(string name,string imageUrl, double cost, Guid shopId)
     {
         Cost = cost;
         Name = name;
         ImageUrl = imageUrl;
     }
+    
     public string Name { get; private set; }
     public string ImageUrl { get; set; }
     public double Cost { get; private set; }

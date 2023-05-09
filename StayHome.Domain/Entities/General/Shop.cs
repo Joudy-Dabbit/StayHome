@@ -5,9 +5,8 @@ public class Shop : AggregateRoot
     private Shop(){}
     
     public Shop(string name,string imageUrl,
-        Guid cityId, Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
+        Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
     {
-        CityId = cityId;
         CategoryId = categoryId;
         AreaId = areaId;
         Name = name;
@@ -22,12 +21,9 @@ public class Shop : AggregateRoot
     public Guid CategoryId { get; private set; }
     public Category Category { get; private set; }
 
-    public Guid CityId { get; private set; }
-    public City City { get; private set; }
-
     public Guid AreaId { get; private set; }
     public Area Area { get; private set; }
-    
+
     private readonly List<Product> _products = new();
     public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
     
@@ -36,9 +32,8 @@ public class Shop : AggregateRoot
                             wt.Times.Any(t => t.StartTime <= DateTime.Now.TimeOfDay && DateTime.Now.TimeOfDay <= t.EndTime));
 
     public void Modify(string name,string imageUrl,
-        Guid cityId, Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
+        Guid categoryId, Guid areaId, List<WorkTimeVo> workTimes)
     {
-        CityId = cityId;
         CategoryId = categoryId;
         AreaId = areaId;
         Name = name;

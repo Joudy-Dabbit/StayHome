@@ -36,7 +36,6 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
      public DbSet<Product> Products => Set<Product>();
      public DbSet<Category> Categories => Set<Category>();
      public DbSet<ContactUs> ContactsUs => Set<ContactUs>();
-     public DbSet<Rate> Rates => Set<Rate>();
      public DbSet<Setting> Settings => Set<Setting>();
      public DbSet<Shop> Shops => Set<Shop>();
      public DbSet<Vehicle> Vehicles => Set<Vehicle>();
