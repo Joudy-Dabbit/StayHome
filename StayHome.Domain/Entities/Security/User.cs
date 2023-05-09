@@ -12,12 +12,8 @@ public class User : BaseAggregateIdentityUser<Guid>, IUser<Guid>
         UserName = Guid.NewGuid().ToString();
     }
     
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string FullName { get; set; }
     public string? ImageUrl { get; set; }
     public DateOnly? BirthDate { get; set; }
-
     public DateTimeOffset? DateBlocked { get; set; }
-
-    public string FullName => $"{FirstName} {LastName}";
 }

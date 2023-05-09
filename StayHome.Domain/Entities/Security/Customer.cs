@@ -4,18 +4,26 @@ public class Customer : User
 {
     private Customer() {}
 
-    public Customer(string firstName, string lastName,
+    public Customer(string fullName,
         string phoneNumber, DateOnly? birthDate, string email,
         string imageUrl)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
         UserName = Guid.NewGuid().ToString();
         ImageUrl = imageUrl;
         Email = email;
     }
+
+    public Customer(string fullName,
+        string phoneNumber, DateOnly? birthDate,
+        string email, string imageUrl, 
+        string deviceToken) : this(fullName, phoneNumber, birthDate, email, imageUrl)
+    {
+        DeviceToken = deviceToken;
+    }
+    
     public string? DeviceToken { get; private set; }
     
     

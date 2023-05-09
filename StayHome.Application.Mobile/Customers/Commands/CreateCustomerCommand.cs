@@ -10,8 +10,7 @@ public class CreateCustomerCommand
 {
     public class Request : IRequest<OperationResponse<Response>>  
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }  
         public string Password { get; set; }  
         public string PhoneNumber { get; set; }
@@ -21,19 +20,18 @@ public class CreateCustomerCommand
     public class Response : TokenDto
     {
         public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string ImageUrl { get; set; }
         public string Email { get; set; }
         public DateOnly? BirthDate { get; set; }
 
-        public static Expression<Func<Customer, Response>> Selector(string accessToken, string refreshToken) => c
+        public static Expression<Func<Customer, Response>> Selector(string accessToken,
+            string refreshToken) => c
             => new()
             {
                 Id = c.Id,
-                FirstName = c.FirstName,
-                LastName = c.LastName,  
+                FullName = c.FullName,
                 BirthDate = c.BirthDate,
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber,

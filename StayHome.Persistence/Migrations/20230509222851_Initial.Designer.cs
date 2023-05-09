@@ -12,7 +12,7 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230509202918_Initial")]
+    [Migration("20230509222851_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -456,15 +456,11 @@ namespace StayHome.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")

@@ -31,8 +31,7 @@ namespace StayHome.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
                     DateBlocked = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
