@@ -10,6 +10,7 @@ using Domain.Repositories;
 using EasyRefreshToken.Result;
 using EasyRefreshToken.Service;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Neptunee.BaseCleanArchitecture.OResponse;
@@ -35,8 +36,11 @@ public class UserRepository : StayHomeRepository, IUserRepository
         _tokenService = tokenService;
     }
 
-    public async Task<TokenResult> GenerateRefreshToken(Guid userId)
-        => await _tokenService.OnLogin(userId);
+    public async Task<bool> IsEmailExist<TUser>(string email, Guid? id = null) where TUser : User
+        =>  await Query<TUser>().AnyAsync(u => (!id.HasValue && u.Email == email) || 
+                                               (id.HasValue && id.Value != u.Id && u.Email == email));
+    
+    public async Task<TokenResult> GenerateRefreshToken(Guid userId) => await _tokenService.OnLogin(userId);
 
     public async Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string? password = null)
     {
@@ -48,6 +52,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
             identityResult = await _userManager.AddToRoleAsync(user, role.ToString());
         return identityResult;
     }
+  
     public string GenerateAccessToken(User user, IList<string> roles, DateTime expierDate)
     {
         var claims = new List<Claim>

@@ -15,5 +15,9 @@ public class DomainError
 
         public static HttpMessage Blocked =>
         new (HttpStatusCode.BadRequest, "User is Blocked" , new Dictionary<string, string>());
+        
+        public static HttpMessage EmailNotExist(string email) => 
+            new(HttpStatusCode.BadRequest, $"Email: {email} is not exist");
+
     }
 }
