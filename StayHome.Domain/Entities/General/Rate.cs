@@ -1,6 +1,4 @@
-using Domain.Entities.Orders;
-
-namespace Domain.Entities.Main;
+namespace Domain.Entities;
 
 public class Rate : AggregateRoot
 {

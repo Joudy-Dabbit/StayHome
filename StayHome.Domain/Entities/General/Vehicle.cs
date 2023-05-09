@@ -1,6 +1,6 @@
 using Domain.Enum;
 
-namespace Domain.Entities.Main;
+namespace Domain.Entities;
 
 public class Vehicle : AggregateRoot
 {

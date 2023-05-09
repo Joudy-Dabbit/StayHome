@@ -1,8 +1,6 @@
-using System.Reflection.Metadata;
 using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
-using Domain.Entities.Security;
 using EasyRefreshToken.DependencyInjection;
 using EasyRefreshToken.Models;
 using Microsoft.OpenApi.Models;

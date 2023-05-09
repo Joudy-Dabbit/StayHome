@@ -1,13 +1,7 @@
 using System.Reflection;
 using Domain.Entities;
-using Domain.Entities.Main;
-using Domain.Entities.Notification;
-using Domain.Entities.Orders;
-using Domain.Entities.Security;
 using Domain.Interfaces.Data;
 using EasyRefreshToken.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.BaseDbContexts;
 using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;

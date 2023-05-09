@@ -5,21 +5,16 @@ using System.Text;
 using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
-using Domain.Entities.Security;
 using Domain.Enum;
 using Domain.Repositories;
 using EasyRefreshToken.Result;
 using EasyRefreshToken.Service;
 using Microsoft.AspNetCore.Identity;
-using StayHome.Infrastructure.Jwt.Claims;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Neptunee.BaseCleanArchitecture.OResponse;
-using Neptunee.BaseCleanArchitecture.Repository;
 using StayHome.Contracts.Shared;
 using StayHome.Persistence.Context;
-using StayHome.Persistence.Repositories;
 
 namespace StayHome.Persistence.Repositories;
 

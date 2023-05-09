@@ -1,4 +1,4 @@
-namespace Domain.Entities.Notification;
+namespace Domain.Entities;
 
 public class DashNotification : AggregateRoot
 {

@@ -1,7 +1,5 @@
-using Domain.Entities.Main;
-using Domain.Entities.ValueObjects;
 
-namespace Domain.Entities.Orders;
+namespace Domain.Entities;
 
 public class ShippingOrder : Order
 {

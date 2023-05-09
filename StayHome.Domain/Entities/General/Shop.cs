@@ -1,6 +1,4 @@
-using Domain.Entities.ValueObjects;
-
-namespace Domain.Entities.Main;
+namespace Domain.Entities;
 
 public class Shop : AggregateRoot
 {

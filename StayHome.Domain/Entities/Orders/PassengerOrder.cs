@@ -1,4 +1,4 @@
-namespace Domain.Entities.Orders;
+namespace Domain.Entities;
 
 public class PassengerOrder : Order
 {

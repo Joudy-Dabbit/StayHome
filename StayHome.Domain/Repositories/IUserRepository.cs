@@ -1,6 +1,4 @@
-using System.Security.Claims;
 using Domain.Entities;
-using Domain.Entities.Security;
 using Domain.Enum;
 using EasyRefreshToken.Result;
 using Microsoft.AspNetCore.Identity;
