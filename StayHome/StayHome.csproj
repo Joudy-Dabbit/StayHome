@@ -25,4 +25,10 @@
       <ProjectReference Include="..\StayHome.Persistence\StayHome.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="StayHome.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
