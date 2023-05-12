@@ -1,6 +1,6 @@
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 
-namespace StayHome;
+namespace StayHome.Util;
 
 public enum ApiGroupNames
 {

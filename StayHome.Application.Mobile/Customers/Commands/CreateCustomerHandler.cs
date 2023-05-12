@@ -4,12 +4,15 @@ using Domain.Enum;
 using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
+using StayHome.Application.Dashboard.Core.Files;
 
 namespace StayHome.Application.Mobile.Customers.Commands;
 
 public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Request, OperationResponse<CreateCustomerCommand.Response>>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IFileService _fileService;
+
     public CreateCustomerHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -18,8 +21,10 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
 
     public async Task<OperationResponse<CreateCustomerCommand.Response>> HandleAsync(CreateCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
+        var profileImage = await _fileService.Upload(request.ImageFile);
+
         var customer = new Customer(request.FullName, request.PhoneNumber,
-            request.BirthDate, request.Email, request.DeviceToken);
+             profileImage, request.Email, request.BirthDate, request.DeviceToken);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         

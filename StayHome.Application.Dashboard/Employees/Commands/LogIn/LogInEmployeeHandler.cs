@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace Application.Dashboard.Employees;
+namespace StayHome.Application.Dashboard.Employees;
 
  public class LogInEmployeeHandler : IRequestHandler<LogInEmployeeCommand.Request, 
      OperationResponse<LogInEmployeeCommand.Response>>

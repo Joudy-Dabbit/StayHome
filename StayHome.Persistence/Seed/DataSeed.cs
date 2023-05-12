@@ -37,7 +37,7 @@ public static class DataSeed
         await context.SaveChangesAsync();
 
         var customer = new Customer("Aisha Biazed", "077777777",
-            new DateOnly(2003, 6, 2), "customer@gmail.com", AddImage());
+            "customer@gmail.com", AddImage(), new DateOnly(2003, 6, 2));
         await userManager.CreateAsync(customer, "1234");
         await userManager.AddToRoleAsync(customer, nameof(StayHomeRoles.Customer));       
         await context.SaveChangesAsync();

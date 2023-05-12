@@ -5,8 +5,8 @@ public class Customer : User
     private Customer() {}
 
     public Customer(string fullName,
-        string phoneNumber, DateOnly? birthDate, string email,
-        string imageUrl)
+        string phoneNumber, string email,
+        string imageUrl, DateOnly? birthDate)
     {
         FullName = fullName;
         PhoneNumber = phoneNumber;
@@ -17,9 +17,9 @@ public class Customer : User
     }
 
     public Customer(string fullName,
-        string phoneNumber, DateOnly? birthDate,
-        string email, string imageUrl, 
-        string deviceToken) : this(fullName, phoneNumber, birthDate, email, imageUrl)
+        string phoneNumber, string imageUrl, 
+        string email, DateOnly? birthDate, 
+        string deviceToken) : this(fullName, phoneNumber, email, imageUrl, birthDate)
     {
         DeviceToken = deviceToken;
     }

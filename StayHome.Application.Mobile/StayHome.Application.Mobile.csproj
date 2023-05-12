@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\StayHome.Application.Dashboard\StayHome.Application.Dashboard.csproj" />
       <ProjectReference Include="..\StayHome.Contracts\StayHome.Contracts.csproj" />
       <ProjectReference Include="..\StayHome.Domain\StayHome.Domain.csproj" />
     </ItemGroup>

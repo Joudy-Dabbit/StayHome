@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts.Shared;
@@ -12,6 +13,7 @@ public class CreateCustomerCommand
     {
         public string FullName { get; set; }
         public string Email { get; set; }  
+        public IFormFile? ImageFile { get; set; }
         public string Password { get; set; }  
         public string PhoneNumber { get; set; }
         public DateOnly? BirthDate { get; set; }

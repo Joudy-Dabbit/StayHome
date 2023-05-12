@@ -9,10 +9,13 @@ using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using StayHome.Persistence;
 using StayHome;
+using StayHome.Application.Dashboard.Core.Files;
 using StayHome.Infrastructure;
+using StayHome.Infrastructure.Files;
 using StayHome.Infrastructure.Jwt;
 using StayHome.Persistence.Context;
 using StayHome.Persistence.Seed;
+using StayHome.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +56,6 @@ builder.Services.AddCors(o =>
     });
 });
 
-builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, User, Guid>
 (op =>
@@ -65,14 +67,22 @@ builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, Us
 );
 
 var app = builder.Build();
+if (!Directory.Exists("wwwroot"))
+{
+    Directory.CreateDirectory("wwwroot");
+}
 
 app.UseSwaggerApi(o => o.AddEndpoint("All")
     .AddEndpoints<ApiGroupNames>().SetDocExpansion());
 app.UseCors("Policy");
+app.MapControllers();
 app.UseAuthentication();
 app.UseRouting();
-app.MapControllers();
-
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 await app.MigrationAsync<StayHomeDbContext>(DataSeed.Seed);
 
 app.Run();

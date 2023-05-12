@@ -8,16 +8,18 @@ public class DomainError
     public class User
     {
         public static HttpMessage NotFound =>
-        new (HttpStatusCode.NotFound, "User Not Found", new Dictionary<string, string>()); 
+        new (HttpStatusCode.NotFound, "User Not Found"); 
         
         public static HttpMessage EmailOrPasswordWrong =>
-        new (HttpStatusCode.BadRequest, "User is Blocked", new Dictionary<string, string>());
+        new (HttpStatusCode.BadRequest, "User is Blocked");
 
         public static HttpMessage Blocked =>
-        new (HttpStatusCode.BadRequest, "User is Blocked" , new Dictionary<string, string>());
+        new (HttpStatusCode.BadRequest, "User is Blocked");
         
         public static HttpMessage EmailNotExist(string email) => 
-            new(HttpStatusCode.BadRequest, $"Email: {email} is not exist");
-
+            new(HttpStatusCode.BadRequest, $"Email: {email} is not exist");    
+        
+        public static HttpMessage EmailAlreadyUsed(string email) => 
+            new(HttpStatusCode.BadRequest, $"Email: {email} is Already Used");
     }
 }

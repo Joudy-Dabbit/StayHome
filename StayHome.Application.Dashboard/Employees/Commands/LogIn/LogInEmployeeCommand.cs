@@ -5,7 +5,7 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts.Shared;
 
-namespace Application.Dashboard.Employees;
+namespace StayHome.Application.Dashboard.Employees;
 
 public class LogInEmployeeCommand
 {
