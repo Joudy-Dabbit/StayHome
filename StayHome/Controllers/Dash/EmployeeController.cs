@@ -28,6 +28,7 @@ public class EmployeeController: ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
     //[Authorize(Roles = "Employee")]
+  //  [Authorize(AuthenticationSchemes = "Bearer", Roles = "Employee")]
     [HttpGet,ApiGroup(ApiGroupNames.Dash)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(List<GetAllEmployeesQuery.Response>))]
     public async Task<IActionResult> GetAll(
