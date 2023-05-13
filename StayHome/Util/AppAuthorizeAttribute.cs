@@ -7,6 +7,7 @@ public class AppAuthorizeAttribute : AuthorizeAttribute
 {
     public AppAuthorizeAttribute(params StayHomeRoles[] roles)
     {
-        Roles = String.Join(",", roles);
+        Roles = string.Join(",", roles.Select(x => x.ToString()));
+        AuthenticationSchemes = "Bearer";
     }
 }
