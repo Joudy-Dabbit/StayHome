@@ -4,9 +4,9 @@ using Domain.Enum;
 using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Application.Dashboard.Core.Files;
+using Application.Dashboard.Core.Abstractions;
 
-namespace StayHome.Application.Mobile.Customers.Commands;
+namespace StayHome.Application.Mobile.Customers;
 
 public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Request, OperationResponse<CreateCustomerCommand.Response>>
 {

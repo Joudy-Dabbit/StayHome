@@ -1,7 +1,6 @@
-using Application.Dashboard.Core.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StayHome.Application.Dashboard.Core.Files;
+using Application.Dashboard.Core.Abstractions;
 using StayHome.Infrastructure.Files;
 using StayHome.Infrastructure.Jwt;
 

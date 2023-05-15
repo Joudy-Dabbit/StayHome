@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Domain.Entities;
-using Domain.Interfaces.Data;
+using Application.Dashboard.Core.Abstractions;
 using EasyRefreshToken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;

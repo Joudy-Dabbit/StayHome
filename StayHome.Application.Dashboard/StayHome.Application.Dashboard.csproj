@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Core\Abstractions\" />
       <Folder Include="Customer\Commands\" />
       <Folder Include="Customer\Queries\GetAll\" />
       <Folder Include="Customer\Queries\GetById\" />

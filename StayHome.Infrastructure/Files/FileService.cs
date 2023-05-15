@@ -1,7 +1,7 @@
 using Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using StayHome.Application.Dashboard.Core.Files;
+using Application.Dashboard.Core.Abstractions;
 
 namespace StayHome.Infrastructure.Files;
 

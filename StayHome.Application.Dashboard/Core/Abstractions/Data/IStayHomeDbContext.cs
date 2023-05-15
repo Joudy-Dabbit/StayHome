@@ -1,6 +1,6 @@
 using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;
 
-namespace Domain.Interfaces.Data;
+namespace Application.Dashboard.Core.Abstractions;
 
 public interface IStayHomeDbContext : IBaseDbContext<Guid>
 {

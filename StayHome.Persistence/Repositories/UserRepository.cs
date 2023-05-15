@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using Application.Dashboard.Core.Jwt;
+using Application.Dashboard.Core.Abstractions;
 using Domain;
 using Domain.Entities;
 using Domain.Enum;

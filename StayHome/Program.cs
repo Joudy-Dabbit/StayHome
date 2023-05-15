@@ -1,4 +1,3 @@
-using Application.Dashboard.Core.Jwt;
 using Domain;
 using Domain.Entities;
 using EasyRefreshToken.DependencyInjection;
@@ -8,11 +7,7 @@ using Neptunee.BaseCleanArchitecture.AppBuilder.InitialAppBuilder;
 using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using StayHome.Persistence;
-using StayHome;
-using StayHome.Application.Dashboard.Core.Files;
 using StayHome.Infrastructure;
-using StayHome.Infrastructure.Files;
-using StayHome.Infrastructure.Jwt;
 using StayHome.Persistence.Context;
 using StayHome.Persistence.Seed;
 using StayHome.Util;

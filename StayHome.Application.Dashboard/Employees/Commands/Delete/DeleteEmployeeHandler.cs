@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Repository;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Application.Dashboard.Core.Files;
+using Application.Dashboard.Core.Abstractions;
 
 namespace StayHome.Application.Dashboard.Employees;
 

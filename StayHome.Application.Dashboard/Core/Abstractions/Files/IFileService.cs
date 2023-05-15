@@ -1,7 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Http;
 
-namespace StayHome.Application.Dashboard.Core.Files;
+namespace Application.Dashboard.Core.Abstractions;
 
 public interface IFileService
 {

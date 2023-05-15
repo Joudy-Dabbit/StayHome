@@ -5,7 +5,7 @@ using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
-using StayHome.Application.Mobile.Customers.Commands;
+using StayHome.Application.Mobile.Customers;
 using StayHome.Util;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -19,10 +19,20 @@ public sealed class CustomerController : ApiController
     
     [AllowAnonymous]
     [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(LogInCustomerCommand.Response))]
+    public async Task<IActionResult> LogIn(
+        [FromServices] IRequestHandler<LogInCustomerCommand.Request, OperationResponse<LogInCustomerCommand.Response>> handler,
+        [FromBody] LogInCustomerCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
+    
+    [AllowAnonymous]
+    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(CreateCustomerCommand.Response))]
     public async Task<IActionResult> Create(    
         [FromServices] IRequestHandler<CreateCustomerCommand.Request,
             OperationResponse<CreateCustomerCommand.Response>> handler,
         [FromBody] CreateCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
+    
+    
 }

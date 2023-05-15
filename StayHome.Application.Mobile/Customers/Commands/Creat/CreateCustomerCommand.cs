@@ -5,7 +5,7 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts.Shared;
 
-namespace StayHome.Application.Mobile.Customers.Commands;
+namespace StayHome.Application.Mobile.Customers;
 
 public class CreateCustomerCommand
 {

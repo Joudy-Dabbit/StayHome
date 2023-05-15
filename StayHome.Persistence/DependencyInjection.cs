@@ -1,5 +1,5 @@
 using Domain.Entities;
-using Domain.Interfaces.Data;
+using Application.Dashboard.Core.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

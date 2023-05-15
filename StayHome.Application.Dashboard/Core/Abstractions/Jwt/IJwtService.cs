@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Application.Dashboard.Core.Jwt;
+namespace Application.Dashboard.Core.Abstractions;
 
 public interface IJwtService
 { 
