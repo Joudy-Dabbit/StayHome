@@ -24,7 +24,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
         var profileImage = await _fileService.Upload(request.ImageFile);
 
         var customer = new Customer(request.FullName, request.PhoneNumber,
-             profileImage, request.Email, request.BirthDate, request.DeviceToken);
+             profileImage, request.Email, request.BirthDate, request.DeviceToken, request.CityId);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         
