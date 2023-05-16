@@ -2,10 +2,7 @@ namespace Domain.Entities;
 
 public class Customer : User
 {
-    private Customer(Guid cityId)
-    {
-        CityId = cityId;
-    }
+    private Customer() { }
 
     public Customer(string fullName,
         string phoneNumber, string email,
@@ -36,7 +33,15 @@ public class Customer : User
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();    
     
-    
     private readonly List<Address> _addresses = new();
     public IReadOnlyCollection<Address> Addresses => _addresses.AsReadOnly();
+    
+    public Guid AddAddress(string name, Guid areaId,
+        string houseNumber, string street, 
+        string? additional, string floor)
+    {
+        var address = new Address(houseNumber, street, additional, areaId, name, floor);
+        _addresses.Add(address);
+        return address.Id;
+    }
 }

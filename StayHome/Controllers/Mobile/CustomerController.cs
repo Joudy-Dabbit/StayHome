@@ -1,3 +1,4 @@
+using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Neptunee.BaseCleanArchitecture.Controllers;
@@ -34,5 +35,48 @@ public sealed class CustomerController : ApiController
         [FromBody] CreateCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
     
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpGet,ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(GetProfileQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetMyProfile(
+        [FromServices] IRequestHandler<GetProfileQuery.Request, OperationResponse<GetProfileQuery.Response>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
+    #region - Addresses -
+
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpGet,ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(List<GetMyAddressesQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetMyAddresses(
+        [FromServices] IRequestHandler<GetMyAddressesQuery.Request, OperationResponse<IEnumerable<GetMyAddressesQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();   
+    
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse<Guid>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AddAddress(
+        [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse<Guid>> handler,
+        [FromBody] AddCustomerAddressCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();     
+    
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ModifyAddress(
+        [FromServices] IRequestHandler<ModifyCustomerAddressCommand.Request, OperationResponse> handler,
+        [FromBody] ModifyCustomerAddressCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();   
+    
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteAddress(
+        [FromServices] IRequestHandler<DeleteCustomerAddressCommand.Request, OperationResponse> handler,
+        [FromQuery] DeleteCustomerAddressCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
+    #endregion
+
 }
