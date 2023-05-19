@@ -12,7 +12,7 @@ public interface IUserRepository : IRepository<Guid>
    // public Task<List<Claim>> GetAllClaimsAsync(Guid userId);
    
    Task<bool> IsEmailExist<TUser>(string email, Guid? id = null) where TUser : User;
-   string GenerateAccessToken(User user, IList<string> roles, DateTime expierDate);
+   string GenerateAccessToken(User user, IList<string> roles);
    Task<TokenResult> GenerateRefreshToken(Guid userId);
    Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string password);
 }

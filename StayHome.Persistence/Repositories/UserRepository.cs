@@ -53,7 +53,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
         return identityResult;
     }
   
-    public string GenerateAccessToken(User user, IList<string> roles, DateTime expierDate)
+    public string GenerateAccessToken(User user, IList<string> roles)
     {
         var claims = new List<Claim>
         {
@@ -74,7 +74,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
         var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
             _configuration["Jwt:Issuer"],
             claims,
-            expires: expierDate,
+            expires: DateTime.UtcNow.AddDays(2),
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -95,7 +95,7 @@ public class UserRepository : StayHomeRepository, IUserRepository
             return OperationResponse.WithBadRequest(tokenResult.ErrorMessage).ToResponse<TokenDto>();
 
         var roles = await _userManager.GetRolesAsync(user);
-        var newAccessToken = GenerateAccessToken(user, roles, ConstValues.AccessExpireDateTime);
+        var newAccessToken = GenerateAccessToken(user, roles);
 
         await Context.SaveChangesAsync();
         return OperationResponse.WithOk().ToResponse(new TokenDto

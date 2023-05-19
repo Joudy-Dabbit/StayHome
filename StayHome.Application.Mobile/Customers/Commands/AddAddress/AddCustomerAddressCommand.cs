@@ -5,7 +5,7 @@ namespace StayHome.Application.Mobile.Customers;
 
 public class AddCustomerAddressCommand
 {
-    public class Request : IRequest<OperationResponse<Guid>>
+    public class Request : IRequest<OperationResponse>
     {
         public string Name { get; set; }
         public Guid AreaId { get; set; }

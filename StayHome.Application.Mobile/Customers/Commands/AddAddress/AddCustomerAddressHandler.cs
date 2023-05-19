@@ -8,7 +8,8 @@ using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
 namespace StayHome.Application.Mobile.Customers;
 
-public class AddCustomerAddressHandler : IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse<Guid>>
+public class AddCustomerAddressHandler : IRequestHandler<AddCustomerAddressCommand.Request, 
+    OperationResponse>
 {
     private readonly IHttpService _httpResolverService;
     private readonly IUserRepository _repository;
@@ -19,17 +20,19 @@ public class AddCustomerAddressHandler : IRequestHandler<AddCustomerAddressComma
         _repository = repository;
     }
 
-    public async Task<OperationResponse<Guid>> HandleAsync(AddCustomerAddressCommand.Request request,
+    public async Task<OperationResponse> HandleAsync(AddCustomerAddressCommand.Request request,
         CancellationToken cancellationToken = new())
     {
-        var customer = await _repository.TrackingQuery<Customer>().Where(c => c.Id == _httpResolverService.CurrentUserId!.Value)
+        var customer = await _repository.TrackingQuery<Customer>()
+            .Where(c => c.Id == _httpResolverService.CurrentUserId!.Value)
+            .Include(c => c.Addresses)
             .FirstAsync(cancellationToken);
         
-        var addressId = customer.AddAddress(request.Name, request.AreaId, 
+         customer.AddAddress(request.Name, request.AreaId, 
             request.HouseNumber, request.Street, request.Additional, request.Floor);
 
         await  _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
-        return OperationResponse.WithOk().ToResponse(addressId);
+        return OperationResponse.WithOk();
     }
 }

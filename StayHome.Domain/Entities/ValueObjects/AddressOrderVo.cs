@@ -2,7 +2,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Domain.Entities;
 
-public record AddressOrderVo 
+public record AddressOrderVo
 {
     private AddressOrderVo()
     {

@@ -38,7 +38,7 @@ namespace StayHome.Application.Dashboard.Employees;
               return DomainError.User.Blocked;
          
           var accessToken = _userRepository.GenerateAccessToken(employee, 
-              new List<string>(){StayHomeRoles.Employee.ToString()}, DateTime.UtcNow.AddMinutes(10));
+              new List<string>(){StayHomeRoles.Employee.ToString()});
           var refreshToken = await _userRepository.GenerateRefreshToken(employee.Id);
         
           if (!refreshToken.IsSucceded)

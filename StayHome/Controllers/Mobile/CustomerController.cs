@@ -54,9 +54,9 @@ public sealed class CustomerController : ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(OperationResponse<Guid>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddAddress(
-        [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse<Guid>> handler,
+        [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse> handler,
         [FromBody] AddCustomerAddressCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();     
     
@@ -71,7 +71,7 @@ public sealed class CustomerController : ApiController
     
     
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpDelete,ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> DeleteAddress(
         [FromServices] IRequestHandler<DeleteCustomerAddressCommand.Request, OperationResponse> handler,

@@ -36,12 +36,11 @@ public class Customer : User
     private readonly List<Address> _addresses = new();
     public IReadOnlyCollection<Address> Addresses => _addresses.AsReadOnly();
     
-    public Guid AddAddress(string name, Guid areaId,
+    public void AddAddress(string name, Guid areaId,
         string houseNumber, string street, 
         string? additional, string floor)
     {
-        var address = new Address(houseNumber, street, additional, areaId, name, floor);
+        var address = new Address(Id,houseNumber, street, additional, areaId, name, floor);
         _addresses.Add(address);
-        return address.Id;
     }
 }

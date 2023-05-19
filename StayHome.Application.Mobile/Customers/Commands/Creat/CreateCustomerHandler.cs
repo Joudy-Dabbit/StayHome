@@ -32,7 +32,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
             return identityResult.ToOperationResponse<CreateCustomerCommand.Response>();
         
         var accessToken = _userRepository.GenerateAccessToken(customer, 
-            new List<string>(){StayHomeRoles.Customer.ToString()}, DateTime.UtcNow.AddMinutes(10));
+            new List<string>(){StayHomeRoles.Customer.ToString()});
         var refreshToken = await _userRepository.GenerateRefreshToken(customer.Id);
         
         if (!refreshToken.IsSucceded)

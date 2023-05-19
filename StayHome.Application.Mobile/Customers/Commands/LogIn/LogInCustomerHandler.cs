@@ -37,7 +37,7 @@ public class LogInCustomerHandler : IRequestHandler<LogInCustomerCommand.Request
             return DomainError.User.Blocked;
          
         var accessToken = _userRepository.GenerateAccessToken(customer, 
-            new List<string>(){StayHomeRoles.Customer.ToString()}, DateTime.UtcNow.AddMinutes(10));
+            new List<string>(){StayHomeRoles.Customer.ToString()});
         var refreshToken = await _userRepository.GenerateRefreshToken(customer.Id);
         
         if (!refreshToken.IsSucceded)

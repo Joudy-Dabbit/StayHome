@@ -56,8 +56,6 @@ builder.Services.AddRefreshToken<StayHomeDbContext, RefreshToken<User, Guid>, Us
 (op =>
     {
         op.TokenExpiredDays = ConstValues.ExpireRefreshTokenDay;
-        op.MaxNumberOfActiveDevices = MaxNumberOfActiveDevices
-            .Configure((typeof(Driver), 1), (typeof(Customer), 1), (typeof(Employee), 10));
     }
 );
 

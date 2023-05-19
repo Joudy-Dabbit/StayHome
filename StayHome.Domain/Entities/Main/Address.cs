@@ -4,7 +4,7 @@ public class Address : AggregateRoot
 {
     private Address() { }
     
-    public Address(string houseNumber, string street,
+    public Address(Guid customerId, string houseNumber, string street,
         string? additional, Guid areaId, string name, string floor)
     {
         HouseNumber = houseNumber;
@@ -13,6 +13,7 @@ public class Address : AggregateRoot
         AreaId = areaId;
         Name = name;
         Floor = floor;
+        CustomerId = customerId;
     }
 
     public string Name { get; private set; }

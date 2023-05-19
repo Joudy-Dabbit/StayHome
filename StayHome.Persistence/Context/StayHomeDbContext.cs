@@ -4,6 +4,7 @@ using Domain.Entities;
 using Application.Dashboard.Core.Abstractions;
 using EasyRefreshToken.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query;
 using Neptunee.BaseCleanArchitecture.BaseDbContexts;
 using Neptunee.BaseCleanArchitecture.BaseDbContexts.Interfaces;
@@ -21,23 +22,38 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
     
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        PrimaryKeyValueGenerated(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        var entities = builder.Model
-            .GetEntityTypes()
-            .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot<Guid>).Name) != null)
-            .Select(e => e.ClrType);
-
-        foreach (var entity in entities)
-        {
-            builder.Entity(entity).HasIndex(nameof(AggregateRoot<Guid>.UtcDateCreated));
-            Expression<Func<AggregateRoot<Guid>, bool>> expression = b => !b.UtcDateDeleted.HasValue;
-            var newParam = Expression.Parameter(entity);
-            var newbody =
-                ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
-            builder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
-        }
         base.OnModelCreating(builder);
     }
+    
+    protected void PrimaryKeyValueGenerated(ModelBuilder builder, ValueGenerated valueGenerated = ValueGenerated.Never)
+    {
+        foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
+        {
+            foreach (IMutableProperty mutableProperty in entityType.GetProperties().Where<IMutableProperty>((Func<IMutableProperty, bool>) (p => p.IsPrimaryKey())))
+                mutableProperty.ValueGenerated = valueGenerated;
+        }
+    } 
+    // protected override void OnModelCreating(ModelBuilder builder)
+    // {
+    //     builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    //     var entities = builder.Model
+    //         .GetEntityTypes()
+    //         .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot<Guid>).Name) != null)
+    //         .Select(e => e.ClrType);
+    //
+    //     foreach (var entity in entities)
+    //     {
+    //         builder.Entity(entity).HasIndex(nameof(AggregateRoot<Guid>.UtcDateCreated));
+    //         Expression<Func<AggregateRoot<Guid>, bool>> expression = b => !b.UtcDateDeleted.HasValue;
+    //         var newParam = Expression.Parameter(entity);
+    //         var newbody =
+    //             ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
+    //         builder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
+    //     }
+    //     base.OnModelCreating(builder);
+    // }
     
      #region -Security-
     public DbSet<Driver> Drivers => Set<Driver>();
