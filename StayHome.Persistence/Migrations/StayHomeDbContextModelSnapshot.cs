@@ -25,7 +25,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Additional")
@@ -74,7 +73,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Area", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CityId")
@@ -103,7 +101,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -127,7 +124,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.City", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -151,7 +147,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.ContactUs", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Content")
@@ -192,7 +187,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.CostumerNotification", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -212,7 +206,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.DashNotification", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -232,7 +225,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.DriverNotification", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -252,7 +244,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.MobileNotification", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -272,7 +263,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("CustomerId")
@@ -326,7 +316,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<double>("Cost")
@@ -372,7 +361,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Setting", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -392,7 +380,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Shop", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("AreaId")
@@ -430,7 +417,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
@@ -525,7 +511,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Color")
@@ -559,7 +544,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("ExpiredDate")
@@ -581,7 +565,6 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -608,10 +591,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -632,10 +612,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");

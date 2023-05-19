@@ -27,41 +27,6 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: true),
-                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    DateBlocked = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    Discriminator = table.Column<string>(type: "text", nullable: false),
-                    Customer_DeviceToken = table.Column<string>(type: "text", nullable: true),
-                    DeviceToken = table.Column<string>(type: "text", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -184,8 +149,7 @@ namespace StayHome.Persistence.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
@@ -202,11 +166,137 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Areas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Areas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Areas_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    DateBlocked = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Discriminator = table.Column<string>(type: "text", nullable: false),
+                    Customer_DeviceToken = table.Column<string>(type: "text", nullable: true),
+                    CityId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeviceToken = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shops",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AreaId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shops_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Shops_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    HouseNumber = table.Column<string>(type: "text", nullable: false),
+                    Street = table.Column<string>(type: "text", nullable: false),
+                    Floor = table.Column<string>(type: "text", nullable: false),
+                    Additional = table.Column<string>(type: "text", nullable: true),
+                    AreaId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Address_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Address_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
@@ -337,89 +427,6 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Areas",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CityId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Areas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Areas_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    HouseNumber = table.Column<string>(type: "text", nullable: false),
-                    Street = table.Column<string>(type: "text", nullable: false),
-                    Additional = table.Column<string>(type: "text", nullable: true),
-                    AreaId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Address_Areas_AreaId",
-                        column: x => x.AreaId,
-                        principalTable: "Areas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Address_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Shops",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AreaId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Shops", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Shops_Areas_AreaId",
-                        column: x => x.AreaId,
-                        principalTable: "Areas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Shops_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -430,10 +437,12 @@ namespace StayHome.Persistence.Migrations
                     Destination_HouseNumber = table.Column<string>(type: "text", nullable: true),
                     Destination_Street = table.Column<string>(type: "text", nullable: true),
                     Destination_Additional = table.Column<string>(type: "text", nullable: true),
+                    Destination_Floor = table.Column<string>(type: "text", nullable: true),
                     Source_AreaId = table.Column<Guid>(type: "uuid", nullable: true),
                     Source_HouseNumber = table.Column<string>(type: "text", nullable: true),
                     Source_Street = table.Column<string>(type: "text", nullable: true),
                     Source_Additional = table.Column<string>(type: "text", nullable: true),
+                    Source_Floor = table.Column<string>(type: "text", nullable: true),
                     EmployeeHandlerId = table.Column<Guid>(type: "uuid", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: true),
                     DriverId = table.Column<Guid>(type: "uuid", nullable: true),
@@ -630,6 +639,11 @@ namespace StayHome.Persistence.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CityId",
+                table: "AspNetUsers",
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
