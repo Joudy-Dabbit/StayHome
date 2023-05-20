@@ -11,12 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Customer\Commands\" />
-      <Folder Include="Customer\Queries\GetAll\" />
-      <Folder Include="Customer\Queries\GetById\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\StayHome.Contracts\StayHome.Contracts.csproj" />
       <ProjectReference Include="..\StayHome.Domain\StayHome.Domain.csproj" />
     </ItemGroup>

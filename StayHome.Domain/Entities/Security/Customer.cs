@@ -20,7 +20,7 @@ public class Customer : User
     public Customer(string fullName,
         string phoneNumber, string imageUrl, 
         string email, DateOnly? birthDate, 
-        string deviceToken, Guid cityId) : this(fullName, phoneNumber, email, imageUrl, birthDate, cityId)
+         Guid cityId, string deviceToken) : this(fullName, phoneNumber, email, imageUrl, birthDate, cityId)
     {
         DeviceToken = deviceToken;
     }
@@ -32,6 +32,7 @@ public class Customer : User
     
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();    
+    
     
     private readonly List<Address> _addresses = new();
     public IReadOnlyCollection<Address> Addresses => _addresses.AsReadOnly();

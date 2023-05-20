@@ -1,17 +1,13 @@
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
+using StayHome.Contracts.Shared.Addresses;
 
 namespace StayHome.Application.Mobile.Customers;
 
 public class AddCustomerAddressCommand
 {
-    public class Request : IRequest<OperationResponse>
+    public class Request : AddAddressRequest, IRequest<OperationResponse>
     {
-        public string Name { get; set; }
-        public Guid AreaId { get; set; }
-        public string HouseNumber { get; set; }
-        public string Street { get; set; } 
-        public string Floor { get; set; } 
-        public string? Additional { get; set; }
+
     }
 }
