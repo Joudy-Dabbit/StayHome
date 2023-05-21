@@ -12,7 +12,7 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230519182918_Initial")]
+    [Migration("20230521112706_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
