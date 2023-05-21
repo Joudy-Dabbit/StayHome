@@ -31,4 +31,14 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="wwwroot\Seed\eedb53c8-771f-415b-9202-2ad5b50918cd_StayHome.jpg" />
+      <Content Remove="wwwroot\Seed\aa0a9617-3106-403d-95ba-a250405ec04c_StayHome.jpg" />
+      <Content Remove="wwwroot\Seed\99c34dd9-4596-4589-a8a8-49cfc8bbf225_StayHome.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\Seed\" />
+    </ItemGroup>
+
 </Project>

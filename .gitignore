@@ -17,6 +17,7 @@
 # Mono auto generated files
 mono_crash.*
 
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -251,6 +252,8 @@ orleans.codegen.cs
 
 # RIA/Silverlight projects
 Generated_Code/
+
+/StayHome/appsettings.json
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
