@@ -8,10 +8,14 @@ public class OrderConfiguration :  IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.HasOne(x => x.Destination)
-            .WithOne(x => x.Order)
+        builder.HasOne(x => x.Source)
+            .WithMany(x => x.SourceOrders)
+            .HasForeignKey(x => x.SourceId)
             .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasOne(order => order.Destination)
-            .WithOne(x => x.Order)
-            .OnDelete(DeleteBehavior.Restrict);    }
+            .WithMany(x => x.DestinationOrders)
+            .HasForeignKey(x => x.DestinationId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 }

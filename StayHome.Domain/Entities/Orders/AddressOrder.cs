@@ -19,8 +19,8 @@ public class AddressOrder : AggregateRoot
     public Guid AreaId { get; private set; }
     public Area Area { get; private set; }
     
-    public Guid OrderId { get; private set; }
-    public Order Order { get; private set; }
+    public ICollection<Order> DestinationOrders { get; set; }
+    public ICollection<Order> SourceOrders { get; set; }
     
     public string HouseNumber { get; private set; }
     public string Street { get; private set; } 

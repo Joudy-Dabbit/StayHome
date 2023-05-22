@@ -7,6 +7,7 @@ public class Order : AggregateRoot
 
     public AddressOrder? Destination { get; set; }
     public Guid? DestinationId { get; set; }
+    
     public AddressOrder? Source { get; private set; }
     public Guid? SourceId { get; set; }
 
