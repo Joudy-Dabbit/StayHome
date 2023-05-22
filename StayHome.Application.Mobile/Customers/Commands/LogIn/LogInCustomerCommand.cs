@@ -20,7 +20,7 @@ public class LogInCustomerCommand
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string ImageUrl { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         
 
         public static Expression<Func<Customer, Response>> Selector(string accessToken, string refreshToken) => c

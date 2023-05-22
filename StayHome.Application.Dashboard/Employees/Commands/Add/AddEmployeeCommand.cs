@@ -13,7 +13,7 @@ public class AddEmployeeCommand
         public IFormFile? ImageFile { get; set; }
         
         public string PhoneNumber { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string Email { get; set; }
     }
 }

@@ -5,7 +5,8 @@ public class Driver : User
     private Driver() { }
 
     public Driver(string fullName,
-        string phoneNumber, DateOnly? birthDate, string email,
+        string phoneNumber, DateTime? birthDate
+, string email,
         string imageUrl)
     {
         FullName = fullName;
@@ -17,7 +18,8 @@ public class Driver : User
     }
 
     public Driver(string fullName,
-        string phoneNumber, DateOnly? birthDate,
+        string phoneNumber, DateTime? birthDate
+,
         string email, string imageUrl, 
         string deviceToken) : this(fullName, phoneNumber, birthDate, email, imageUrl)
     {

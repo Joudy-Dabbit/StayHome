@@ -21,7 +21,7 @@ public class GetByIdCustomerQuery
         public string? Email { get; set; }
         public Guid CityId { get; set; }
         public bool IsBlock { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public List<AddressRes> Address { get; set; }
 
         public class AddressRes

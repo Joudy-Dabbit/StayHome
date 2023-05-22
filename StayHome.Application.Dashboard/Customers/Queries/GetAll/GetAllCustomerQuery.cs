@@ -19,7 +19,7 @@ public class GetAllCustomerQuery
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Guid CityId { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public int OrderCount { get; set; }
 
         public static Expression<Func<Customer, Response>> Selector() => c

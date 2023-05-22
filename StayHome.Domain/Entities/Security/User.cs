@@ -14,6 +14,6 @@ public class User : BaseAggregateIdentityUser<Guid>, IUser<Guid>
     
     public string FullName { get; set; }
     public string? ImageUrl { get; set; }
-    public DateOnly? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
     public DateTimeOffset? DateBlocked { get; set; }
 }

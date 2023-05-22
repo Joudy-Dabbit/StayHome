@@ -17,7 +17,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<IStayHomeDbContext, StayHomeDbContext>(o =>
                {
-                   o.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                   o.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                    if (!environment.IsProduction())
                    {
                        o.EnableSensitiveDataLogging();

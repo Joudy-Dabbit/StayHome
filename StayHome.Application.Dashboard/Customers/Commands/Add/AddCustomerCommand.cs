@@ -16,7 +16,7 @@ public class AddCustomerCommand
 
         public string Email { get; set; } 
         public Guid CityId { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         
         public AddAddressRequest Address { get; set; }
     }

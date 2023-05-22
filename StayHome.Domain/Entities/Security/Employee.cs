@@ -7,7 +7,7 @@ public class Employee : User
     private Employee(){}
 
     public Employee(string fullName,
-        string phoneNumber, DateOnly? birthDate, string email,
+        string phoneNumber, DateTime? birthDate, string email,
         string imageUrl)
     {
         FullName = fullName;

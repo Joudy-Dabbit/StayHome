@@ -8,8 +8,10 @@ public class OrderConfiguration :  IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.OwnsOne(order => order.Source);
-        builder.OwnsOne(order => order.Destination);
-
-    }
+        builder.HasOne(x => x.Destination)
+            .WithOne(x => x.Order)
+            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(order => order.Destination)
+            .WithOne(x => x.Order)
+            .OnDelete(DeleteBehavior.Restrict);    }
 }

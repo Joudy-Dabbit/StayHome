@@ -2,13 +2,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Domain.Entities;
 
-public record AddressOrderVo
+public class AddressOrder : AggregateRoot
 {
-    private AddressOrderVo()
-    {
-    }
+    private AddressOrder() { }
     
-    public AddressOrderVo(string houseNumber, string street, 
+    public AddressOrder(string houseNumber, string street, 
         string? additional, Guid areaId, string floor)
     {
         HouseNumber = houseNumber;
@@ -20,6 +18,9 @@ public record AddressOrderVo
     
     public Guid AreaId { get; private set; }
     public Area Area { get; private set; }
+    
+    public Guid OrderId { get; private set; }
+    public Order Order { get; private set; }
     
     public string HouseNumber { get; private set; }
     public string Street { get; private set; } 

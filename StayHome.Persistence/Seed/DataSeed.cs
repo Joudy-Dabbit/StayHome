@@ -27,25 +27,25 @@ public static class DataSeed
         var cityId = context.Cities.First().Id;
 
         var admin = new Employee("joudy dabbit", "099999999",
-            new DateOnly(2001, 6, 2), "admin@gmail.com", AddImage());
+            new DateTime(2001, 6, 2), "admin@gmail.com", AddImage());
         await userManager.CreateAsync(admin, "1234");
         await userManager.AddToRoleAsync(admin, nameof(StayHomeRoles.Admin));
         await context.SaveChangesAsync();
 
         var employee = new Employee("Hiba Baeij", "088888888",
-            new DateOnly(2002, 6, 2), "employee@gmail.com", AddImage());
+            new DateTime(2002, 6, 2), "employee@gmail.com", AddImage());
         await userManager.CreateAsync(employee, "1234");
         await userManager.AddToRoleAsync(employee, nameof(StayHomeRoles.Employee));
         await context.SaveChangesAsync();
 
         var customer = new Customer("Aisha Biazed", "077777777",
-            "customer@gmail.com", AddImage(), new DateOnly(2003, 6, 2), cityId);
+            "customer@gmail.com", AddImage(), new DateTime(2003, 6, 2), cityId);
         await userManager.CreateAsync(customer, "1234");
         await userManager.AddToRoleAsync(customer, nameof(StayHomeRoles.Customer));       
         await context.SaveChangesAsync();
 
         var driver = new Driver("default driver", "077777777",
-            new DateOnly(2003, 6, 2), "driver@gmail.com", AddImage());
+            new DateTime(2003, 6, 2), "driver@gmail.com", AddImage());
         await userManager.CreateAsync(driver, "1234");
         await userManager.AddToRoleAsync(driver, nameof(StayHomeRoles.Driver));
         await context.SaveChangesAsync();
