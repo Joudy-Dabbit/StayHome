@@ -40,7 +40,7 @@ namespace StayHome.Application.Dashboard.Employees;
           var accessToken = _userRepository.GenerateAccessToken(employee, 
               new List<string>(){StayHomeRoles.Employee.ToString()});
           var refreshToken = await _userRepository.GenerateRefreshToken(employee.Id);
-        
+          
           if (!refreshToken.IsSucceded)
               return OperationResponse.WithBadRequest(refreshToken.ErrorMessage).ToResponse<LogInEmployeeCommand.Response>();
           

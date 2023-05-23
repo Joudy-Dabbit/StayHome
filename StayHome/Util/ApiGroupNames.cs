@@ -4,6 +4,6 @@ namespace StayHome.Util;
 
 public enum ApiGroupNames
 {
-    [OpenApiInfoGenerator(title: "Dash", version: "v1")] Dash,
+    [OpenApiInfoGenerator(title: "Dashboard", version: "v1")] Dashboard,
     [OpenApiInfoGenerator(title: "Mobile", version: "v1")] Mobile,
 }

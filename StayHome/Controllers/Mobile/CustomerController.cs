@@ -12,14 +12,12 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace StayHome.Controllers.Mobile;
 
-[ApiController]
-[Route("api/[controller]/[action]")]
 public sealed class CustomerController : ApiController
 {
     public CustomerController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
     [AllowAnonymous]
-    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(LogInCustomerCommand.Response))]
     public async Task<IActionResult> LogIn(
         [FromServices] IRequestHandler<LogInCustomerCommand.Request, OperationResponse<LogInCustomerCommand.Response>> handler,
@@ -27,7 +25,7 @@ public sealed class CustomerController : ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
     [AllowAnonymous]
-    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(CreateCustomerCommand.Response))]
     public async Task<IActionResult> Create(    
         [FromServices] IRequestHandler<CreateCustomerCommand.Request,
@@ -36,7 +34,7 @@ public sealed class CustomerController : ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();   
     
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpGet,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(GetProfileQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetMyProfile(
         [FromServices] IRequestHandler<GetProfileQuery.Request, OperationResponse<GetProfileQuery.Response>> handler)
@@ -45,7 +43,7 @@ public sealed class CustomerController : ApiController
     #region - Addresses -
 
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpGet,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(List<GetMyAddressesQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetMyAddresses(
         [FromServices] IRequestHandler<GetMyAddressesQuery.Request, OperationResponse<IEnumerable<GetMyAddressesQuery.Response>>> handler)
@@ -53,7 +51,7 @@ public sealed class CustomerController : ApiController
     
     
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddAddress(
         [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse> handler,
@@ -62,7 +60,7 @@ public sealed class CustomerController : ApiController
     
     
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpPost,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> ModifyAddress(
         [FromServices] IRequestHandler<ModifyCustomerAddressCommand.Request, OperationResponse> handler,
@@ -71,7 +69,7 @@ public sealed class CustomerController : ApiController
     
     
     [AppAuthorize(StayHomeRoles.Customer)]
-    [HttpDelete,ApiGroup(ApiGroupNames.Mobile)]
+    [HttpDelete,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> DeleteAddress(
         [FromServices] IRequestHandler<DeleteCustomerAddressCommand.Request, OperationResponse> handler,

@@ -254,6 +254,36 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AreaPrices",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    TimeBetween = table.Column<int>(type: "int", nullable: false),
+                    Area1Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Area2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaPrices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AreaPrices_Areas_Area1Id",
+                        column: x => x.Area1Id,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AreaPrices_Areas_Area2Id",
+                        column: x => x.Area2Id,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shops",
                 columns: table => new
                 {
@@ -605,6 +635,16 @@ namespace StayHome.Persistence.Migrations
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AreaPrices_Area1Id",
+                table: "AreaPrices",
+                column: "Area1Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AreaPrices_Area2Id",
+                table: "AreaPrices",
+                column: "Area2Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Areas_CityId",
                 table: "Areas",
                 column: "CityId");
@@ -749,6 +789,9 @@ namespace StayHome.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Address");
+
+            migrationBuilder.DropTable(
+                name: "AreaPrices");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

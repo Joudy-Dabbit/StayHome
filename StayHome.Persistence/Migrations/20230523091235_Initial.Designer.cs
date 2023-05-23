@@ -12,7 +12,7 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230522190534_Initial")]
+    [Migration("20230523091235_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -138,6 +138,41 @@ namespace StayHome.Persistence.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Areas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AreaPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Area1Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Area2Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TimeBetween")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Area1Id");
+
+                    b.HasIndex("Area2Id");
+
+                    b.ToTable("AreaPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -621,6 +656,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ExpiredDate")
@@ -897,6 +933,25 @@ namespace StayHome.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AreaPrice", b =>
+                {
+                    b.HasOne("Domain.Entities.Area", "Area1")
+                        .WithMany("AreaPrices1")
+                        .HasForeignKey("Area1Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Area", "Area2")
+                        .WithMany("AreaPrices2")
+                        .HasForeignKey("Area2Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Area1");
+
+                    b.Navigation("Area2");
                 });
 
             modelBuilder.Entity("Domain.Entities.ContactUs", b =>
@@ -1205,6 +1260,10 @@ namespace StayHome.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Area", b =>
                 {
+                    b.Navigation("AreaPrices1");
+
+                    b.Navigation("AreaPrices2");
+
                     b.Navigation("Shops");
                 });
 
