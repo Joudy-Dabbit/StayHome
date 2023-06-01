@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Neptunee.BaseCleanArchitecture.OResponse;
-using StayHome.Contracts.Shared;
+using StayHome.Contracts.Security;
 using StayHome.Persistence.Context;
 
 namespace StayHome.Persistence.Repositories;

@@ -77,9 +77,9 @@ public static class DataSeed
             return;
         }
 
-        var category1 = new Category("ألبسة");
-        var category2 = new Category("وجبات سريعة");
-        var category3 = new Category("مفروشات");
+        var category1 = new Category("ألبسة", AddImage());
+        var category2 = new Category("وجبات سريعة", AddImage());
+        var category3 = new Category("مفروشات", AddImage());
         context.AddRange(new List<Category>() {category1, category2, category3});
         
         await context.SaveChangesAsync();

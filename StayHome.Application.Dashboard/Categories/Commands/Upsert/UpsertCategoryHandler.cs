@@ -1,3 +1,4 @@
+using Application.Dashboard.Core.Abstractions;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,12 @@ public class UpsertCategoryHandler : IRequestHandler<UpsertCategoryCommand.Reque
     OperationResponse<GetAllCategoriesQuery.Response>>
 {
     private readonly IStayHomeRepository _repository;
+    private readonly IFileService _fileService;
 
-    public UpsertCategoryHandler(IStayHomeRepository repository)
+    public UpsertCategoryHandler(IStayHomeRepository repository, IFileService fileService)
     {
         _repository = repository;
+        _fileService = fileService;
     }
 
 
@@ -25,14 +28,16 @@ public class UpsertCategoryHandler : IRequestHandler<UpsertCategoryCommand.Reque
             .Where(c => request.Id.HasValue && c.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
+        var imageUrl = await _fileService.Upload(request.ImageFile);
+
         if (category is null)
         {
-            category = new Category(request.Name);
+            category = new Category(request.Name, imageUrl);
              _repository.Add(category);
         }
         else
         {
-            category.Modify(request.Name);
+            category.Modify(request.Name, imageUrl);
         }
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);

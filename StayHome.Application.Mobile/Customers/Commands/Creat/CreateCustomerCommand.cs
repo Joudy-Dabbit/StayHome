@@ -3,7 +3,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Contracts.Shared;
+using StayHome.Contracts.Security;
 
 namespace StayHome.Application.Mobile.Customers;
 

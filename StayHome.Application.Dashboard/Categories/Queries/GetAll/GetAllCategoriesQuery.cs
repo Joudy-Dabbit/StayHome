@@ -16,12 +16,14 @@ public class GetAllCategoriesQuery
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
 
         public static Expression<Func<Category, Response>> Selector()
             => c => new()
             {
                 Id = c.Id,
                 Name = c.Name,
+                ImageUrl = c.ImageUrl
             };
     }
 }

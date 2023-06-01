@@ -68,7 +68,7 @@ public class SettingController : ApiController
      public async Task<IActionResult> UpsertCategory(
          [FromServices] IRequestHandler<UpsertCategoryCommand.Request, 
              OperationResponse<GetAllCategoriesQuery.Response>> handler,
-         [FromBody] UpsertCategoryCommand.Request request)
+         [FromForm] UpsertCategoryCommand.Request request)
          => await handler.HandleAsync(request).ToJsonResultAsync();
      
      [AppAuthorize(StayHomeRoles.Employee)]
