@@ -20,8 +20,7 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         _deleteCity(cities);
         await UnitOfWork.SaveChangesAsync();
     }
-
-
+    
     #region - private -
     private void _deleteCity(List<City> cities)
     {

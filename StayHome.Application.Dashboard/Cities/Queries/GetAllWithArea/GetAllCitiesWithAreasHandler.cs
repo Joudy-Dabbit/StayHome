@@ -2,7 +2,7 @@ using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Dashboard.Settings;
+namespace StayHome.Application.Dashboard.Cities;
 
 public class GetAllCitiesWithAreasHandler : IRequestHandler<GetAllCitiesWithAreasQuery.Request,
 OperationResponse<List<GetAllCitiesWithAreasQuery.Response>>>

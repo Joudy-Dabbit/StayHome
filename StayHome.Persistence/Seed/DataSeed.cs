@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Domain;
 using Domain.Entities;
 using Domain.Enum;
@@ -14,6 +15,7 @@ public static class DataSeed
         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         SeedWwwroot(context);
+        await SeedCategories(context);
         await SeedCitiesWithArea(context);
         await SeedRole(roleManager, context);
         await SeedUser(userManager, context);
@@ -67,7 +69,21 @@ public static class DataSeed
 
         await context.SaveChangesAsync();
     }
-    
+
+    private static async Task SeedCategories(StayHomeDbContext context)
+    {
+        if (context.Categories.Any())
+        {
+            return;
+        }
+
+        var category1 = new Category("ألبسة");
+        var category2 = new Category("وجبات سريعة");
+        var category3 = new Category("مفروشات");
+        context.AddRange(new List<Category>() {category1, category2, category3});
+        
+        await context.SaveChangesAsync();
+    }
     private static async Task SeedCitiesWithArea(StayHomeDbContext context)
     {
         if (context.Cities.Any())
@@ -78,7 +94,7 @@ public static class DataSeed
         var city = new City("دمشق");
         var city1 = new City("حلب");
         context.AddRange(new List<City>() {city1, city});
-        var area = new Area("لمزة", city.Id);
+        var area = new Area("المزة", city.Id);
         var area1 = new Area("الفرقان", city1.Id);
         var area2 = new Area("الشهباء", city1.Id);
         context.AddRange(new List<Area>() {area, area1, area2});
@@ -86,15 +102,6 @@ public static class DataSeed
         await context.SaveChangesAsync();
     }
     
-    
-    private static string AddImage()
-    {
-        var s = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.StayHomeJpg);
-        var x = Path.Combine(ConstValues.Seed, Guid.NewGuid() + "_" + ConstValues.StayHomeJpg);
-        var d = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.WwwrootDir, x);
-        File.Copy(s, d);
-        return x;
-    }
     private static void SeedWwwroot(StayHomeDbContext context)
     {
         if (context.Shops.Any())
@@ -109,6 +116,13 @@ public static class DataSeed
 
         Directory.CreateDirectory(ConstValues.WwwrootDir);
         Directory.CreateDirectory(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed));
-
+    }
+    private static string AddImage()
+    {
+        var s = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.StayHomeJpg);
+        var x = Path.Combine(ConstValues.Seed, Guid.NewGuid() + "_" + ConstValues.StayHomeJpg);
+        var d = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.WwwrootDir, x);
+        File.Copy(s, d);
+        return x;
     }
 }
