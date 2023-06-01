@@ -7,7 +7,7 @@ public class Customer : User
     public Customer(string fullName,
         string phoneNumber, string email,
         string imageUrl, DateTime? birthDate
-, Guid cityId)
+        , Guid cityId)
     {
         CityId = cityId;
         FullName = fullName;
@@ -20,9 +20,10 @@ public class Customer : User
 
     public Customer(string fullName,
         string phoneNumber, string imageUrl, 
-        string email, DateTime? birthDate
-, 
-         Guid cityId, string deviceToken) : this(fullName, phoneNumber, email, imageUrl, birthDate, cityId)
+        string email, DateTime? birthDate, 
+         Guid cityId, string deviceToken) 
+        : this(fullName, phoneNumber, email, imageUrl, birthDate, cityId)
+         
     {
         DeviceToken = deviceToken;
     }
@@ -45,5 +46,16 @@ public class Customer : User
     {
         var address = new Address(Id,houseNumber, street, additional, areaId, name, floor);
         _addresses.Add(address);
+    }
+    
+    public void Modify(string fullName, string imageUrl,
+        DateTime? birthDate, string email, Guid cityId, string phoneNumber)
+    {
+        CityId = cityId;
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        ImageUrl = imageUrl;
+        Email = email;
     }
 }

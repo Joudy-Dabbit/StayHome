@@ -15,4 +15,5 @@ public interface IUserRepository : IRepository<Guid>
    string GenerateAccessToken(User user, IList<string> roles);
    Task<TokenResult> GenerateRefreshToken(Guid userId);
    Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string password);
+   Task TryModifyPassword(User user, string? newPassword);
 }

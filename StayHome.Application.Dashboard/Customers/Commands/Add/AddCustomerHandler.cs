@@ -14,9 +14,10 @@ public class AddCustomerHandler : IRequestHandler<AddCustomerCommand.Request,
     private readonly IUserRepository _userRepository;
     private readonly IFileService _fileService;
 
-    public AddCustomerHandler(IUserRepository userRepository)
+    public AddCustomerHandler(IUserRepository userRepository, IFileService fileService)
     {
         _userRepository = userRepository;
+        _fileService = fileService;
     } 
     public async Task<OperationResponse<GetAllCustomerQuery.Response>> HandleAsync(AddCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {

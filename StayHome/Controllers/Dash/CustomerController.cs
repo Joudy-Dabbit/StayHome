@@ -45,10 +45,28 @@ public class CustomerController : ApiController
         
     [AppAuthorize(StayHomeRoles.Employee)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetAllCustomerQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(
         [FromServices] IRequestHandler<AddCustomerCommand.Request,
             OperationResponse<GetAllCustomerQuery.Response>> handler,
         [FromForm] AddCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [ProducesResponseType(typeof(GetByIdCustomerQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Modify(
+        [FromServices] IRequestHandler<ModifyCustomerCommand.Request,
+            OperationResponse<GetByIdCustomerQuery.Response>> handler,
+        [FromForm] ModifyCustomerCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Delete(
+        [FromServices] IRequestHandler<DeleteCustomerCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] Guid? id, [FromBody] List<Guid> ids)
+        => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
 }

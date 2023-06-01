@@ -123,4 +123,13 @@ public class UserRepository : StayHomeRepository, IUserRepository
             throw new SecurityTokenException("Invalid token");
         return principal;
     }
+
+    public async Task TryModifyPassword(User user, string? newPassword)
+    {
+        if (newPassword.IsNullOrEmpty())
+            return;
+        
+        await _userManager.RemovePasswordAsync(user);
+        await _userManager.AddPasswordAsync(user, newPassword);
+    }
 }
