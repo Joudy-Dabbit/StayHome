@@ -6,18 +6,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
-namespace StayHome.Application.Dashboard.Customers;
+namespace StayHome.Application.Dashboard.Employees;
 
-public class ModifyCustomerHandler : IRequestHandler<ModifyCustomerCommand.Request,
-    OperationResponse<GetByIdCustomerQuery.Response>>
+public class ModifyEmployeeHandler : IRequestHandler<ModifyEmployeeCommand.Request,
+    OperationResponse<GetByIdEmployeeQuery.Response>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IFileService _fileService;
     private readonly UserManager<User> _userManager;
 
-    public ModifyCustomerHandler(IUserRepository userRepository,
+    public ModifyEmployeeHandler(IUserRepository userRepository,
         IFileService fileService, UserManager<User> userManager)
     {
         _userRepository = userRepository;
@@ -25,32 +24,32 @@ public class ModifyCustomerHandler : IRequestHandler<ModifyCustomerCommand.Reque
         _userManager = userManager;
     }
 
-    public async Task<OperationResponse<GetByIdCustomerQuery.Response>> HandleAsync(ModifyCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
+    public async Task<OperationResponse<GetByIdEmployeeQuery.Response>> HandleAsync(ModifyEmployeeCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
-        var customer = await _userRepository.TrackingQuery<Customer>()
+        var employee = await _userRepository.TrackingQuery<Employee>()
             .FirstAsync(c => c.Id == request.Id, cancellationToken);
         
         if(await _userRepository.IsEmailExist<Customer>(request.Email, request.Id))
             return DomainError.User.EmailAlreadyUsed(request.Email);
 
-        var profileImageUrl = customer.ImageUrl;
+        var profileImageUrl = employee.ImageUrl;
         if(request.ImageFile != null)
         {
-            _fileService.Delete(customer.ImageUrl); 
+            _fileService.Delete(employee.ImageUrl); 
             profileImageUrl = await _fileService.Upload(request.ImageFile);
         }
 
-        customer.Modify(request.FullName, profileImageUrl!, request.BirthDate,
-            request.Email, request.CityId, request.PhoneNumber);
+        employee.Modify(request.FullName, profileImageUrl!, request.BirthDate,
+            request.Email, request.PhoneNumber);
         
         if (request.Password != null)
         {
-            await _userRepository.TryModifyPassword(customer, request.Password);
-            await _userManager.UpdateAsync(customer);
+            await _userRepository.TryModifyPassword(employee, request.Password);
+            await _userManager.UpdateAsync(employee);
         }
         
         await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return await _userRepository.GetAsync(customer.Id, 
-            GetByIdCustomerQuery.Response.Selector());
+        return await _userRepository.GetAsync(employee.Id, 
+            GetByIdEmployeeQuery.Response.Selector);
     }
 }

@@ -9,8 +9,7 @@ public class ModifyCustomerCommand
     public class Request: IRequest<OperationResponse<GetByIdCustomerQuery.Response>>
     {
         public Guid Id { get; set; }
-        public string FirstName { get; set; } 
-        public string LastName { get; set; }
+        public string FullName { get; set; } 
         
         public IFormFile? ImageFile { get; set; }
         public string? Password { get; set; }

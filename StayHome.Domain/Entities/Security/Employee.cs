@@ -18,6 +18,16 @@ public class Employee : User
         Email = email;
     }
     
+    public void Modify(string fullName, string imageUrl,
+        DateTime? birthDate, string email, string phoneNumber)
+    {
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        ImageUrl = imageUrl;
+        Email = email;
+    }
+    
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();   
 }

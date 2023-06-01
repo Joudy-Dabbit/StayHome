@@ -50,6 +50,15 @@ public class EmployeeController: ApiController
         [FromServices] IRequestHandler<AddEmployeeCommand.Request,
             OperationResponse<GetAllEmployeesQuery.Response>> handler,
         [FromForm] AddEmployeeCommand.Request request)  
+        => await handler.HandleAsync(request).ToJsonResultAsync();   
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdEmployeeQuery.Response))]
+     public async Task<IActionResult> Modify(
+        [FromServices] IRequestHandler<ModifyEmployeeCommand.Request,
+            OperationResponse<GetByIdEmployeeQuery.Response>> handler,
+        [FromForm] ModifyEmployeeCommand.Request request)  
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
     [AppAuthorize(StayHomeRoles.Employee)]
