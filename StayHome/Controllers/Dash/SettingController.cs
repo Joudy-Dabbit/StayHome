@@ -20,6 +20,14 @@ public class SettingController : ApiController
      #region - Cities -
      [AppAuthorize(StayHomeRoles.Employee)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(List<GetAllCitiesQuery.Response>),StatusCodes.Status200OK)]
+     public async Task<IActionResult> GetAllCities(
+         [FromServices] IRequestHandler<GetAllCitiesQuery.Request, 
+             OperationResponse<List<GetAllCitiesQuery.Response>>> handler)
+         => await handler.HandleAsync(new()).ToJsonResultAsync();   
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllCitiesWithAreasQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllCitiesWithAreas(
          [FromServices] IRequestHandler<GetAllCitiesWithAreasQuery.Request, 
@@ -31,8 +39,9 @@ public class SettingController : ApiController
      [ProducesResponseType(typeof(GetAllCitiesQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertCity(
          [FromServices] IRequestHandler<UpsertCityCommand.Request, 
-             OperationResponse<GetAllCitiesQuery.Response>> handler)
-         => await handler.HandleAsync(new()).ToJsonResultAsync();
+             OperationResponse<GetAllCitiesQuery.Response>> handler,
+         [FromBody] UpsertCityCommand.Request request)
+         => await handler.HandleAsync(request).ToJsonResultAsync();
      
      [AppAuthorize(StayHomeRoles.Employee)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
@@ -58,8 +67,9 @@ public class SettingController : ApiController
      [ProducesResponseType(typeof(GetAllCategoriesQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertCategory(
          [FromServices] IRequestHandler<UpsertCategoryCommand.Request, 
-             OperationResponse<GetAllCategoriesQuery.Response>> handler)
-         => await handler.HandleAsync(new()).ToJsonResultAsync();
+             OperationResponse<GetAllCategoriesQuery.Response>> handler,
+         [FromBody] UpsertCategoryCommand.Request request)
+         => await handler.HandleAsync(request).ToJsonResultAsync();
      
      [AppAuthorize(StayHomeRoles.Employee)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
