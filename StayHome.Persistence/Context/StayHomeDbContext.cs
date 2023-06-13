@@ -24,6 +24,20 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
     {
         PrimaryKeyValueGenerated(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        var entities = builder.Model
+            .GetEntityTypes()
+            .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot<Guid>).Name) != null)
+            .Select(e => e.ClrType);
+        
+        foreach (var entity in entities)
+        {
+            builder.Entity(entity).HasIndex(nameof(AggregateRoot<Guid>.UtcDateCreated));
+            Expression<Func<AggregateRoot<Guid>, bool>> expression = b => !b.UtcDateDeleted.HasValue;
+            var newParam = Expression.Parameter(entity);
+            var newbody =
+                ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
+            builder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
+        }
         base.OnModelCreating(builder);
     }
     
