@@ -104,7 +104,7 @@ public static class DataSeed
     
     private static void SeedWwwroot(StayHomeDbContext context)
     {
-        if (context.Shops.Any())
+        if (context.Orders.Any())
         {
             return;
         }

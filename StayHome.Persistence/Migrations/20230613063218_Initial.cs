@@ -31,6 +31,7 @@ namespace StayHome.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -563,10 +564,13 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkTime",
+                name: "WorkTimes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -574,9 +578,9 @@ namespace StayHome.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkTime", x => x.Id);
+                    table.PrimaryKey("PK_WorkTimes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkTime_Shops_ShopId",
+                        name: "FK_WorkTimes_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
@@ -779,8 +783,8 @@ namespace StayHome.Persistence.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkTime_ShopId",
-                table: "WorkTime",
+                name: "IX_WorkTimes_ShopId",
+                table: "WorkTimes",
                 column: "ShopId");
         }
 
@@ -833,7 +837,7 @@ namespace StayHome.Persistence.Migrations
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "WorkTime");
+                name: "WorkTimes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

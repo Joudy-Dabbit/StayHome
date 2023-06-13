@@ -68,6 +68,7 @@ if (!Directory.Exists("wwwroot"))
 app.UseSwaggerApi(o => o.AddEndpoint("All")
     .AddEndpoints<ApiGroupNames>().SetDocExpansion());
 app.UseCors("Policy");
+app.UseStaticFiles();
 app.MapControllers();
 app.UseAuthentication();
 app.UseRouting();

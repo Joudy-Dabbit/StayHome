@@ -35,6 +35,7 @@
       <Content Remove="wwwroot\Seed\eedb53c8-771f-415b-9202-2ad5b50918cd_StayHome.jpg" />
       <Content Remove="wwwroot\Seed\aa0a9617-3106-403d-95ba-a250405ec04c_StayHome.jpg" />
       <Content Remove="wwwroot\Seed\99c34dd9-4596-4589-a8a8-49cfc8bbf225_StayHome.jpg" />
+      <Content Remove="wwwroot\Uploads\2023-6\c30ddd9d-2ade-4237-8042-8310aea98396Game wallpaper by Black0rWhite - Download on ZEDGE™ _ afe4.png" />
     </ItemGroup>
 
     <ItemGroup>

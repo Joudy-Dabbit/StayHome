@@ -12,7 +12,7 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230523094041_Initial")]
+    [Migration("20230613063218_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -179,6 +179,10 @@ namespace StayHome.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -634,8 +638,17 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
@@ -650,7 +663,7 @@ namespace StayHome.Persistence.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("WorkTime");
+                    b.ToTable("WorkTimes");
                 });
 
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>

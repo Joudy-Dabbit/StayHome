@@ -635,8 +635,17 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
@@ -651,7 +660,7 @@ namespace StayHome.Persistence.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("WorkTime");
+                    b.ToTable("WorkTimes");
                 });
 
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>

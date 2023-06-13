@@ -21,4 +21,9 @@
       <ProjectReference Include="..\StayHome.Infrastructure\StayHome.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20230602133901_Initial.cs" />
+      <Compile Remove="Migrations\20230602133901_Initial.Designer.cs" />
+    </ItemGroup>
+
 </Project>

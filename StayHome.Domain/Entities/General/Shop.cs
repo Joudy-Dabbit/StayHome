@@ -29,10 +29,16 @@ public class Shop : AggregateRoot
     private readonly List<WorkTime> _workTimes = new();
     public IReadOnlyCollection<WorkTime> WorkTimes => _workTimes.AsReadOnly();
     
-    public bool IsOnline => 
-        WorkTimes.Any(wt => wt.DaysOfWeek.Contains(DateTime.Now.DayOfWeek ) &&
-                            wt.Times.Any(t => t.StartTime <= DateTime.Now.TimeOfDay && DateTime.Now.TimeOfDay <= t.EndTime));
 
+    public void AddWorkTime(DayOfWeek daysOfWeek, TimeSpan startTime, TimeSpan endTime)
+    {
+        _workTimes.Add(new (daysOfWeek, endTime, startTime, Id));
+    }
+    public bool IsOnline => 
+        WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
+                           ( wt.StartTime <= DateTime.Now.TimeOfDay 
+                            && DateTime.Now.TimeOfDay <= wt.EndTime));
+    
     public void Modify(string name,string imageUrl,
         Guid categoryId, Guid areaId)
     {

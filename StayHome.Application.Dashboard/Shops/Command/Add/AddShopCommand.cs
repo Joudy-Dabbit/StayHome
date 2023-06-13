@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
+using StayHome.Contracts.Shops;
 
 namespace StayHome.Application.Dashboard.Shops;
 
@@ -7,11 +9,12 @@ public class AddShopCommand
 {
     public class Request : IRequest<OperationResponse<GetAllSopsQuery.Response>>
     {
-        public string Name { get; private set; }
-        public string ImageUrl { get; set; }
+        public string Name { get;  set; }
+        public IFormFile ImageFile { get; set; }
     
-        public Guid CategoryId { get; private set; }
-        public Guid AreaId { get; private set; }
+        public Guid CategoryId { get; set; }
+        public Guid AreaId { get; set; }
 
+        public List<WorkTimeDto> WorkTimes { get; set; }
     }
 }

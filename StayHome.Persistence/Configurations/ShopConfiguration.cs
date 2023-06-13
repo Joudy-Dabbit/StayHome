@@ -8,11 +8,11 @@
 // {
 //     public void Configure(EntityTypeBuilder<Shop> builder)
 //     {
-//         builder.OwnsMany(order => order.WorkTimes, navigationBuilder =>
-//         {
-//             navigationBuilder.ToTable("ShopWorkTimes");
-//             navigationBuilder.OwnsMany(x => x.Times,
-//                 ownedNavigationBuilder => { ownedNavigationBuilder.ToTable("ShopTimes"); });
-//         });
-//     }
-// }
+//         builder.OwnsMany(shop => shop.WorkTimes)
+//             .HasOne(x => x.Time);
+//         
+//         builder.HasMany(x => x.WorkTimes)
+//             .WithOne(x => x.Time)
+//             .HasForeignKey(x => x.Id)
+//             .OnDelete(DeleteBehavior.Restrict);
+//     } }

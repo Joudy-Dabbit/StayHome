@@ -1,5 +1,4 @@
 using Domain.Enum;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Neptunee.BaseCleanArchitecture.Controllers;
 using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
@@ -7,7 +6,6 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 using StayHome.Application.Dashboard.Customers;
-using StayHome.Application.Mobile.Customers;
 using StayHome.Util;
 using Swashbuckle.AspNetCore.Annotations;
 

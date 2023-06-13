@@ -5,6 +5,7 @@ using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
+using StayHome.Application.Dashboard.Areas;
 using StayHome.Application.Dashboard.Cities;
 using StayHome.Application.Dashboard.Categories;
 using StayHome.Application.Dashboard.Cities.Commands.Upsert;
@@ -48,6 +49,42 @@ public class SettingController : ApiController
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteCity(
          [FromServices] IRequestHandler<DeleteCityCommand.Request,
+             OperationResponse> handler,
+         [FromQuery] Guid? id, [FromBody] List<Guid> ids)
+         => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
+     #endregion    
+     
+     #region - Areas -
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(List<GetAllAreasQuery.Response>),StatusCodes.Status200OK)]
+     public async Task<IActionResult> GetAllAreas(
+         [FromServices] IRequestHandler<GetAllAreasQuery.Request, 
+             OperationResponse<List<GetAllAreasQuery.Response>>> handler)
+         => await handler.HandleAsync(new()).ToJsonResultAsync();   
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(List<GetNamesAreasQuery.Response>),StatusCodes.Status200OK)]
+     public async Task<IActionResult> GetNamesAreas(
+         [FromServices] IRequestHandler<GetNamesAreasQuery.Request, 
+             OperationResponse<List<GetNamesAreasQuery.Response>>> handler)
+         => await handler.HandleAsync(new()).ToJsonResultAsync();
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(GetAllAreasQuery.Response),StatusCodes.Status200OK)]
+     public async Task<IActionResult> UpsertArea(
+         [FromServices] IRequestHandler<UpsertAreaCommand.Request, 
+             OperationResponse<GetAllAreasQuery.Response>> handler,
+         [FromBody] UpsertAreaCommand.Request request)
+         => await handler.HandleAsync(request).ToJsonResultAsync();
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
+     public async Task<IActionResult> DeleteArea(
+         [FromServices] IRequestHandler<DeleteAreaCommand.Request,
              OperationResponse> handler,
          [FromQuery] Guid? id, [FromBody] List<Guid> ids)
          => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
