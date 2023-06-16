@@ -26,7 +26,7 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         var entities = builder.Model
             .GetEntityTypes()
-            .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot).Name) != null)
+            .Where(e => e.ClrType.BaseType?.Name == typeof(AggregateRoot).Name)
             .Select(e => e.ClrType);
 
         foreach (var entity in entities)
