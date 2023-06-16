@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts.Shops;
@@ -10,7 +11,7 @@ public class ModifyShopCommand
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public IFormFile ImageUrl { get; set; }
         public Guid AreaId { get; set; }
         public Guid CategoryId { get; set; }
         

@@ -1,3 +1,4 @@
+using Application.Dashboard.Core.Abstractions;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ public class ModifyShopHandler : IRequestHandler<ModifyShopCommand.Request,
     OperationResponse<GetByIdShopQuery.Response>>
 {
     private readonly IStayHomeRepository _repository;
+    private readonly IFileService _fileService;
     
-    public ModifyShopHandler(IStayHomeRepository repository)
+    public ModifyShopHandler(IStayHomeRepository repository, IFileService fileService)
     {
         _repository = repository;
+        _fileService = fileService;
     }
 
     public async Task<OperationResponse<GetByIdShopQuery.Response>> HandleAsync(ModifyShopCommand.Request request, 
@@ -22,8 +25,9 @@ public class ModifyShopHandler : IRequestHandler<ModifyShopCommand.Request,
         var shop = await _repository.TrackingQuery<Shop>()
             .Where(s => s.Id == request.Id)
             .FirstAsync(cancellationToken);
+        var imag = await _fileService.Modify(shop.ImageUrl, request.ImageUrl);
         
-        shop.Modify(request.Name,request.ImageUrl, request.CategoryId, request.AreaId);
+        shop.Modify(request.Name,imag, request.CategoryId, request.AreaId);
         
         if(request.WorkTimes != null)
         {
