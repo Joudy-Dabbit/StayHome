@@ -26,16 +26,14 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         var entities = builder.Model
             .GetEntityTypes()
-            .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot<Guid>).Name) != null)
+            .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot).Name) != null)
             .Select(e => e.ClrType);
-        
+
         foreach (var entity in entities)
         {
-            builder.Entity(entity).HasIndex(nameof(AggregateRoot<Guid>.UtcDateCreated));
-            Expression<Func<AggregateRoot<Guid>, bool>> expression = b => !b.UtcDateDeleted.HasValue;
+            Expression<Func<AggregateRoot, bool>> expression = b => !b.UtcDateDeleted.HasValue;
             var newParam = Expression.Parameter(entity);
-            var newbody =
-                ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
+            var newbody = ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
             builder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
         }
         base.OnModelCreating(builder);
@@ -49,25 +47,7 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
                 mutableProperty.ValueGenerated = valueGenerated;
         }
     } 
-    // protected override void OnModelCreating(ModelBuilder builder)
-    // {
-    //     builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-    //     var entities = builder.Model
-    //         .GetEntityTypes()
-    //         .Where(e => e.ClrType.GetInterface(typeof(AggregateRoot<Guid>).Name) != null)
-    //         .Select(e => e.ClrType);
-    //
-    //     foreach (var entity in entities)
-    //     {
-    //         builder.Entity(entity).HasIndex(nameof(AggregateRoot<Guid>.UtcDateCreated));
-    //         Expression<Func<AggregateRoot<Guid>, bool>> expression = b => !b.UtcDateDeleted.HasValue;
-    //         var newParam = Expression.Parameter(entity);
-    //         var newbody =
-    //             ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
-    //         builder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
-    //     }
-    //     base.OnModelCreating(builder);
-    // }
+    
     
      #region -Security-
     public DbSet<Driver> Drivers => Set<Driver>();
