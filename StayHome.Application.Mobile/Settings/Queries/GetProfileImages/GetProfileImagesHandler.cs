@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Mobile.Customers;
+namespace StayHome.Application.Mobile.Settings;
 
 public class GetProfileImagesHandler : IRequestHandler<GetProfileImagesQuery.Request, 
     OperationResponse<List<string>>>

@@ -31,14 +31,8 @@ public sealed class CustomerController : ApiController
         [FromServices] IRequestHandler<CreateCustomerCommand.Request,
             OperationResponse<CreateCustomerCommand.Response>> handler,
         [FromQuery] CreateCustomerCommand.Request request)
-        => await handler.HandleAsync(request).ToJsonResultAsync();   
-    
-    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetProfileImages(
-        [FromServices] IRequestHandler<GetProfileImagesQuery.Request, OperationResponse<List<string>>> handler)
-        => await handler.HandleAsync(new()).ToJsonResultAsync();
-    
+        => await handler.HandleAsync(request).ToJsonResultAsync();
+
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(GetProfileQuery.Response), StatusCodes.Status200OK)]

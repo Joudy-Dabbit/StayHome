@@ -1,7 +1,7 @@
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Mobile.Customers;
+namespace StayHome.Application.Mobile.Settings;
 
 public class GetProfileImagesQuery
 {
