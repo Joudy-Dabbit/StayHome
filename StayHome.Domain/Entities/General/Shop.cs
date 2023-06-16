@@ -35,6 +35,11 @@ public class Shop : AggregateRoot
     {
         _workTimes.Add(new (daysOfWeek, endTime, startTime, Id));
     }
+    public void ClearWorkTime()
+    {
+        _workTimes.Clear();
+    }
+    
     public Product AddProduct(string name, string imagUrl, double cost)
      { 
          var product = new Product(name, imagUrl, cost, Id);

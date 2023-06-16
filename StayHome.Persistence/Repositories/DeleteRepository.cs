@@ -1,3 +1,4 @@
+using Application.Dashboard.Core.Abstractions;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,12 @@ namespace StayHome.Persistence.Repositories;
 
 public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepository
 {
-    public DeleteRepository(StayHomeDbContext context) : base(context) { }
+    private readonly IFileService _fileService;
+
+    public DeleteRepository(StayHomeDbContext context, IFileService fileService) : base(context)
+    {
+        _fileService = fileService;
+    }
 
     public async Task DeleteCity(List<Guid> ids)
     {
@@ -21,6 +27,17 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         await UnitOfWork.SaveChangesAsync();
     }
     
+    public async Task DeleteShops(List<Guid> ids)
+    {
+        var shops = await TrackingQuery<Shop>()
+            .Include(b => b.Products.Where(lb => !lb.UtcDateDeleted.HasValue))
+            .Include(b => b.WorkTimes.Where(lb => !lb.UtcDateDeleted.HasValue))
+            .Where(b => ids.Contains(b.Id)).ToListAsync();
+
+        _deleteShops(shops);
+        await UnitOfWork.SaveChangesAsync();
+    }
+    
     #region - private -
     private void _deleteCity(List<City> cities)
     {
@@ -29,7 +46,6 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
 
         SoftDelete(cities);
     }
-    
     private void _deleteAreas(List<Area> areas)
     {
         var areaPrices = areas.SelectMany(a => a.AreaPrices1).ToList();
@@ -38,7 +54,20 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         _deleteAreaPrices(areaPrices);
         SoftDelete(areas);
     }
-    private void _deleteAreaPrices(List<AreaPrice> areaPrices)
-        => SoftDelete(areaPrices);
+    private void _deleteAreaPrices(List<AreaPrice> areaPrices) => SoftDelete(areaPrices);
+    
+    private void _deleteShops(List<Shop> shops)
+    {
+        var products = shops.SelectMany(b => b.Products).ToList();
+        var workTimes = shops.SelectMany(b => b.WorkTimes).ToList();
+        var images = shops.Select(b => b.ImageUrl).ToList();
+
+        _fileService.Delete(images);
+        _deleteProducts(products);
+        _deleteWorkTimes(workTimes);
+        SoftDelete(shops);
+    }
+    private void _deleteProducts(List<Product> products) => SoftDelete(products);
+    private void _deleteWorkTimes(List<WorkTime> workTimes) => SoftDelete(workTimes);
     #endregion
 }

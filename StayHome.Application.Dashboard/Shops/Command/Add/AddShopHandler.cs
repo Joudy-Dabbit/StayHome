@@ -30,9 +30,9 @@ public class AddShopHandler : IRequestHandler<AddShopCommand.Request,
         {
             shop.AddWorkTime(w.DayOfWeek, w.StartTime, w.EndTime);
         });
+        
         _repository.Add(shop);        
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        
         return await _repository.GetAsync(shop.Id, GetAllSopsQuery.Response.Selector());
     }
 }

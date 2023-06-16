@@ -19,7 +19,6 @@
       <Folder Include="Categories\Queries\" />
       <Folder Include="Settings\Commands\" />
       <Folder Include="Settings\Queries\" />
-      <Folder Include="Shops\Command\Delete\" />
     </ItemGroup>
 
 </Project>

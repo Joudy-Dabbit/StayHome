@@ -25,6 +25,12 @@ public class ModifyShopHandler : IRequestHandler<ModifyShopCommand.Request,
         
         shop.Modify(request.Name,request.ImageUrl, request.CategoryId, request.AreaId);
         
+        if(request.WorkTimes != null)
+        {
+            shop.ClearWorkTime();
+            request.WorkTimes.ForEach(w => { shop.AddWorkTime(w.DayOfWeek, w.StartTime, w.EndTime); });
+        }
+        
         _repository.Update(shop);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(shop.Id, GetByIdShopQuery.Response.Selector);
