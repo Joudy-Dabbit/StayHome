@@ -21,10 +21,9 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
 
     public async Task<OperationResponse<CreateCustomerCommand.Response>> HandleAsync(CreateCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
-        var profileImage = await _fileService.Upload(request.ImageFile);
-
         var customer = new Customer(request.FullName, request.PhoneNumber,
-             profileImage, request.Email, request.BirthDate, request.CityId, request.DeviceToken);
+             request.ImageUrl, request.Email, request.BirthDate, 
+             request.CityId, request.DeviceToken);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         

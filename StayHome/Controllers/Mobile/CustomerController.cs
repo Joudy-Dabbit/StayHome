@@ -21,7 +21,7 @@ public sealed class CustomerController : ApiController
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(LogInCustomerCommand.Response))]
     public async Task<IActionResult> LogIn(
         [FromServices] IRequestHandler<LogInCustomerCommand.Request, OperationResponse<LogInCustomerCommand.Response>> handler,
-        [FromBody] LogInCustomerCommand.Request request)
+        [FromQuery] LogInCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
     [AllowAnonymous]
@@ -30,8 +30,14 @@ public sealed class CustomerController : ApiController
     public async Task<IActionResult> Create(    
         [FromServices] IRequestHandler<CreateCustomerCommand.Request,
             OperationResponse<CreateCustomerCommand.Response>> handler,
-        [FromBody] CreateCustomerCommand.Request request)
+        [FromQuery] CreateCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
+    
+    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProfileImages(
+        [FromServices] IRequestHandler<GetProfileImagesQuery.Request, OperationResponse<List<string>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
@@ -55,7 +61,7 @@ public sealed class CustomerController : ApiController
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddAddress(
         [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse> handler,
-        [FromBody] AddCustomerAddressCommand.Request request)
+        [FromQuery] AddCustomerAddressCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();     
     
     
@@ -64,7 +70,7 @@ public sealed class CustomerController : ApiController
     [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> ModifyAddress(
         [FromServices] IRequestHandler<ModifyCustomerAddressCommand.Request, OperationResponse> handler,
-        [FromBody] ModifyCustomerAddressCommand.Request request)
+        [FromQuery] ModifyCustomerAddressCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
     
     

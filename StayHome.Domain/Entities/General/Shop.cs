@@ -21,6 +21,7 @@ public class Shop : AggregateRoot
 
     public Guid AreaId { get; private set; }
     public Area Area { get; private set; }
+    
 
     private readonly List<Product> _products = new();
     public IReadOnlyCollection<Product> Products => _products.AsReadOnly();  
@@ -34,6 +35,13 @@ public class Shop : AggregateRoot
     {
         _workTimes.Add(new (daysOfWeek, endTime, startTime, Id));
     }
+    public Product AddProduct(string name, string imagUrl, double cost)
+     { 
+         var product = new Product(name, imagUrl, cost, Id);
+         _products.Add(product);
+         return product;
+     }
+        
     public bool IsOnline => 
         WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
                            ( wt.StartTime <= DateTime.Now.TimeOfDay 

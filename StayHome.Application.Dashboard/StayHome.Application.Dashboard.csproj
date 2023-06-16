@@ -20,8 +20,6 @@
       <Folder Include="Settings\Commands\" />
       <Folder Include="Settings\Queries\" />
       <Folder Include="Shops\Command\Delete\" />
-      <Folder Include="Shops\Command\Modify\" />
-      <Folder Include="Shops\Queries\GetById\" />
     </ItemGroup>
 
 </Project>

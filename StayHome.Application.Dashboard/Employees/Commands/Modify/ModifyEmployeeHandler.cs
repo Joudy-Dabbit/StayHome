@@ -42,7 +42,7 @@ public class ModifyEmployeeHandler : IRequestHandler<ModifyEmployeeCommand.Reque
         employee.Modify(request.FullName, profileImageUrl!, request.BirthDate,
             request.Email, request.PhoneNumber);
         
-        if (request.Password != null)
+        if (request.Password != null) 
         {
             await _userRepository.TryModifyPassword(employee, request.Password);
             await _userManager.UpdateAsync(employee);

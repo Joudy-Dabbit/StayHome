@@ -14,7 +14,7 @@ public static class DataSeed
     {
         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-        SeedWwwroot(context);
+        //SeedWwwroot(context);
         await SeedCategories(context);
         await SeedCitiesWithArea(context);
         await SeedRole(roleManager, context);
@@ -102,21 +102,21 @@ public static class DataSeed
         await context.SaveChangesAsync();
     }
     
-    private static void SeedWwwroot(StayHomeDbContext context)
-    {
-        if (context.Orders.Any())
-        {
-            return;
-        }
-    
-        if (Directory.Exists(ConstValues.WwwrootDir))
-        {
-            Directory.Delete(ConstValues.WwwrootDir, true);
-        }
-
-        Directory.CreateDirectory(ConstValues.WwwrootDir);
-        Directory.CreateDirectory(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed));
-    }
+    // private static void SeedWwwroot(StayHomeDbContext context)
+    // {
+    //     if (context.Orders.Any())
+    //     {
+    //         return;
+    //     }
+    //
+    //     if (Directory.Exists(ConstValues.WwwrootDir))
+    //     {
+    //         Directory.Delete(ConstValues.WwwrootDir, true);
+    //     }
+    //
+    //     Directory.CreateDirectory(ConstValues.WwwrootDir);
+    //     Directory.CreateDirectory(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed));
+    // }
     private static string AddImage()
     {
         var s = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.StayHomeJpg);

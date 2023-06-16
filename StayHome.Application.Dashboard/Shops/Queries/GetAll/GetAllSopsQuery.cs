@@ -19,7 +19,7 @@ public class GetAllSopsQuery
         public Guid CategoryId { get; set; }
         public string ImageUrl { get; set; }
         public List<WorkTimeDto> WorkTimes { get; set; }
-        public bool IsOnline { get; set; }
+        //todo public bool IsOnline { get; set; }
 
         public static Expression<Func<Shop, Response>> Selector()
             => s => new Response()
@@ -34,9 +34,10 @@ public class GetAllSopsQuery
                     EndTime = w.EndTime,
                     StartTime = w.StartTime
                 }).ToList(),
-                // IsOnline = s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
-                //                                 ( wt.StartTime <= DateTime.Now.TimeOfDay 
-                //                                   && DateTime.Now.TimeOfDay <= wt.EndTime))
+                // IsOnline = s.WorkTimes.Any()
+                //     && s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
+                //                                 ( wt.StartTime <= DateTime.UtcNow.TimeOfDay 
+                //                                   && DateTime.UtcNow.TimeOfDay <= wt.EndTime))
             };
     }
 }
