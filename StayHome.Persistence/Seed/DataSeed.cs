@@ -112,6 +112,10 @@ public static class DataSeed
         if (!Directory.Exists(ConstValues.WwwrootDir))
         {
             Directory.CreateDirectory(ConstValues.WwwrootDir);
+        }
+        
+        if (!Directory.Exists(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed)))
+        {
             Directory.CreateDirectory(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed));
         }
     }
