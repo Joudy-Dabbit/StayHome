@@ -25,7 +25,6 @@ public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand.Reque
             .Where(c => request.Ids.Contains(c.Id)).ToListAsync(cancellationToken);
 
         _repository.SoftDelete(toDelete);
-        toDelete.ForEach(customer => _fileService.Delete(customer.ImageUrl));
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();
     }

@@ -28,6 +28,8 @@ public class Employee : User
         Email = email;
     }
     
+    public string? ImageUrl { get; set; }
+
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();   
 }

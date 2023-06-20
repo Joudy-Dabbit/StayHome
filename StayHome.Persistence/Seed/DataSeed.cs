@@ -41,13 +41,13 @@ public static class DataSeed
         await context.SaveChangesAsync();
 
         var customer = new Customer("Aisha Biazed", "077777777",
-            "customer@gmail.com", AddImage(), new DateTime(2003, 6, 2), cityId);
+            "customer@gmail.com", new DateTime(2003, 6, 2), cityId);
         await userManager.CreateAsync(customer, "1234");
         await userManager.AddToRoleAsync(customer, nameof(StayHomeRoles.Customer));       
         await context.SaveChangesAsync();
 
         var driver = new Driver("default driver", "077777777",
-            new DateTime(2003, 6, 2), "driver@gmail.com", AddImage());
+            new DateTime(2003, 6, 2), "driver@gmail.com");
         await userManager.CreateAsync(driver, "1234");
         await userManager.AddToRoleAsync(driver, nameof(StayHomeRoles.Driver));
         await context.SaveChangesAsync();

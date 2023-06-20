@@ -32,15 +32,9 @@ public class ModifyCustomerHandler : IRequestHandler<ModifyCustomerCommand.Reque
         
         if(await _userRepository.IsEmailExist<Customer>(request.Email, request.Id))
             return DomainError.User.EmailAlreadyUsed(request.Email);
+        
 
-        var profileImageUrl = customer.ImageUrl;
-        if(request.ImageFile != null)
-        {
-            _fileService.Delete(customer.ImageUrl); 
-            profileImageUrl = await _fileService.Upload(request.ImageFile);
-        }
-
-        customer.Modify(request.FullName, profileImageUrl!, request.BirthDate,
+        customer.Modify(request.FullName, request.BirthDate,
             request.Email, request.CityId, request.PhoneNumber);
         
         if (request.Password != null)

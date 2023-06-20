@@ -13,7 +13,6 @@ public class CreateCustomerCommand
     {
         public string FullName { get; set; }
         public string Email { get; set; }  
-        public string ImageUrl { get; set; }
         public string Password { get; set; }  
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
@@ -25,7 +24,6 @@ public class CreateCustomerCommand
         public Guid Id { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
-        public string ImageUrl { get; set; }
         public string Email { get; set; }
         public DateTime? BirthDate { get; set; }
 
@@ -39,7 +37,6 @@ public class CreateCustomerCommand
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber,
                 AccessToken = accessToken,
-                ImageUrl = c.ImageUrl,
                 RefreshToken = refreshToken
             };
     }

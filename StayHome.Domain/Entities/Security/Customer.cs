@@ -6,23 +6,21 @@ public class Customer : User
 
     public Customer(string fullName,
         string phoneNumber, string email,
-        string imageUrl, DateTime? birthDate
-        , Guid cityId)
+         DateTime? birthDate, Guid cityId)
     {
         CityId = cityId;
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
         UserName = Guid.NewGuid().ToString();
-        ImageUrl = imageUrl;
         Email = email;
     }
 
     public Customer(string fullName,
-        string phoneNumber, string imageUrl, 
-        string email, DateTime? birthDate, 
+        string phoneNumber, string email,
+        DateTime? birthDate, 
          Guid cityId, string deviceToken) 
-        : this(fullName, phoneNumber, email, imageUrl, birthDate, cityId)
+        : this(fullName, phoneNumber, email, birthDate, cityId)
          
     {
         DeviceToken = deviceToken;
@@ -48,14 +46,14 @@ public class Customer : User
         _addresses.Add(address);
     }
     
-    public void Modify(string fullName, string imageUrl,
-        DateTime? birthDate, string email, Guid cityId, string phoneNumber)
+    public void Modify(string fullName,
+        DateTime? birthDate, string email, 
+        Guid cityId, string phoneNumber)
     {
         CityId = cityId;
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
-        ImageUrl = imageUrl;
         Email = email;
     }
 }

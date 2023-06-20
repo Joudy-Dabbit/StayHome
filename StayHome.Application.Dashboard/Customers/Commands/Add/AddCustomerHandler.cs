@@ -24,9 +24,9 @@ public class AddCustomerHandler : IRequestHandler<AddCustomerCommand.Request,
         if(await _userRepository.IsEmailExist<Customer>(request.PhoneNumber))
             return DomainError.User.EmailAlreadyUsed(request.Email);
 
-        var profileImageUrl = await _fileService.Upload(request.ImageFile);
-        var customer = new Customer(request.FullName, request.PhoneNumber, request.Email,   
-           profileImageUrl ,request.BirthDate, request.CityId);
+        var customer = new Customer(request.FullName,
+            request.PhoneNumber, request.Email,   
+            request.BirthDate, request.CityId);
         
         customer.AddAddress(request.Address.Name, request.Address.AreaId, 
             request.Address.HouseNumber, request.Address.Street,

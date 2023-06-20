@@ -5,15 +5,12 @@ public class Driver : User
     private Driver() { }
 
     public Driver(string fullName,
-        string phoneNumber, DateTime? birthDate
-, string email,
-        string imageUrl)
+        string phoneNumber, DateTime? birthDate ,string email)
     {
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
         UserName = Guid.NewGuid().ToString();
-        ImageUrl = imageUrl;
         Email = email;
     }
 
@@ -21,7 +18,7 @@ public class Driver : User
         string phoneNumber, DateTime? birthDate
 ,
         string email, string imageUrl, 
-        string deviceToken) : this(fullName, phoneNumber, birthDate, email, imageUrl)
+        string deviceToken) : this(fullName, phoneNumber, birthDate, email)
     {
         DeviceToken = deviceToken;
     }
