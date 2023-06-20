@@ -15,5 +15,6 @@ public class GetAllEmployeesHandler: IRequestHandler<GetAllEmployeesQuery.Reques
     }
 
     public async Task<OperationResponse<List<GetAllEmployeesQuery.Response>>> HandleAsync(GetAllEmployeesQuery.Request request, CancellationToken cancellationToken = new CancellationToken())
-        => await _userRepository.GetAsync(GetAllEmployeesQuery.Response.Selector());
+        => await _userRepository.GetAsync(e => !e.UtcDateDeleted.HasValue,
+            GetAllEmployeesQuery.Response.Selector());
 }

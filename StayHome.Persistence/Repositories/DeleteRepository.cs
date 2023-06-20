@@ -37,6 +37,14 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         _deleteShops(shops);
         await UnitOfWork.SaveChangesAsync();
     }
+    public async Task DeleteProducts(List<Guid> ids)
+    {
+        var products = await TrackingQuery<Product>()
+            .Where(p => ids.Contains(p.Id)).ToListAsync();
+
+        _deleteProducts(products);
+        await UnitOfWork.SaveChangesAsync();
+    }
     
     #region - private -
     private void _deleteCity(List<City> cities)
@@ -55,7 +63,6 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         SoftDelete(areas);
     }
     private void _deleteAreaPrices(List<AreaPrice> areaPrices) => SoftDelete(areaPrices);
-    
     private void _deleteShops(List<Shop> shops)
     {
         var products = shops.SelectMany(b => b.Products).ToList();
@@ -67,7 +74,13 @@ public class DeleteRepository : Repository<Guid, StayHomeDbContext>, IDeleteRepo
         _deleteWorkTimes(workTimes);
         SoftDelete(shops);
     }
-    private void _deleteProducts(List<Product> products) => SoftDelete(products);
+    private void _deleteProducts(List<Product> products)
+    {
+        var images = products.Select(b => b.ImageUrl).ToList();
+
+        _fileService.Delete(images);
+        SoftDelete(products);
+    }
     private void _deleteWorkTimes(List<WorkTime> workTimes) => SoftDelete(workTimes);
     #endregion
 }

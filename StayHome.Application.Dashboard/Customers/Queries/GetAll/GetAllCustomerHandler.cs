@@ -16,5 +16,6 @@ public class GetAllCustomerHandler : IRequestHandler<GetAllCustomerQuery.Request
 
     public async Task<OperationResponse<List<GetAllCustomerQuery.Response>>> HandleAsync(GetAllCustomerQuery.Request request,
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(GetAllCustomerQuery.Response.Selector());
+        => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue,
+            GetAllCustomerQuery.Response.Selector());
 }

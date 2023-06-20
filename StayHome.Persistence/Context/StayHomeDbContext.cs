@@ -39,6 +39,17 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
         base.OnModelCreating(builder);
     }
     
+    // public static void ConfigureDateDeletedQueryFilter<TKey>(this ModelBuilder builder) where TKey : struct, IEquatable<TKey>
+    // {
+    //     foreach (var entityType in builder.Model.GetEntityTypes().Where(x =>
+    //                  !x.ClrType.IsDefined(typeof(IgnoreAddQueryFilterAttribute))
+    //                  && (x.ClrType.BaseType.GetHierarchy().Any(a => a == typeof(BaseEntity<TKey>)) ||
+    //                      x.ClrType.GetInterfaces().Any(i => i == typeof(IElIdentity)))))
+    //     {
+    //         AddQueryFilter<TKey>(builder, f => !f.DateDeleted.HasValue, entityType);
+    //     }
+    // }
+    
     protected void PrimaryKeyValueGenerated(ModelBuilder builder, ValueGenerated valueGenerated = ValueGenerated.Never)
     {
         foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
