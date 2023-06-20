@@ -18,10 +18,8 @@ public class Customer : User
 
     public Customer(string fullName,
         string phoneNumber, string email,
-        DateTime? birthDate, 
-         Guid cityId, string deviceToken) 
+        DateTime? birthDate, Guid cityId, string deviceToken) 
         : this(fullName, phoneNumber, email, birthDate, cityId)
-         
     {
         DeviceToken = deviceToken;
     }
@@ -30,6 +28,7 @@ public class Customer : User
     
     public Guid CityId { get; private set; }
     public City City { get; private set; }
+    
     
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();    

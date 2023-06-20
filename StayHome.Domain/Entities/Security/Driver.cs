@@ -14,13 +14,12 @@ public class Driver : User
         Email = email;
     }
 
-    public Driver(string fullName,
-        string phoneNumber, DateTime? birthDate
-,
-        string email, string imageUrl, 
+    public Driver(string fullName,  
+        string phoneNumber, DateTime? birthDate,
+        string email, 
         string deviceToken) : this(fullName, phoneNumber, birthDate, email)
     {
-        DeviceToken = deviceToken;
+        DeviceToken = deviceToken;  
     }
     
     public string? DeviceToken { get; private set; }
