@@ -15,12 +15,12 @@ public static class DataSeed
         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
         SeedWwwroot(context);
+        await SeedRole(roleManager, context);
+        await SeedCitiesWithArea(context);
+        await SeedUser(userManager, context);
         await SeedCategories(context);
         await SeedShops(context);
-        await SeedCitiesWithArea(context);
         await SeedVehicleTypes(context);
-        await SeedRole(roleManager, context);
-        await SeedUser(userManager, context);
     }
 
     private static async Task SeedUser(UserManager<User> userManager, 

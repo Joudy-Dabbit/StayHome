@@ -20,6 +20,7 @@ public class DeleteVehicleTypeHandler : IRequestHandler<DeleteVehicleTypeCommand
         var toDelete = await _repository.TrackingQuery<VehicleType>()
             .Where(c => request.Ids.Contains(c.Id)).ToListAsync(cancellationToken);
         _repository.SoftDelete(toDelete);
+        await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();
     }
 }
