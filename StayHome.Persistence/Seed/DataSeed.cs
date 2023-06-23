@@ -16,7 +16,9 @@ public static class DataSeed
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
         SeedWwwroot(context);
         await SeedCategories(context);
+        await SeedShops(context);
         await SeedCitiesWithArea(context);
+        await SeedVehicleTypes(context);
         await SeedRole(roleManager, context);
         await SeedUser(userManager, context);
     }
@@ -81,6 +83,33 @@ public static class DataSeed
         var category2 = new Category("وجبات سريعة", AddImage());
         var category3 = new Category("مفروشات", AddImage());
         context.AddRange(new List<Category>() {category1, category2, category3});
+        
+        await context.SaveChangesAsync();
+    }
+    private static async Task SeedShops(StayHomeDbContext context)
+    {
+        if (context.Shops.Any())
+        {
+            return;
+        }
+
+        var categoryId = context.Categories.First(c => !c.UtcDateDeleted.HasValue).Id;
+        var areaId = context.Areas.First(c => !c.UtcDateDeleted.HasValue).Id;
+        context.Add(new Shop("القبطان", AddImage(), categoryId, areaId));
+        
+        await context.SaveChangesAsync();
+    }
+    private static async Task SeedVehicleTypes(StayHomeDbContext context)
+    {
+        if (context.VehicleTypes.Any())
+        {
+            return;
+        }
+
+        var vehicleType1 = new VehicleType("تكسي");
+        var vehicleType2 = new VehicleType("شاحنة");
+        var vehicleType3 = new VehicleType("موتور");
+        context.AddRange(new List<VehicleType>() {vehicleType1, vehicleType2, vehicleType3});
         
         await context.SaveChangesAsync();
     }

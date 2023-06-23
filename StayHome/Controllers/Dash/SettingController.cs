@@ -9,6 +9,7 @@ using StayHome.Application.Dashboard.Areas;
 using StayHome.Application.Dashboard.Cities;
 using StayHome.Application.Dashboard.Categories;
 using StayHome.Application.Dashboard.Cities.Commands.Upsert;
+using StayHome.Application.Dashboard.VehicleTypes;
 using StayHome.Util;
 
 namespace StayHome.Controllers.Dash;
@@ -89,8 +90,8 @@ public class SettingController : ApiController
          [FromQuery] Guid? id, [FromBody] List<Guid> ids)
          => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
      #endregion
-     
-     #region - Categories -
+
+     #region  - Categories -
      [AppAuthorize(StayHomeRoles.Employee)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllCategoriesQuery.Response>),StatusCodes.Status200OK)]
@@ -113,6 +114,34 @@ public class SettingController : ApiController
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteCategory(
          [FromServices] IRequestHandler<DeleteCategoryCommand.Request,
+             OperationResponse> handler,
+         [FromQuery] Guid? id, [FromBody] List<Guid> ids)
+         => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
+     #endregion
+     
+     #region - VehicleTypes -
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(List<GetAllVehicleTypesQuery.Response>),StatusCodes.Status200OK)]
+     public async Task<IActionResult> GetAllVehicleTypes(
+         [FromServices] IRequestHandler<GetAllVehicleTypesQuery.Request, 
+             OperationResponse<List<GetAllVehicleTypesQuery.Response>>> handler)
+         => await handler.HandleAsync(new()).ToJsonResultAsync();    
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(GetAllVehicleTypesQuery.Response),StatusCodes.Status200OK)]
+     public async Task<IActionResult> UpsertVehicleType(
+         [FromServices] IRequestHandler<UpsertVehicleTypeCommand.Request, 
+             OperationResponse<GetAllVehicleTypesQuery.Response>> handler,
+         [FromForm] UpsertVehicleTypeCommand.Request request)
+         => await handler.HandleAsync(request).ToJsonResultAsync();
+     
+     [AppAuthorize(StayHomeRoles.Employee)]
+     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
+     public async Task<IActionResult> DeleteVehicleType(
+         [FromServices] IRequestHandler<DeleteVehicleTypeCommand.Request,
              OperationResponse> handler,
          [FromQuery] Guid? id, [FromBody] List<Guid> ids)
          => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();

@@ -78,6 +78,7 @@ public class StayHomeDbContext : BaseIdentityDbContext<Guid,User>, IStayHomeDbCo
      public DbSet<Shop> Shops => Set<Shop>();
      public DbSet<WorkTime>  WorkTimes => Set<WorkTime>();
      public DbSet<Vehicle> Vehicles => Set<Vehicle>();
+     public DbSet<VehicleType> VehicleTypes => Set<VehicleType>();
      public DbSet<AreaPrice> AreaPrices => Set<AreaPrice>();
      #endregion
 

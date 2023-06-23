@@ -1,6 +1,6 @@
 namespace Domain.Entities;
 
-public class VehicleType
+public class VehicleType : AggregateRoot
 {
     private VehicleType() { }
 
@@ -13,7 +13,8 @@ public class VehicleType
     
     
     private readonly List<Vehicle> _vehicles = new();
-    public IReadOnlyCollection<Vehicle> Orders => _vehicles.AsReadOnly();   
+    public IReadOnlyCollection<Vehicle> Vehicles => _vehicles.AsReadOnly();   
+    
     
     public void Modify(string name)
     {

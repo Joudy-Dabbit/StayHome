@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StayHome.Persistence.Configurations;
 
-public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
-{
-    public void Configure(EntityTypeBuilder<Vehicle> builder)
-    {
-        builder.OwnsOne(order => order.VehicleType);
-    }
-}
+// public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
+// {
+//     public void Configure(EntityTypeBuilder<Vehicle> builder)
+//     {
+//         builder.OwnsOne(order => order.VehicleTypes);
+//     }
+// }

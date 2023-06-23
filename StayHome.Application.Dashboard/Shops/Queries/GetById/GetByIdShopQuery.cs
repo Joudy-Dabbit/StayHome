@@ -27,6 +27,7 @@ public class GetByIdShopQuery
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string ImageUrl { get; set; }
+            public double Cost { get; set; }
         }
 
         public static Expression<Func<Shop, Response>> Selector
@@ -47,7 +48,8 @@ public class GetByIdShopQuery
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    ImageUrl = p.ImageUrl
+                    ImageUrl = p.ImageUrl,
+                    Cost = p.Cost
                 }).ToList()
             };
     }
