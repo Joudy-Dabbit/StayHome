@@ -26,7 +26,7 @@ public class AddCustomerHandler : IRequestHandler<AddCustomerCommand.Request,
 
         var customer = new Customer(request.FullName,
             request.PhoneNumber, request.Email,   
-            request.BirthDate, request.CityId);
+            request.BirthDate, request.CityId, request.Gender);
         
         customer.AddAddress(request.Address.Name, request.Address.AreaId, 
             request.Address.HouseNumber, request.Address.Street,

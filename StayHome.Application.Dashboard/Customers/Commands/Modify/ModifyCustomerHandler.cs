@@ -35,7 +35,8 @@ public class ModifyCustomerHandler : IRequestHandler<ModifyCustomerCommand.Reque
         
 
         customer.Modify(request.FullName, request.BirthDate,
-            request.Email, request.CityId, request.PhoneNumber);
+            request.Email, request.CityId,
+            request.PhoneNumber, request.Gender);
         
         if (request.Password != null)
         {

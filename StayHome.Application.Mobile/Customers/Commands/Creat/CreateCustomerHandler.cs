@@ -24,7 +24,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
         var customer = new Customer(request.FullName,
             request.PhoneNumber,
               request.Email, request.BirthDate, 
-             request.CityId, request.DeviceToken);
+             request.CityId, request.DeviceToken, request.Gender);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         

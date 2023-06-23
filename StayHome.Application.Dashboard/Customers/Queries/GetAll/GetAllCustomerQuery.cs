@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Domain.Entities;
+using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Application.Dashboard.Employees;

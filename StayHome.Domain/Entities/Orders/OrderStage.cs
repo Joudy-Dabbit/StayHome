@@ -4,13 +4,16 @@ namespace Domain.Entities;
 
 public class OrderStage : AggregateRoot
 {
-    private OrderStage() { }
-    
-    public OrderStage(Order order, DateTime dateTime, OrderStages currentStage)
+    private OrderStage(Guid orderId)
     {
-        Order = order;
+        OrderId = orderId;
+    }
+    
+    public OrderStage(DateTime dateTime, OrderStages currentStage, Guid orderId)
+    {
         DateTime = dateTime;
         CurrentStage = currentStage;
+        OrderId = orderId;
     }
     public Order Order { get; private set; }
     public Guid OrderId { get; private set; }

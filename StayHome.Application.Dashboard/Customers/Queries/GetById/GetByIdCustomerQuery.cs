@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Domain.Entities;
+using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
@@ -22,6 +23,7 @@ public class GetByIdCustomerQuery
         public bool IsBlock { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<AddressRes> Address { get; set; }
+        public Gender Gender { get;  set; }
 
         public class AddressRes
         {
@@ -45,6 +47,7 @@ public class GetByIdCustomerQuery
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber,
                 IsBlock = c.DateBlocked.HasValue,
+                Gender = c.Gender,
                 Address = c.Addresses.Where(a => !a.UtcDateDeleted.HasValue)
                     .Select(a => new AddressRes()
                     {

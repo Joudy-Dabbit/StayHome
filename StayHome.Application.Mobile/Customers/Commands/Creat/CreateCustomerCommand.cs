@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Domain.Entities;
+using Domain.Enum;
 using Microsoft.AspNetCore.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
@@ -17,6 +18,7 @@ public class CreateCustomerCommand
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public string DeviceToken { get; set; }
+        public Gender Gender { get;  set; }
         public Guid CityId { get; set; }
     }   
     public class Response : TokenDto
