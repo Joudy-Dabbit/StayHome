@@ -27,8 +27,9 @@ public class VehicleController : ApiController
     [ProducesResponseType(typeof(GetByIdVehicleQuery.Response),StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
         [FromServices] IRequestHandler<GetByIdVehicleQuery.Request, 
-            OperationResponse<GetByIdVehicleQuery.Response>> handler)
-        => await handler.HandleAsync(new()).ToJsonResultAsync();    
+            OperationResponse<GetByIdVehicleQuery.Response>> handler,
+        GetByIdVehicleQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();    
      
     [AppAuthorize(StayHomeRoles.Employee)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
