@@ -21,6 +21,7 @@ public static class DataSeed
         await SeedCategories(context);
         await SeedShops(context);
         await SeedVehicleTypes(context);
+        await SeedVehicles(context);
     }
 
     private static async Task SeedUser(UserManager<User> userManager, 
@@ -110,6 +111,18 @@ public static class DataSeed
         var vehicleType2 = new VehicleType("شاحنة");
         var vehicleType3 = new VehicleType("موتور");
         context.AddRange(new List<VehicleType>() {vehicleType1, vehicleType2, vehicleType3});
+        
+        await context.SaveChangesAsync();
+    }
+    private static async Task SeedVehicles(StayHomeDbContext context)
+    {
+        if (context.Vehicles.Any())
+        {
+            return;
+        }
+        var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
+
+        context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101"));
         
         await context.SaveChangesAsync();
     }

@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Domain.Entities;
+using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
@@ -19,7 +20,7 @@ public class GetAllVehiclesQuery
         public string Color { get; set; }    
         public string Number { get; set; }    
         public double MaxCapacity { get; set; }
-       // public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; }
         
         public static Expression<Func<Vehicle, Response>> Selector
             => c => new()
@@ -29,7 +30,9 @@ public class GetAllVehiclesQuery
                 MaxCapacity = c.MaxCapacity,
                 VehicleTypeId = c.VehicleTypeId,
                 Number = c.Number,
-                //IsAvailable = c.Orders.Any(o => o.)
+                IsAvailable = c.Orders.All(o => o.Stages.OrderByDescending(os => os.DateTime)
+                    .First()
+                    .CurrentStage != OrderStages.OnWay)
             };
     }
 }

@@ -1,3 +1,5 @@
+using Domain.Enum;
+
 namespace Domain.Entities;
 
 public class Order : AggregateRoot
@@ -22,4 +24,11 @@ public class Order : AggregateRoot
     
     public Guid? VehicleId { get; private set; }
     public Vehicle? Vehicle { get; private set; }
+    
+    
+    private readonly List<OrderStage> _stages = new();
+    public IReadOnlyCollection<OrderStage> Stages => _stages.AsReadOnly();
+    
+    public OrderStage CurrentStage => Stages.OrderByDescending(os => os.DateTime).First();
+    public string CurrentStageName => Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString();
 }

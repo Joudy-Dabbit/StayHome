@@ -5,11 +5,11 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace StayHome.Application.Dashboard.Vehicles;
 
-public class GetByIdVehiclesQuery
+public class GetByIdVehicleQuery
 {
-    public class Request : IRequest<OperationResponse<List<Response>>>
+    public class Request : IRequest<OperationResponse<Response>>
     {
-        
+        public Guid Id { get; set; }
     }
 
     public class Response
