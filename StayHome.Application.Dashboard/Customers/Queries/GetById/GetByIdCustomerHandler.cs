@@ -16,6 +16,6 @@ public class GetByIdCustomerHandler
     }
 
     public async Task<OperationResponse<GetByIdCustomerQuery.Response>> HandleAsync(GetByIdCustomerQuery.Request request,
-        CancellationToken cancellationToken = new CancellationToken())
+        CancellationToken cancellationToken = new())
         => await _userRepository.GetAsync(request.Id, GetByIdCustomerQuery.Response.Selector());
 }

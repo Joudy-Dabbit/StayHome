@@ -14,14 +14,11 @@ public class ModifyCustomerHandler : IRequestHandler<ModifyCustomerCommand.Reque
     OperationResponse<GetByIdCustomerQuery.Response>>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IFileService _fileService;
     private readonly UserManager<User> _userManager;
 
-    public ModifyCustomerHandler(IUserRepository userRepository,
-        IFileService fileService, UserManager<User> userManager)
+    public ModifyCustomerHandler(IUserRepository userRepository, UserManager<User> userManager)
     {
         _userRepository = userRepository;
-        _fileService = fileService;
         _userManager = userManager;
     }
 

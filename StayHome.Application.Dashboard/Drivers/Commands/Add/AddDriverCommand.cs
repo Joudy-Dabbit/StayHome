@@ -4,20 +4,16 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Contracts.Shared.Addresses;
 
-namespace StayHome.Application.Dashboard.Customers;
+namespace StayHome.Application.Dashboard.Drivers;
 
-public class AddCustomerCommand
+public class AddDriverCommand
 {
-    public class Request : IRequest<OperationResponse<GetAllCustomerQuery.Response>>
+    public class Request : IRequest<OperationResponse<GetAllDriversQuery.Response>>
     {  
         public string FullName { get; set; }
         public string PhoneNumber { get; set; } 
         public string Password { get; set; }
-        public Gender Gender { get;  set; }
         public string Email { get; set; } 
-        public Guid CityId { get; set; }
         public DateTime? BirthDate { get; set; }
-        
-        //public AddAddressRequest Address { get; set; }
     }
 }

@@ -21,16 +21,16 @@ public class AddCustomerHandler : IRequestHandler<AddCustomerCommand.Request,
     } 
     public async Task<OperationResponse<GetAllCustomerQuery.Response>> HandleAsync(AddCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
-        if(await _userRepository.IsEmailExist<Customer>(request.PhoneNumber))
+        if(await _userRepository.IsEmailExist<Customer>(request.Email))
             return DomainError.User.EmailAlreadyUsed(request.Email);
 
         var customer = new Customer(request.FullName,
             request.PhoneNumber, request.Email,   
             request.BirthDate, request.CityId, request.Gender);
         
-        customer.AddAddress(request.Address.Name, request.Address.AreaId, 
-            request.Address.HouseNumber, request.Address.Street,
-            request.Address.Additional, request.Address.Floor);
+        // customer.AddAddress(request.Address.Name, request.Address.AreaId, 
+        //     request.Address.HouseNumber, request.Address.Street,
+        //     request.Address.Additional, request.Address.Floor);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         

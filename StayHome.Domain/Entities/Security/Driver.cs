@@ -26,4 +26,13 @@ public class Driver : User
     
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();   
+    
+    public void Modify(string fullName,
+        string phoneNumber, DateTime? birthDate ,string email)
+    {
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        Email = email;
+    }
 }
