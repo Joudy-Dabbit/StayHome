@@ -28,7 +28,15 @@ public class Shop : AggregateRoot
     
     
     private readonly List<WorkTime> _workTimes = new();
-    public IReadOnlyCollection<WorkTime> WorkTimes => _workTimes.AsReadOnly();
+    public IReadOnlyCollection<WorkTime> WorkTimes => _workTimes.AsReadOnly(); 
+    
+    
+    private readonly List<ShippingOrder> _shippingOrders = new();
+    public IReadOnlyCollection<ShippingOrder> ShippingOrders => _shippingOrders.AsReadOnly();
+    
+    
+    private readonly List<DeliveryOrder> _deliveryOrders = new();
+    public IReadOnlyCollection<DeliveryOrder> DeliveryOrders => _deliveryOrders.AsReadOnly();
     
 
     public void AddWorkTime(DayOfWeek daysOfWeek, TimeSpan startTime, TimeSpan endTime)
