@@ -16,4 +16,8 @@
       <ProjectReference Include="..\StayHome.Domain\StayHome.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Orders\Queries\" />
+    </ItemGroup>
+
 </Project>

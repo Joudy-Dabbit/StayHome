@@ -16,17 +16,17 @@ public class AddressOrder : AggregateRoot
         Floor = floor;
     }
     
-    public Guid AreaId { get; private set; }
     public Area Area { get; private set; }
-    
-    public ICollection<Order> DestinationOrders { get; set; }
-    public ICollection<Order> SourceOrders { get; set; }
-    
+    public Guid AreaId { get; private set; }
+
     public string HouseNumber { get; private set; }
     public string Street { get; private set; } 
     public string? Additional { get; private set; }
     public string Floor { get; private set; }
 
+    public ICollection<Order> DestinationOrders { get; set; }
+    public ICollection<Order> SourceOrders { get; set; }
+    
     public override string ToString()
     {
         return string.Join(",",new []{ Street, Additional, HouseNumber}.Where(s => !s.IsNullOrEmpty()));

@@ -5,13 +5,14 @@ namespace Domain.Entities;
 public class Order : AggregateRoot
 {
     public DateTime? ScheduleDate { get; private set; }
-    public double DeliveryCoast { get; set; }
-
-    public AddressOrder? Destination { get; set; }
-    public Guid? DestinationId { get; set; }
+    public double DeliveryCoast { get; private set; }
+    public string Note { get; private set; }
+    public AddressOrder? Destination { get; private set; }
+    public Guid? DestinationId { get; private set; }
     
-    public AddressOrder? Source { get; private set; }
-    public Guid? SourceId { get; set; }
+    public AddressOrder Source { get; private set; }
+    public Guid SourceId { get; private set; }
+    
 
     public Guid? EmployeeHandlerId { get; private set; }
     public Employee? EmployeeHandler { get; private set; }

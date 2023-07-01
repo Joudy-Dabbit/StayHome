@@ -2,7 +2,7 @@ namespace Domain.Enum;
 
 public enum Gender
 {
-    Female ,
+    Female,
     Male ,
-    Other 
+    Other,
 }

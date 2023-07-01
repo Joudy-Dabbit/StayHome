@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StayHome.Persistence.Configurations;
 
-public class ShippingOrderConfiguration : IEntityTypeConfiguration<ShippingOrderCart>
+public class DeliveryOrderCartConfiguration : IEntityTypeConfiguration<DeliveryOrderCart>
 {
-    public void Configure(EntityTypeBuilder<ShippingOrderCart> builder)
+    public void Configure(EntityTypeBuilder<DeliveryOrderCart> builder)
     {
         builder.HasOne(x => x.Order)
             .WithMany(x => x.Carts)
@@ -14,7 +14,7 @@ public class ShippingOrderConfiguration : IEntityTypeConfiguration<ShippingOrder
             .OnDelete(DeleteBehavior.Restrict);
         
         builder.HasOne(x => x.Product)
-            .WithMany(x => x.ShippingOrderCarts)
+            .WithMany(x => x.DeliveryOrderCarts)
             .HasForeignKey(x => x.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
     }

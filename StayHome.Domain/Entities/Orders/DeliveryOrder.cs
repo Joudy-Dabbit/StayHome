@@ -10,6 +10,6 @@ public class DeliveryOrder : Order
     public Shop? Shop { get; private set; }
     
 
-    private readonly List<Product> _products = new();
-    public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
+    private readonly List<DeliveryOrderCart> _carts = new();
+    public IReadOnlyCollection<DeliveryOrderCart> Carts => _carts.AsReadOnly();
 }
