@@ -60,6 +60,15 @@ public class DriverController : ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
     [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Block(
+        [FromServices] IRequestHandler<BlockDriverCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] BlockDriverCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Employee)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(

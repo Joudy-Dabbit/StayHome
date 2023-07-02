@@ -39,7 +39,20 @@ public class UserRepository : StayHomeRepository, IUserRepository
     public async Task<bool> IsEmailExist<TUser>(string email, Guid? id = null) where TUser : User
         =>  await Query<TUser>().AnyAsync(u => (!id.HasValue && u.Email == email) || 
                                                (id.HasValue && id.Value != u.Id && u.Email == email));
-    
+
+    public async Task<bool> ChangeBlockStatus<TUser>(Guid id) where TUser : User
+    {
+        var user = await TrackingQuery<TUser>().Where(e => e.Id == id).FirstAsync();
+        if (!user.DateBlocked.HasValue)
+        {
+            user.DateBlocked = DateTimeOffset.Now;
+            return true;
+        }
+
+        user.DateBlocked = null;
+        return true;
+    }
+
     public async Task<TokenResult> GenerateRefreshToken(Guid userId) => await _tokenService.OnLogin(userId);
 
     public async Task<IdentityResult> AddWithRole(User user, StayHomeRoles role, string? password = null)

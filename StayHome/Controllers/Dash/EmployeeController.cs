@@ -41,7 +41,8 @@ public class EmployeeController: ApiController
         [FromServices] IRequestHandler<GetByIdEmployeeQuery.Request,
             OperationResponse<GetByIdEmployeeQuery.Response>> handler,
         [FromQuery] GetByIdEmployeeQuery.Request request)
-        => await handler.HandleAsync(request).ToJsonResultAsync();    
+        => await handler.HandleAsync(request).ToJsonResultAsync();   
+    
     
     [AppAuthorize(StayHomeRoles.Employee)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
@@ -60,6 +61,15 @@ public class EmployeeController: ApiController
             OperationResponse<GetByIdEmployeeQuery.Response>> handler,
         [FromForm] ModifyEmployeeCommand.Request request)  
         => await handler.HandleAsync(request).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Block(
+        [FromServices] IRequestHandler<BlockEmployeeCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] BlockEmployeeCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();    
     
     [AppAuthorize(StayHomeRoles.Employee)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
