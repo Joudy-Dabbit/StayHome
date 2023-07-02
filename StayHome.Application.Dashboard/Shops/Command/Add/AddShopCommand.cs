@@ -15,6 +15,6 @@ public class AddShopCommand
         public Guid CategoryId { get; set; }
         public Guid AreaId { get; set; }
 
-        public List<WorkTimeDto> WorkTimes { get; set; }
+        public List<WorkTimeReq> WorkTimes { get; set; }
     }
 }

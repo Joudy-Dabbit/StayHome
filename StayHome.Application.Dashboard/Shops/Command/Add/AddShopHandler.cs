@@ -1,6 +1,7 @@
 using Application.Dashboard.Core.Abstractions;
 using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Repository;
 using Neptunee.BaseCleanArchitecture.Requests;
@@ -33,6 +34,11 @@ public class AddShopHandler : IRequestHandler<AddShopCommand.Request,
         
         _repository.Add(shop);        
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return await _repository.GetAsync(shop.Id, GetAllSopsQuery.Response.Selector());
+        return (await _repository.Query<Shop>()
+                .Include(s => s.WorkTimes)
+                .Where(s => s.Id == shop.Id)
+                .ToListAsync(cancellationToken))
+            .Select(GetAllSopsQuery.Response.Selector())
+            .First();;
     }
 }

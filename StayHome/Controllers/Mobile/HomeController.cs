@@ -1,3 +1,4 @@
+using Domain.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Neptunee.BaseCleanArchitecture.Controllers;
 using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
@@ -13,6 +14,7 @@ public class HomeController: ApiController
 {
     public HomeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
+    [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(List<GetHomeQuery>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(

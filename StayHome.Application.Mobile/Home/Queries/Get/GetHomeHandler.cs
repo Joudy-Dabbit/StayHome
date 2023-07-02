@@ -27,9 +27,10 @@ public class GetHomeHandler : IRequestHandler<GetHomeQuery.Request,
                 Id = s.Id,
                 Name = s.Name,
                 Address = string.Join("-", s.Area.City.Name, s.Area.Name),
-                // IsOnline = s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek &&
-                //                                  (wt.StartTime <= DateTime.Now.TimeOfDay
-                //                                   && DateTime.Now.TimeOfDay <= wt.EndTime))
+                ImageUrl = s.ImageUrl,
+                IsOnline = s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek &&
+                                                 (wt.StartTime <= DateTime.Now.TimeOfDay
+                                                  && DateTime.Now.TimeOfDay <= wt.EndTime))
             }).ToListAsync(cancellationToken);
     }
 }

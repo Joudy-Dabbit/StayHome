@@ -18,26 +18,26 @@ public class GetAllSopsQuery
         public string Name { get; set; }
         public Guid CategoryId { get; set; }
         public string ImageUrl { get; set; }
-        public List<WorkTimeDto> WorkTimes { get; set; }
-        //todo public bool IsOnline { get; set; }
+        public List<WorkTimeRes> WorkTimes { get; set; } 
+        public bool IsOnline { get; set; }
 
-        public static Expression<Func<Shop, Response>> Selector()
+        public static Func<Shop, Response> Selector()
             => s => new Response()
             {
                 Id = s.Id,
                 Name =  s.Name,
                 CategoryId = s.CategoryId,
                 ImageUrl = s.ImageUrl,
-                WorkTimes = s.WorkTimes.Select(w => new WorkTimeDto()
+                WorkTimes = s.WorkTimes.Select(w => new WorkTimeRes()
                 {
-                    DayOfWeek = w.DayOfWeek,
+                    DayOfWeek = w.DayOfWeek.ToString(),
                     EndTime = w.EndTime,
                     StartTime = w.StartTime
                 }).ToList(),
-                // IsOnline = s.WorkTimes.Any()
-                //     && s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
-                //                                 ( wt.StartTime <= DateTime.UtcNow.TimeOfDay 
-                //                                   && DateTime.UtcNow.TimeOfDay <= wt.EndTime))
+                IsOnline = s.WorkTimes.Any()
+                    && s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
+                                                ( wt.StartTime <= DateTime.UtcNow.TimeOfDay 
+                                                  && DateTime.UtcNow.TimeOfDay <= wt.EndTime))
             };
     }
 }

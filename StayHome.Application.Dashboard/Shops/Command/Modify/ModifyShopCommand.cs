@@ -11,10 +11,10 @@ public class ModifyShopCommand
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IFormFile ImageUrl { get; set; }
+        public IFormFile ImageFile { get; set; }
         public Guid AreaId { get; set; }
         public Guid CategoryId { get; set; }
         
-        public List<WorkTimeDto>? WorkTimes { get; set; }
+        public List<WorkTimeReq>? WorkTimes { get; set; }
     }
 }

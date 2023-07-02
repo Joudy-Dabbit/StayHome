@@ -1,4 +1,6 @@
+using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
@@ -15,5 +17,9 @@ public class GetAllSopsHandler : IRequestHandler<GetAllSopsQuery.Request,
     }
 
     public async Task<OperationResponse<List<GetAllSopsQuery.Response>>> HandleAsync(GetAllSopsQuery.Request request, CancellationToken cancellationToken = new CancellationToken())
-        => await _repository.GetAsync(GetAllSopsQuery.Response.Selector());
+        => (await _repository.Query<Shop>()
+                .Include(s => s.WorkTimes)
+                .ToListAsync(cancellationToken))
+            .Select(GetAllSopsQuery.Response.Selector())
+            .ToList();
 }

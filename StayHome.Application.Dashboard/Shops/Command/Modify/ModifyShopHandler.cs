@@ -24,8 +24,9 @@ public class ModifyShopHandler : IRequestHandler<ModifyShopCommand.Request,
     {
         var shop = await _repository.TrackingQuery<Shop>()
             .Where(s => s.Id == request.Id)
+            .Include(s => s.WorkTimes)
             .FirstAsync(cancellationToken);
-        var imag = await _fileService.Modify(shop.ImageUrl, request.ImageUrl);
+        var imag = await _fileService.Modify(shop.ImageUrl, request.ImageFile);
         
         shop.Modify(request.Name,imag, request.CategoryId, request.AreaId);
         

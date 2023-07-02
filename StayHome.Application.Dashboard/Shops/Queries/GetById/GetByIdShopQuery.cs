@@ -19,7 +19,7 @@ public class GetByIdShopQuery
         public Guid CategoryId { get; set; }
         public Guid AreaId { get; set; }
         public string ImageUrl { get; set; }
-        public List<WorkTimeDto> WorkTimes { get; set; }
+        public List<WorkTimeRes> WorkTimes { get; set; }
         public List<ProductRes> ProductIds { get; set; }
         
         public class ProductRes
@@ -38,9 +38,9 @@ public class GetByIdShopQuery
                 CategoryId = s.CategoryId,
                 AreaId = s.AreaId,
                 ImageUrl = s.ImageUrl,
-                WorkTimes = s.WorkTimes.Select(w => new WorkTimeDto()
+                WorkTimes = s.WorkTimes.Select(w => new WorkTimeRes()
                 {
-                    DayOfWeek = w.DayOfWeek,
+                    DayOfWeek = w.DayOfWeek.ToString(),
                     EndTime = w.EndTime,
                     StartTime = w.StartTime
                 }).ToList(),
