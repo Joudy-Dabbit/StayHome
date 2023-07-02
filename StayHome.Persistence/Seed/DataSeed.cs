@@ -122,7 +122,7 @@ public static class DataSeed
         }
         var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
 
-        context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101"));
+        context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101", AddImage()));
         
         await context.SaveChangesAsync();
     }

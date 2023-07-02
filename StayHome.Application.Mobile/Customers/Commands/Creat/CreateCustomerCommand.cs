@@ -18,7 +18,7 @@ public class CreateCustomerCommand
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public string DeviceToken { get; set; }
-        public Gender Gender { get;  set; }
+        public Gender? Gender { get;  set; }
         public Guid CityId { get; set; }
     }   
     public class Response : TokenDto

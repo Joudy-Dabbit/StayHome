@@ -9,12 +9,13 @@ public class Vehicle : AggregateRoot
     }
     
     public Vehicle(string name, Guid vehicleTypeId, double maxCapacity, 
-        string color, string number)
+        string color, string number, string imageUrl)
     {
         VehicleTypeId = vehicleTypeId;
         MaxCapacity = maxCapacity;
         Color = color;
         Number = number;
+        ImageUrl = imageUrl;
         Name = name;
     }
     
@@ -25,18 +26,20 @@ public class Vehicle : AggregateRoot
     public string Number { get; private set; }    
     public string Name { get; private set; }    
     public double MaxCapacity { get; private set; }
-    
-    
+    public string ImageUrl { get; private set; }
+
+
     private readonly List<Order> _orders = new();
     public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
     
     public void Modify(string name, Guid vehicleTypeId, double maxCapacity, 
-        string color, string number)
+        string color, string number, string imageUrl)
     {
         VehicleTypeId = vehicleTypeId;
         MaxCapacity = maxCapacity;
         Color = color;
         Number = number;
         Name = name;
+        ImageUrl = imageUrl;
     }
 }

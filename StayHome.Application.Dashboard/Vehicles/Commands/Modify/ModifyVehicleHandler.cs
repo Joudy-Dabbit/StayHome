@@ -1,3 +1,4 @@
+using Application.Dashboard.Core.Abstractions;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ public class ModifyVehicleHandler : IRequestHandler<ModifyVehicleCommand.Request
     OperationResponse<GetByIdVehicleQuery.Response>>
 {
     private readonly IStayHomeRepository _repository;
+    private readonly IFileService _fileService;
 
-    public ModifyVehicleHandler(IStayHomeRepository repository)
+    public ModifyVehicleHandler(IStayHomeRepository repository, IFileService fileService)
     {
         _repository = repository;
+        _fileService = fileService;
     }
 
 
@@ -22,10 +25,11 @@ public class ModifyVehicleHandler : IRequestHandler<ModifyVehicleCommand.Request
     {
         var vehicle = await _repository.TrackingQuery<Vehicle>()
             .Where(c => c.Id == request.Id)
-            .FirstOrDefaultAsync(cancellationToken);
+            .FirstAsync(cancellationToken);
 
+        var imageUrl = await _fileService.Modify(vehicle.ImageUrl, request.ImageFile);
         vehicle.Modify(request.Name, request.VehicleTypeId, request.MaxCapacity,
-            request.Color, request.Number);
+            request.Color, request.Number, imageUrl);
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(vehicle.Id, GetByIdVehicleQuery.Response.Selector);

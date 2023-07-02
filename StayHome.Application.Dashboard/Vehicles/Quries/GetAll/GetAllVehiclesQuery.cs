@@ -21,7 +21,8 @@ public class GetAllVehiclesQuery
         public string Number { get; set; }    
         public double MaxCapacity { get; set; }
         public bool IsAvailable { get; set; }
-        
+        public string ImageUrl { get; set; }
+
         public static Expression<Func<Vehicle, Response>> Selector
             => c => new()
             {
@@ -32,7 +33,8 @@ public class GetAllVehiclesQuery
                 Number = c.Number,
                 IsAvailable = c.Orders.All(o => o.Stages.OrderByDescending(os => os.DateTime)
                     .First()
-                    .CurrentStage != OrderStages.OnWay)
+                    .CurrentStage != OrderStages.OnWay),
+                ImageUrl = c.ImageUrl
             };
     }
 }

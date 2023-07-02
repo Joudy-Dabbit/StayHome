@@ -19,7 +19,8 @@ public class GetByIdVehicleQuery
         public string Color { get; set; }    
         public string Number { get; set; }    
         public double MaxCapacity { get; set; }
-        
+        public string ImageUrl { get; set; }
+
         public static Expression<Func<Vehicle, Response>> Selector
             => c => new()
             {
@@ -27,7 +28,8 @@ public class GetByIdVehicleQuery
                 Color = c.Color,
                 MaxCapacity = c.MaxCapacity,
                 VehicleTypeId = c.VehicleTypeId,
-                Number = c.Number
+                Number = c.Number,
+                ImageUrl = c.ImageUrl
             };
     }
 }
