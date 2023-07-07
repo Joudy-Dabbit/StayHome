@@ -7,16 +7,16 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
-namespace StayHome.Application.Mobile.Customers;
+namespace StayHome.Application.Drivers;
 
-public class ModifyCustomerHandler: IRequestHandler<ModifyCustomerCommand.Request,
-    OperationResponse<GetCustomerProfileQuery.Response>>
+public class ModifyDriverHandler: IRequestHandler<ModifyDriverCommand.Request,
+    OperationResponse<GetDriverProfileQuery.Response>>
 {
     private readonly IUserRepository _userRepository;
     private readonly UserManager<User> _userManager;
     private readonly IHttpService _httpService;
 
-    public ModifyCustomerHandler(IUserRepository userRepository, 
+    public ModifyDriverHandler(IUserRepository userRepository, 
         UserManager<User> userManager, IHttpService httpService)
     {
         _userRepository = userRepository;
@@ -24,21 +24,20 @@ public class ModifyCustomerHandler: IRequestHandler<ModifyCustomerCommand.Reques
         _httpService = httpService;
     }
 
-    public async Task<OperationResponse<GetCustomerProfileQuery.Response>> HandleAsync(ModifyCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
+    public async Task<OperationResponse<GetDriverProfileQuery.Response>> HandleAsync(ModifyDriverCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
-        var customer = await _userRepository.TrackingQuery<Customer>()
+        var driver = await _userRepository.TrackingQuery<Driver>()
             .FirstAsync(c => c.Id == _httpService.CurrentUserId, cancellationToken);
         
         if(await _userRepository.IsEmailExist<Customer>(request.Email, _httpService.CurrentUserId))
             return DomainError.User.EmailAlreadyUsed(request.Email);
         
-        customer.Modify(request.FullName, request.BirthDate,
-            request.Email, request.CityId,
-            request.PhoneNumber, request.Gender);
+        driver.Modify(request.FullName, request.PhoneNumber,
+            request.BirthDate, request.Email );
 
-        await _userManager.UpdateAsync(customer);
+        await _userManager.UpdateAsync(driver);
         await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return await _userRepository.GetAsync(customer.Id, 
-            GetCustomerProfileQuery.Response.Selector());
+        return await _userRepository.GetAsync(driver.Id, 
+            GetDriverProfileQuery.Response.Selector());
     }
 }

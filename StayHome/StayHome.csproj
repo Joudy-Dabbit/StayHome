@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\StayHome.Application.Drivers\StayHome.Application.Drivers.csproj" />
       <ProjectReference Include="..\StayHome.Application.Mobile\StayHome.Application.Mobile.csproj" />
       <ProjectReference Include="..\StayHome.Infrastructure\StayHome.Infrastructure.csproj" />
       <ProjectReference Include="..\StayHome.Persistence\StayHome.Persistence.csproj" />

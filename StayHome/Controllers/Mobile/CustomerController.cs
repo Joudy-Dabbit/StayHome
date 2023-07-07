@@ -26,9 +26,9 @@ public sealed class CustomerController : ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(GetProfileQuery.Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetCustomerProfileQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetMyProfile(
-        [FromServices] IRequestHandler<GetProfileQuery.Request, OperationResponse<GetProfileQuery.Response>> handler)
+        [FromServices] IRequestHandler<GetCustomerProfileQuery.Request, OperationResponse<GetCustomerProfileQuery.Response>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
     [AllowAnonymous]
@@ -42,10 +42,10 @@ public sealed class CustomerController : ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetProfileQuery.Response))]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetCustomerProfileQuery.Response))]
     public async Task<IActionResult> Modify(    
         [FromServices] IRequestHandler<ModifyCustomerCommand.Request,
-            OperationResponse<GetProfileQuery.Response>> handler,
+            OperationResponse<GetCustomerProfileQuery.Response>> handler,
         [FromQuery] ModifyCustomerCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
 

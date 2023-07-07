@@ -9,8 +9,8 @@ public class AreaPrice  : AggregateRoot
         Area1Id = area1Id;
         Area2Id = area2Id;
         TimeBetween = timeBetween;
+        
     }
-   
 
     public double Price { get; private set; }
     public int TimeBetween { get; private set; }

@@ -9,7 +9,7 @@ namespace StayHome.Application.Mobile.Customers;
 
 public class ModifyCustomerCommand
 {
-    public class Request : IRequest<OperationResponse<GetProfileQuery.Response>>  
+    public class Request : IRequest<OperationResponse<GetCustomerProfileQuery.Response>>  
     {
         public string FullName { get; set; }
         public string Email { get; set; }  

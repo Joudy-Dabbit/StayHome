@@ -3,22 +3,22 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
-namespace StayHome.Application.Mobile.Customers;
+namespace StayHome.Application.Drivers;
 
-public class GetProfileHandler : IRequestHandler<GetProfileQuery.Request,
-    OperationResponse<GetProfileQuery.Response>>
+public class GetDriverProfileHandler: IRequestHandler<GetDriverProfileQuery.Request,
+    OperationResponse<GetDriverProfileQuery.Response>>
 {   
     private readonly IHttpService _httpResolverService;
     private readonly IUserRepository _userRepository;
 
-    public GetProfileHandler(IUserRepository userRepository, IHttpService httpResolverService)
+    public GetDriverProfileHandler(IUserRepository userRepository, IHttpService httpResolverService)
     {
         _userRepository = userRepository;
         _httpResolverService = httpResolverService;
     }
 
-    public async Task<OperationResponse<GetProfileQuery.Response>> HandleAsync(GetProfileQuery.Request request,
+    public async Task<OperationResponse<GetDriverProfileQuery.Response>> HandleAsync(GetDriverProfileQuery.Request request,
         CancellationToken cancellationToken = new())
         => await _userRepository.GetAsync( _httpResolverService.CurrentUserId!.Value,
-            GetProfileQuery.Response.Selector());
+            GetDriverProfileQuery.Response.Selector());
 }

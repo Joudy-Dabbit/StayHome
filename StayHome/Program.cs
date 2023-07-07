@@ -36,6 +36,7 @@ builder.Services
     .AddBaseCleanArchitecture(
         StayHome.Application.Dashboard.AssemblyReference.Assembly,
         StayHome.Application.Mobile.AssemblyReference.Assembly,
+        StayHome.Application.Drivers.AssemblyReference.Assembly,
         StayHome.Persistence.AssemblyReference.Assembly);
 
 builder.Services.AddEndpointsApiExplorer();

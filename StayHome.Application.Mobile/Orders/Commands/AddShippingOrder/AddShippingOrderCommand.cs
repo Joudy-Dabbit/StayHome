@@ -8,14 +8,15 @@ public class AddShippingOrderCommand
 {
     public class Request : IRequest<OperationResponse>
     {
-        public DateTime? ScheduleDate { get; set; }
-        public Guid? ShopId { get; set; }
-        public double? Weight { get; set; }
-
-        public AddressOrderDto? Destination { get; set; }
         public AddressOrderDto Source { get; set; }
         public string Note { get; private set; }
-
+        
+        public DateTime? ScheduleDate { get; set; }
+        
+        public Guid? ShopId { get; set; }
+        public AddressOrderDto? Destination { get; set; }
+        
+        public double? Weight { get; set; }
         public List<ProductsCartReq>? Products { get; set; } = new();
         
         public class ProductsCartReq

@@ -16,7 +16,7 @@ public class HomeController: ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(List<GetHomeQuery>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<GetHomeQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(
         [FromServices] IRequestHandler<GetHomeQuery.Request,
             OperationResponse<List<GetHomeQuery.Response>>> handler)
