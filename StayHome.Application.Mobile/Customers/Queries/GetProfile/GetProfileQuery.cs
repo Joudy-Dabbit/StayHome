@@ -19,7 +19,6 @@ public class GetProfileQuery
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public DateTime? BirthDate { get; set; }
-        public bool? HasAddress { get; set; }
         public Gender Gender { get;  set; }
 
         public static Expression<Func<Customer, Response>> Selector() => c
@@ -30,7 +29,6 @@ public class GetProfileQuery
                 BirthDate = c.BirthDate,
                 PhoneNumber = c.PhoneNumber,
                 Email = c.Email,
-                HasAddress = c.Addresses.Any(),
                 Gender = c.Gender
             };
     }

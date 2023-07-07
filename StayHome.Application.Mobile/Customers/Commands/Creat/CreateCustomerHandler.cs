@@ -8,7 +8,8 @@ using Application.Dashboard.Core.Abstractions;
 
 namespace StayHome.Application.Mobile.Customers;
 
-public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Request, OperationResponse<CreateCustomerCommand.Response>>
+public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Request, 
+    OperationResponse<CreateCustomerCommand.Response>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IFileService _fileService;
@@ -22,9 +23,9 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand.Reque
     public async Task<OperationResponse<CreateCustomerCommand.Response>> HandleAsync(CreateCustomerCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
         var customer = new Customer(request.FullName,
-            request.PhoneNumber,
-              request.Email, request.BirthDate, 
-             request.CityId, request.DeviceToken, Gender.Female);//todo
+            request.PhoneNumber, request.Email,
+            request.BirthDate, request.CityId,
+            request.DeviceToken, request.Gender);
         
         var identityResult = await _userRepository.AddWithRole(customer, StayHomeRoles.Customer, request.Password);
         
