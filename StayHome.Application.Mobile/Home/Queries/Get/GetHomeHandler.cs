@@ -29,6 +29,7 @@ public class GetHomeHandler : IRequestHandler<GetHomeQuery.Request,
                 .Where(s => s.Area.CityId == user.CityId)
                 .Include(s => s.Area)
                 .Include(s => s.WorkTimes)
+                .Include(s => s.Category)
                 .ToListAsync(cancellationToken))
             .Select(GetHomeQuery.Response.Selector())
             .ToList();

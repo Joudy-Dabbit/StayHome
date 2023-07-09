@@ -15,6 +15,8 @@ public class GetAllShopsQuery
     public class Response
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
         public List<ShopRes> Shops { get; set; }
 
         public class ShopRes
@@ -32,6 +34,8 @@ public class GetAllShopsQuery
             => c => new()
             {
                 Id = c.Id,
+                Name = c.Name,
+                ImageUrl = c.ImageUrl,
                 Shops = c.Shops.Select(s=> new ShopRes()
                 {
                     Id = s.Id,

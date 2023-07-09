@@ -18,6 +18,7 @@ public class GetHomeQuery
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string Area { get; set; }
+        public string Category { get; set; }
         public bool IsOnline { get; set; }
         public static Func<Shop, Response> Selector()
             => s => new Response()
@@ -29,7 +30,8 @@ public class GetHomeQuery
                            && s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek  &&
                                                     ( wt.StartTime <= DateTime.UtcNow.TimeOfDay 
                                                       && DateTime.UtcNow.TimeOfDay <= wt.EndTime)),
-                Area = s.Area.Name
+                Area = s.Area.Name,
+                Category = s.Category.Name
             };
     }
 }
