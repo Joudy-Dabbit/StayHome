@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Events;
 
 namespace Domain.Entities;
 
@@ -10,6 +11,8 @@ public class Area : AggregateRoot
     {
         Name = name;
         CityId = cityId;
+        
+        AddDomainEvent(new AddAreaPriceEvent(this));
     }
     
     public string Name { get; set; }

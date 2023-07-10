@@ -9,14 +9,22 @@ public class AreaPriceRepository : StayHomeRepository, IAreaPriceRepository
 {
     public AreaPriceRepository(StayHomeDbContext context) : base(context) { }
     
-    public async Task<double?> DeliveryCoast(Guid areaId1, Guid areaId2)
+    public async Task<double> DeliveryCoast(Guid areaId1, Guid areaId2)
     {
         return await _priceBetween(areaId1, areaId2);
     }
-
+    public async Task Add(Guid cityId, Guid areaId)
+    {
+        var areaPrices = await Query<Area>()
+            .Where(a => a.CityId == cityId)
+            .Select(a => new AreaPrice(areaId, a.Id))
+            .ToListAsync();
+        areaPrices.Add(new AreaPrice(areaId, areaId, 1 ,2000));
+        Context.AddRange(areaPrices);
+    }
 
     #region - private -
-    private async Task<double?> _priceBetween(Guid areaId1, Guid areaId2)
+    private async Task<double> _priceBetween(Guid areaId1, Guid areaId2)
         => (await _priceBetween(areaId1, new List<Guid>() { areaId2 })).Values.FirstOrDefault();
     
     private async Task<Dictionary<Guid, double>> _priceBetween(Guid areaId1, List<Guid> areaId2)
