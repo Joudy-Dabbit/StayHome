@@ -20,6 +20,7 @@ public class GetByIdShopHandler : IRequestHandler<GetByIdShopQuery.Request,
         CancellationToken cancellationToken = new())
         =>  (await _repository.Query<Shop>()
             .Include(s => s.WorkTimes)
+            .Include(s => s.Products)
             .Include(s => s.Area)
             .ThenInclude(s => s.City)
             .Where(s => s.Id == request.Id)
