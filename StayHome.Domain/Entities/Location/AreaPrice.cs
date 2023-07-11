@@ -4,20 +4,14 @@ public class AreaPrice  : AggregateRoot
 {
     private AreaPrice() {}
     
-    public AreaPrice(Guid area1Id, Guid area2Id, int timeBetween, double price)
-    {
-        Area1Id = area1Id;
-        Area2Id = area2Id;
-        TimeBetween = timeBetween;
-        Price = price;
-    }
-
     public AreaPrice(Guid area1Id, Guid area2Id)
     {
         Area1Id = area1Id;
         Area2Id = area2Id;
+        TimeBetween = 1;
+        Price = 2000;
     }
-
+    
     public double Price { get; private set; }
     public int TimeBetween { get; private set; }
 

@@ -19,7 +19,7 @@ public class AreaPriceRepository : StayHomeRepository, IAreaPriceRepository
             .Where(a => a.CityId == cityId)
             .Select(a => new AreaPrice(areaId, a.Id))
             .ToListAsync();
-        areaPrices.Add(new AreaPrice(areaId, areaId, 1 ,2000));
+        areaPrices.Add(new AreaPrice(areaId, areaId));
         Context.AddRange(areaPrices);
     }
 
