@@ -136,6 +136,8 @@ public static class DataSeed
         var city = new City("دمشق");
         var city1 = new City("حلب");
         context.AddRange(new List<City>() {city1, city});
+        await context.SaveChangesAsync();
+
         var area = new Area("المزة", city.Id);
         var area1 = new Area("الفرقان", city1.Id);
         var area2 = new Area("الشهباء", city1.Id);

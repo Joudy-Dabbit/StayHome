@@ -13,8 +13,9 @@ public class AddAreaPriceEventHandler: IDomainEventHandler<AddAreaPriceEvent>
         _areaPriceRepository = areaPriceRepository;
     }
 
-    public async Task HandleAsync(AddAreaPriceEvent domainEvent, CancellationToken cancellationToken = new CancellationToken())
+    public async Task HandleAsync(AddAreaPriceEvent domainEvent, 
+        CancellationToken cancellationToken = new())
     {
-        await _areaPriceRepository.Add(domainEvent.Area.CityId,domainEvent.Area.Id);
+        await _areaPriceRepository.Add(domainEvent.Area.CityId, domainEvent.Area.Id);
     }
 }
