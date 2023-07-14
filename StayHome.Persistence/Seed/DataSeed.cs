@@ -139,11 +139,17 @@ public static class DataSeed
         await context.SaveChangesAsync();
 
         var area = new Area("المزة", city.Id);
-        var area1 = new Area("الفرقان", city1.Id);
-        var area2 = new Area("الشهباء", city1.Id);
-        context.AddRange(new List<Area>() {area, area1, area2});
-        
+        context.Add(area);
         await context.SaveChangesAsync();
+        
+        var area1 = new Area("الفرقان", city1.Id);
+        context.Add(area1);
+        await context.SaveChangesAsync();
+        
+        var area2 = new Area("الشهباء", city1.Id);
+        context.Add(area2);
+        await context.SaveChangesAsync();
+        
     }
 
     private static void SeedWwwroot(StayHomeDbContext context)
