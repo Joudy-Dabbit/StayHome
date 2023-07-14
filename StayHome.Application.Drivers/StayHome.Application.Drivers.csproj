@@ -11,4 +11,8 @@
       <ProjectReference Include="..\StayHome.Contracts\StayHome.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Drivers\" />
+    </ItemGroup>
+
 </Project>
