@@ -3,7 +3,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace StayHome.Application.Mobile.Orders;
 
-public class CheckOrderQuery
+public class GetDeliveryCostQuery
 {
     public class Request : IRequest<OperationResponse<Response>>
     {

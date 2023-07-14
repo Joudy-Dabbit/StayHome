@@ -16,9 +16,17 @@ public class OrderController : ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(CheckOrderQuery.Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetDeliveryCostQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Check(
-        [FromServices] IRequestHandler<CheckOrderQuery.Request, OperationResponse<CheckOrderQuery.Response>> handler,
-        [FromQuery] CheckOrderQuery.Request request)
+        [FromServices] IRequestHandler<GetDeliveryCostQuery.Request, OperationResponse<GetDeliveryCostQuery.Response>> handler,
+        [FromQuery] GetDeliveryCostQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AddShippingOrder(
+        [FromServices] IRequestHandler<AddShippingOrderCommand.Request, OperationResponse> handler,
+        [FromQuery] AddShippingOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
 }

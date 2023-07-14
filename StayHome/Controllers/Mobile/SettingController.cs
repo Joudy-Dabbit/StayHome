@@ -33,4 +33,12 @@ public class SettingController : ApiController
         [FromServices] IRequestHandler<GetAllCitiesQuery.Request, 
             OperationResponse<List<GetAllCitiesQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();
+    
+    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(List<GetAllCitiesQuery.Response>),StatusCodes.Status200OK)]   
+    [ProducesResponseType(typeof(List<GetAllCitiesWithAreasQuery.Response>),StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllCitiesWithAreas(
+        [FromServices] IRequestHandler<GetAllCitiesWithAreasQuery.Request, 
+            OperationResponse<List<GetAllCitiesWithAreasQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();
 }

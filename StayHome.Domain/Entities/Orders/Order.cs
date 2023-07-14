@@ -4,27 +4,28 @@ namespace Domain.Entities;
 
 public class Order : AggregateRoot
 {
-    public DateTime? ScheduleDate { get; private set; }
-    public double DeliveryCoast { get; private set; }
-    public string Note { get; private set; }
-    public AddressOrder? Destination { get; private set; }
-    public Guid? DestinationId { get; private set; }
+    public DateTime? ScheduleDate { get; set; }
+    public double DeliveryCoast { get; set; }
+    public string? Note { get; set; }
     
-    public AddressOrder Source { get; private set; }
-    public Guid SourceId { get; private set; }
+    public AddressOrder? Destination { get; set; }
+    public Guid? DestinationId { get; set; }
+    
+    public AddressOrder Source { get; set; }
+    public Guid SourceId { get; set; }
     
 
-    public Guid? EmployeeHandlerId { get; private set; }
-    public Employee? EmployeeHandler { get; private set; }
+    public Guid? EmployeeHandlerId { get; set; }
+    public Employee? EmployeeHandler { get; set; }
 
-    public Guid? CustomerId { get; private set; }
-    public Customer? Customer { get; private set; }
+    public Guid? CustomerId { get; set; }
+    public Customer? Customer { get; set; }
     
-    public Guid? DriverId { get; private set; }
-    public Driver? Driver { get; private set; }
+    public Guid? DriverId { get; set; }
+    public Driver? Driver { get; set; }
     
-    public Guid? VehicleId { get; private set; }
-    public Vehicle? Vehicle { get; private set; }
+    public Guid? VehicleId { get; set; }
+    public Vehicle? Vehicle { get; set; }
     
     
     private readonly List<OrderStage> _stages = new();

@@ -12,7 +12,6 @@ public class Address : AggregateRoot
         Additional = additional;
         AreaId = areaId;
         Name = name;
-        Floor = floor;
         CustomerId = customerId;
     }
 

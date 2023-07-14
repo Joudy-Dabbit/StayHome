@@ -1,6 +1,6 @@
 namespace Domain.Entities;
 
-public class AreaPrice  : AggregateRoot
+public class AreaPrice : AggregateRoot
 {
     private AreaPrice() {}
     
@@ -8,12 +8,12 @@ public class AreaPrice  : AggregateRoot
     {
         Area1Id = area1Id;
         Area2Id = area2Id;
-        TimeBetween = 1;
+        KmBetween = 1;
         Price = 2000;
     }
     
     public double Price { get; private set; }
-    public int TimeBetween { get; private set; }
+    public int KmBetween { get; private set; }
 
     public Guid Area1Id { get; private set; }
     public Area Area1 { get; private set; }
@@ -21,9 +21,9 @@ public class AreaPrice  : AggregateRoot
     public Guid Area2Id { get; private set; }
     public Area Area2 { get; private set; }
 
-    public void Modify(double price, int timeBetween)
+    public void Modify(double price, int kmBetween)
     {
         Price = price;
-        TimeBetween = timeBetween;
+        KmBetween = kmBetween;
     }
 }
