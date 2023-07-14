@@ -2,8 +2,9 @@ using Neptunee.BaseCleanArchitecture.Repository;
 
 namespace Domain.Repositories;
 
-public interface IAreaPriceRepository : IRepository<Guid>
+public interface IOrderRepository : IRepository<Guid>
 {
     Task<double> DeliveryCoast(Guid areaId1, Guid areaId2);
-    Task Add(Guid cityId,Guid areaId);
+    Task<double> TotalProductPrice(List<Guid> productIds);
+    Task Add(Guid areaId);
 }

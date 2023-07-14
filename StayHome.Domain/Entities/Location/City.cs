@@ -12,7 +12,10 @@ public class City : AggregateRoot
     
 
     private readonly List<Area> _areas = new();
-    public IReadOnlyCollection<Area> Areas => _areas.AsReadOnly();
+    public IReadOnlyCollection<Area> Areas => _areas.AsReadOnly(); 
+    
+    private readonly List<Customer> _customers = new();
+    public IReadOnlyCollection<Customer> Customers => _customers.AsReadOnly();
     
 
     private readonly List<ShippingOrder> _shippingOrders = new();

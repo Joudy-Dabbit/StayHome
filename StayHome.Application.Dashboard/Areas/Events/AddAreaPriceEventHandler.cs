@@ -6,16 +6,16 @@ namespace StayHome.Application.Dashboard.Areas.Events;
 
 public class AddAreaPriceEventHandler: IDomainEventHandler<AddAreaPriceEvent>
 {
-    private readonly IAreaPriceRepository _areaPriceRepository;
+    private readonly IOrderRepository _orderRepository;
 
-    public AddAreaPriceEventHandler(IAreaPriceRepository areaPriceRepository)
+    public AddAreaPriceEventHandler(IOrderRepository orderRepository)
     {
-        _areaPriceRepository = areaPriceRepository;
+        _orderRepository = orderRepository;
     }
 
     public async Task HandleAsync(AddAreaPriceEvent domainEvent, 
         CancellationToken cancellationToken = new())
     {
-        await _areaPriceRepository.Add(domainEvent.Area.CityId, domainEvent.Area.Id);
+        await _orderRepository.Add(domainEvent.Area.Id);
     }
 }

@@ -5,18 +5,24 @@ using StayHome.Persistence.Context;
 
 namespace StayHome.Persistence.Repositories;
 
-public class AreaPriceRepository : StayHomeRepository, IAreaPriceRepository
+public class OrderRepository : StayHomeRepository, IOrderRepository
 {
-    public AreaPriceRepository(StayHomeDbContext context) : base(context) { }
+    public OrderRepository(StayHomeDbContext context) : base(context) { }
     
     public async Task<double> DeliveryCoast(Guid areaId1, Guid areaId2)
     {
         return await _priceBetween(areaId1, areaId2);
     }
-    public async Task Add(Guid cityId, Guid areaId)
+
+    public async Task<double> TotalProductPrice(List<Guid> productIds)
+    {
+        return await Query<Product>().Where(p => productIds.Contains(p.Id))
+            .Select(p => p.Cost).SumAsync();
+    }
+
+    public async Task Add(Guid areaId)
     {
         var areaPrices = await Query<Area>()
-            .Where(a => a.CityId == cityId)
             .Select(a => new AreaPrice(areaId, a.Id))
             .ToListAsync();
         areaPrices.Add(new AreaPrice(areaId, areaId));
