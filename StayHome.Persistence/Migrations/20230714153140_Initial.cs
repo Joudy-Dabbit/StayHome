@@ -127,22 +127,18 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vehicles",
+                name: "VehicleTypes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VehicleTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VehicleType_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaxCapacity = table.Column<double>(type: "float", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.PrimaryKey("PK_VehicleTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,13 +189,14 @@ namespace StayHome.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateBlocked = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Customer_DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
                     CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -230,15 +227,39 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VehicleTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaxCapacity = table.Column<double>(type: "float", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_VehicleTypes_VehicleTypeId",
+                        column: x => x.VehicleTypeId,
+                        principalTable: "VehicleTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AddressOrder",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AreaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Additional = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Floor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -260,7 +281,7 @@ namespace StayHome.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    TimeBetween = table.Column<int>(type: "int", nullable: false),
+                    KmBetween = table.Column<int>(type: "int", nullable: false),
                     Area1Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Area2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -488,8 +509,9 @@ namespace StayHome.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ScheduleDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeliveryCoast = table.Column<double>(type: "float", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DestinationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    SourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmployeeHandlerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -502,10 +524,10 @@ namespace StayHome.Persistence.Migrations
                     PersonInfo_Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NumberOfPassenger = table.Column<int>(type: "int", nullable: true),
-                    Weight = table.Column<double>(type: "float", nullable: true),
                     ShippingOrder_Coast = table.Column<double>(type: "float", nullable: true),
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Weight = table.Column<double>(type: "float", nullable: true),
                     ShippingOrder_ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -544,8 +566,7 @@ namespace StayHome.Persistence.Migrations
                         name: "FK_Orders_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Shops_ShippingOrder_ShopId",
                         column: x => x.ShippingOrder_ShopId,
@@ -561,6 +582,30 @@ namespace StayHome.Persistence.Migrations
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -588,39 +633,84 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "OrderStage",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DeliveryOrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ShippingOrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CurrentStage = table.Column<int>(type: "int", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_OrderStage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Orders_DeliveryOrderId",
-                        column: x => x.DeliveryOrderId,
+                        name: "FK_OrderStage_Orders_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Orders_ShippingOrderId",
-                        column: x => x.ShippingOrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Shops_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeliveryOrderCart",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryOrderCart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DeliveryOrderCart_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DeliveryOrderCart_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShippingOrderCart",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShippingOrderCart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShippingOrderCart_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShippingOrderCart_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -708,6 +798,16 @@ namespace StayHome.Persistence.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeliveryOrderCart_OrderId",
+                table: "DeliveryOrderCart",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DeliveryOrderCart_ProductId",
+                table: "DeliveryOrderCart",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CityId",
                 table: "Orders",
                 column: "CityId");
@@ -753,14 +853,9 @@ namespace StayHome.Persistence.Migrations
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_DeliveryOrderId",
-                table: "Products",
-                column: "DeliveryOrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ShippingOrderId",
-                table: "Products",
-                column: "ShippingOrderId");
+                name: "IX_OrderStage_OrderId",
+                table: "OrderStage",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ShopId",
@@ -773,6 +868,16 @@ namespace StayHome.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShippingOrderCart_OrderId",
+                table: "ShippingOrderCart",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShippingOrderCart_ProductId",
+                table: "ShippingOrderCart",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Shops_AreaId",
                 table: "Shops",
                 column: "AreaId");
@@ -781,6 +886,11 @@ namespace StayHome.Persistence.Migrations
                 name: "IX_Shops_CategoryId",
                 table: "Shops",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_VehicleTypeId",
+                table: "Vehicles",
+                column: "VehicleTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkTimes_ShopId",
@@ -822,19 +932,25 @@ namespace StayHome.Persistence.Migrations
                 name: "DashNotifications");
 
             migrationBuilder.DropTable(
+                name: "DeliveryOrderCart");
+
+            migrationBuilder.DropTable(
                 name: "DriverNotifications");
 
             migrationBuilder.DropTable(
                 name: "MobileNotifications");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "OrderStage");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "ShippingOrderCart");
 
             migrationBuilder.DropTable(
                 name: "WorkTimes");
@@ -846,16 +962,22 @@ namespace StayHome.Persistence.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "AddressOrder");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Vehicles");
+
+            migrationBuilder.DropTable(
                 name: "Shops");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "VehicleTypes");
 
             migrationBuilder.DropTable(
                 name: "Areas");

@@ -81,14 +81,6 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("AreaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Floor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HouseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -148,11 +140,11 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("Area2Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("KmBetween")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("TimeBetween")
-                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
@@ -395,7 +387,6 @@ namespace StayHome.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ScheduleDate")
@@ -956,7 +947,7 @@ namespace StayHome.Persistence.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Order");
 
-                    b.Property<Guid>("CityId")
+                    b.Property<Guid?>("CityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Coast")
@@ -1351,17 +1342,13 @@ namespace StayHome.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
-                    b.HasOne("Domain.Entities.City", "City")
+                    b.HasOne("Domain.Entities.City", null)
                         .WithMany("ShippingOrders")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("Domain.Entities.Shop", "Shop")
                         .WithMany("ShippingOrders")
                         .HasForeignKey("ShopId");
-
-                    b.Navigation("City");
 
                     b.Navigation("Shop");
                 });
@@ -1369,7 +1356,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
                     b.HasOne("Domain.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1401,6 +1388,8 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.City", b =>
                 {
                     b.Navigation("Areas");
+
+                    b.Navigation("Customers");
 
                     b.Navigation("ShippingOrders");
                 });

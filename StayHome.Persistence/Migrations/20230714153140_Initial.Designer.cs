@@ -12,8 +12,8 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230623142153_VehicleType")]
-    partial class VehicleType
+    [Migration("20230714153140_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,14 +84,6 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("AreaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Floor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HouseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,11 +143,11 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid>("Area2Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("KmBetween")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("TimeBetween")
-                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
@@ -303,6 +295,38 @@ namespace StayHome.Persistence.Migrations
                     b.ToTable("DashNotifications");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DeliveryOrderCart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DeliveryOrderCart");
+                });
+
             modelBuilder.Entity("Domain.Entities.DriverNotification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -365,10 +389,13 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid?>("EmployeeHandlerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("ScheduleDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SourceId")
+                    b.Property<Guid>("SourceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -404,6 +431,36 @@ namespace StayHome.Persistence.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("Domain.Entities.OrderStage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CurrentStage")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStage");
+                });
+
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -412,9 +469,6 @@ namespace StayHome.Persistence.Migrations
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("DeliveryOrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -422,9 +476,6 @@ namespace StayHome.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ShippingOrderId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
@@ -439,10 +490,6 @@ namespace StayHome.Persistence.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliveryOrderId");
-
-                    b.HasIndex("ShippingOrderId");
 
                     b.HasIndex("ShopId");
 
@@ -466,6 +513,38 @@ namespace StayHome.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShippingOrderCart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("UtcDateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateDeleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("UtcDateUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShippingOrderCart");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shop", b =>
@@ -606,8 +685,16 @@ namespace StayHome.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("MaxCapacity")
                         .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -863,7 +950,7 @@ namespace StayHome.Persistence.Migrations
                 {
                     b.HasBaseType("Domain.Entities.Order");
 
-                    b.Property<Guid>("CityId")
+                    b.Property<Guid?>("CityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Coast")
@@ -872,7 +959,7 @@ namespace StayHome.Persistence.Migrations
                     b.Property<Guid?>("ShopId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Weight")
+                    b.Property<double?>("Weight")
                         .HasColumnType("float");
 
                     b.HasIndex("CityId");
@@ -900,6 +987,9 @@ namespace StayHome.Persistence.Migrations
 
                     b.Property<string>("DeviceToken")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.HasIndex("CityId");
 
@@ -1009,6 +1099,25 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DeliveryOrderCart", b =>
+                {
+                    b.HasOne("Domain.Entities.DeliveryOrder", "Order")
+                        .WithMany("Carts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Product", "Product")
+                        .WithMany("DeliveryOrderCarts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.HasOne("Domain.Entities.Customer", "Customer")
@@ -1031,10 +1140,11 @@ namespace StayHome.Persistence.Migrations
                     b.HasOne("Domain.Entities.AddressOrder", "Source")
                         .WithMany("SourceOrders")
                         .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("VehicleId");
 
                     b.Navigation("Customer");
@@ -1050,16 +1160,19 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("Vehicle");
                 });
 
+            modelBuilder.Entity("Domain.Entities.OrderStage", b =>
+                {
+                    b.HasOne("Domain.Entities.Order", "Order")
+                        .WithMany("Stages")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Domain.Entities.DeliveryOrder", null)
-                        .WithMany("Products")
-                        .HasForeignKey("DeliveryOrderId");
-
-                    b.HasOne("Domain.Entities.ShippingOrder", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShippingOrderId");
-
                     b.HasOne("Domain.Entities.Shop", "Shop")
                         .WithMany("Products")
                         .HasForeignKey("ShopId")
@@ -1067,6 +1180,25 @@ namespace StayHome.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShippingOrderCart", b =>
+                {
+                    b.HasOne("Domain.Entities.ShippingOrder", "Order")
+                        .WithMany("Carts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Product", "Product")
+                        .WithMany("ShippingOrderCarts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shop", b =>
@@ -1175,7 +1307,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.DeliveryOrder", b =>
                 {
                     b.HasOne("Domain.Entities.Shop", "Shop")
-                        .WithMany()
+                        .WithMany("DeliveryOrders")
                         .HasForeignKey("ShopId");
 
                     b.OwnsOne("Domain.Entities.PersonOrderVo", "PersonInfo", b1 =>
@@ -1185,20 +1317,16 @@ namespace StayHome.Persistence.Migrations
 
                             b1.Property<string>("Email")
                                 .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("FullName")
                                 .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("PhoneNumber")
-                                .ValueGeneratedOnUpdateSometimes()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Telephone")
-                                .ValueGeneratedOnUpdateSometimes()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("DeliveryOrderId");
@@ -1217,51 +1345,13 @@ namespace StayHome.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
-                    b.HasOne("Domain.Entities.City", "City")
+                    b.HasOne("Domain.Entities.City", null)
                         .WithMany("ShippingOrders")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("Domain.Entities.Shop", "Shop")
-                        .WithMany()
+                        .WithMany("ShippingOrders")
                         .HasForeignKey("ShopId");
-
-                    b.OwnsOne("Domain.Entities.PersonOrderVo", "PersonInfo", b1 =>
-                        {
-                            b1.Property<Guid>("ShippingOrderId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Email")
-                                .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FullName")
-                                .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("PhoneNumber")
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Telephone")
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ShippingOrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ShippingOrderId");
-                        });
-
-                    b.Navigation("City");
-
-                    b.Navigation("PersonInfo")
-                        .IsRequired();
 
                     b.Navigation("Shop");
                 });
@@ -1269,7 +1359,7 @@ namespace StayHome.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
                     b.HasOne("Domain.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1302,14 +1392,37 @@ namespace StayHome.Persistence.Migrations
                 {
                     b.Navigation("Areas");
 
+                    b.Navigation("Customers");
+
                     b.Navigation("ShippingOrders");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Stages");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Product", b =>
+                {
+                    b.Navigation("DeliveryOrderCarts");
+
+                    b.Navigation("ShippingOrderCarts");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shop", b =>
                 {
+                    b.Navigation("DeliveryOrders");
+
                     b.Navigation("Products");
 
+                    b.Navigation("ShippingOrders");
+
                     b.Navigation("WorkTimes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleType", b =>
@@ -1319,12 +1432,12 @@ namespace StayHome.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.DeliveryOrder", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Carts");
                 });
 
             modelBuilder.Entity("Domain.Entities.ShippingOrder", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Carts");
                 });
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
