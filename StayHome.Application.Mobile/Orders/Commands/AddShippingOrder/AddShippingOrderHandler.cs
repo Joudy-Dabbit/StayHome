@@ -30,9 +30,18 @@ public class AddShippingOrderHandler : IRequestHandler<AddShippingOrderCommand.R
         var deliveryCoast = await _orderRepository.DeliveryCoast(sourceArea, request.Destination!.AreaId);
         var destination = new AddressOrder(request.Destination.Street, request.Destination.Additional,
             request.Destination.AreaId);
-        var source = request.Source is not null ?
-            new AddressOrder(request.Source.Street, request.Source.Additional,
-            request.Source.AreaId) : null;
+        _repository.Add(destination);
+        await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+
+        AddressOrder source = null;
+        if(request.Source is not null )
+        {
+           source = new AddressOrder(request.Source.Street, request.Source.Additional,
+                request.Source.AreaId);
+            _repository.Add(source);
+            await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+        }
+
         var cost = request.Cart is not null
             ? await _orderRepository.TotalProductPrice(request.Cart.Select(p => p.ProductId).ToList())
             : 0;
@@ -40,9 +49,11 @@ public class AddShippingOrderHandler : IRequestHandler<AddShippingOrderCommand.R
             request.ScheduleDate, deliveryCoast, request.Note,
             destination.Id, source!.Id);
             
-        if(request.Cart is not null)
+        if(request.Cart.Any())
                request.Cart.ForEach(c => order.AddOrderCart(c.ProductId, c.Quantity));
-        
+
+        _repository.Add(order);
+        await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();
     }
 }

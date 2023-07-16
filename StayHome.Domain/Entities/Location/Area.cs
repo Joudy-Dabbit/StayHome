@@ -12,7 +12,7 @@ public class Area : AggregateRoot
         Name = name;
         CityId = cityId;
         
-        AddDomainEvent(new AddAreaPriceEvent(this));
+       AddDomainEvent(new AddAreaPriceEvent(this));
     }
     
     public string Name { get; set; }

@@ -30,6 +30,7 @@
       <None Update="StayHome.jpg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Remove="Properties\PublishProfiles\stayhome22-001-site1 - Web Deploy (2).pubxml" />
     </ItemGroup>
 
     <ItemGroup>

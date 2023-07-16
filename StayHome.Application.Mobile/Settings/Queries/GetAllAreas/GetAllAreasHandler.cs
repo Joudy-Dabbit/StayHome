@@ -13,7 +13,8 @@ public class GetAllAreasHandler : IRequestHandler<GetAllAreasQuery.Request,
     private readonly IStayHomeRepository _repository;
     private readonly IHttpService _httpService;
 
-    public GetAllAreasHandler(IStayHomeRepository repository, IHttpService httpService)
+    public GetAllAreasHandler(IStayHomeRepository repository,
+        IHttpService httpService)
     {
         _repository = repository;
         _httpService = httpService;

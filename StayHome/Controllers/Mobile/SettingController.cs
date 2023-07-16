@@ -20,6 +20,7 @@ public class SettingController : ApiController
         [FromServices] IRequestHandler<GetProfileImagesQuery.Request, OperationResponse<List<string>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();
     
+    [AppAuthorize(StayHomeRoles.Customer)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(List<GetAllAreasQuery.Response>),StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAreas(
