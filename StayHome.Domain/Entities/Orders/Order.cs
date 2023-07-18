@@ -8,18 +8,18 @@ public class Order : AggregateRoot
     public double DeliveryCoast { get; set; }
     public string? Note { get; set; }
     
-    public AddressOrder? Destination { get; set; }
-    public Guid? DestinationId { get; set; }
+    public AddressOrder Destination { get; set; }
+    public Guid DestinationId { get; set; }
     
-    public AddressOrder Source { get; set; }
-    public Guid SourceId { get; set; }
+    public AddressOrder? Source { get; set; }
+    public Guid? SourceId { get; set; }
     
 
     public Guid? EmployeeHandlerId { get; set; }
     public Employee? EmployeeHandler { get; set; }
 
-    public Guid? CustomerId { get; set; }
-    public Customer? Customer { get; set; }
+    public Guid CustomerId { get; set; }
+    public Customer Customer { get; set; }
     
     public Guid? DriverId { get; set; }
     public Driver? Driver { get; set; }

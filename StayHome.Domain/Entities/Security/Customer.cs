@@ -60,4 +60,16 @@ public class Customer : User
         Email = email;
         Gender = gender;
     }
+
+    public ShippingOrder AddShippingOrder(double coast, double? weight,
+        Guid? shopId, DateTime? scheduleDate,
+        double deliveryCoast, string? note,
+        Guid destinationId, Guid? sourceId)
+    {
+        var order = new ShippingOrder(coast, weight, 
+            shopId, scheduleDate,
+            deliveryCoast, note,
+            destinationId, sourceId, Id);
+        return order;
+    }
 }

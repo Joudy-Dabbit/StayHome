@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StayHome.Persistence.Context;
 
@@ -11,9 +12,11 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    partial class StayHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230717050501_order")]
+    partial class order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -373,7 +376,7 @@ namespace StayHome.Persistence.Migrations
                     b.Property<double>("DeliveryCoast")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("DestinationId")
+                    b.Property<Guid?>("DestinationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Discriminator")
@@ -392,7 +395,7 @@ namespace StayHome.Persistence.Migrations
                     b.Property<DateTime?>("ScheduleDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SourceId")
+                    b.Property<Guid>("SourceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -1126,8 +1129,7 @@ namespace StayHome.Persistence.Migrations
                     b.HasOne("Domain.Entities.AddressOrder", "Destination")
                         .WithMany("DestinationOrders")
                         .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.Driver", "Driver")
                         .WithMany("Orders")
@@ -1140,7 +1142,8 @@ namespace StayHome.Persistence.Migrations
                     b.HasOne("Domain.Entities.AddressOrder", "Source")
                         .WithMany("SourceOrders")
                         .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Vehicle", "Vehicle")
                         .WithMany("Orders")

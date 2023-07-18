@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using StayHome.Application.Dashboard.Core.Abstractions.Http;
@@ -9,20 +10,23 @@ namespace StayHome.Application.Mobile.Orders;
 public class AddShippingOrderHandler : IRequestHandler<AddShippingOrderCommand.Request, 
     OperationResponse>
 {
-    private readonly IHttpService _httpResolverService;
+    private readonly IHttpService _httpService;
     private readonly IUserRepository _repository;
     private readonly IOrderRepository _orderRepository;
 
-    public AddShippingOrderHandler(IHttpService httpResolverService, 
+    public AddShippingOrderHandler(IHttpService httpService, 
         IUserRepository repository, IOrderRepository orderRepository)
     {
-        _httpResolverService = httpResolverService;
+        _httpService = httpService;
         _repository = repository;
         _orderRepository = orderRepository;
     }
 
     public async Task<OperationResponse> HandleAsync(AddShippingOrderCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
+        var user = await _orderRepository.TrackingQuery<Customer>()
+            .Where(c => c.Id == _httpService.CurrentUserId!.Value)
+            .FirstAsync(cancellationToken);
         var sourceArea = request.ShopId.HasValue
             ? _orderRepository.Query<Shop>()
                 .First(s => s.Id == request.ShopId).AreaId
@@ -45,9 +49,9 @@ public class AddShippingOrderHandler : IRequestHandler<AddShippingOrderCommand.R
         var cost = request.Cart is not null
             ? await _orderRepository.TotalProductPrice(request.Cart.Select(p => p.ProductId).ToList())
             : 0;
-        var order = new ShippingOrder(cost, request.Weight, request.ShopId,
+        var order = user.AddShippingOrder(cost, request.Weight, request.ShopId,
             request.ScheduleDate, deliveryCoast, request.Note,
-            destination.Id, source!.Id);
+            destination.Id, source is not null ? source!.Id : null);
             
         if(request.Cart.Any())
                request.Cart.ForEach(c => order.AddOrderCart(c.ProductId, c.Quantity));

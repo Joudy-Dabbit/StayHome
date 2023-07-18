@@ -6,7 +6,7 @@ public class ShippingOrder : Order
     public ShippingOrder(double coast, double? weight,
         Guid? shopId, DateTime? scheduleDate, 
         double deliveryCoast, string? note,
-        Guid? destinationId, Guid sourceId)
+        Guid destinationId, Guid? sourceId, Guid customerId)
     {
         Coast = coast;
         Weight = weight;
@@ -16,6 +16,7 @@ public class ShippingOrder : Order
         Note = note;
         DestinationId = destinationId;
         SourceId = sourceId;
+        CustomerId = customerId;
     }
     
     public double Coast { get; private set; }

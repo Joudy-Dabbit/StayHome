@@ -17,6 +17,6 @@ public class AddDeliveryOrderCommand
         public AddressOrderDto? Destination { get; set; }
         
         public double? Weight { get; set; }
-        public List<ProductsCartReq>? Cart { get; set; } = new();
+        public List<ProductsCartDto>? Cart { get; set; } = new();
     }
 }

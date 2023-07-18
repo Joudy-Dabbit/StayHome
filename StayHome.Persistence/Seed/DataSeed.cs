@@ -96,8 +96,9 @@ public static class DataSeed
 
         var categoryId = context.Categories.First(c => !c.UtcDateDeleted.HasValue).Id;
         var areaId = context.Areas.First(c => !c.UtcDateDeleted.HasValue).Id;
-        context.Add(new Shop("القبطان", AddImage(), categoryId, areaId));
-        
+        var shop = new Shop("القبطان", AddImage(), categoryId, areaId);
+        context.Add(shop);
+        shop.AddProduct("سمك مشوي", AddImage(), 5000);
         await context.SaveChangesAsync();
     }
     private static async Task SeedVehicleTypes(StayHomeDbContext context)
