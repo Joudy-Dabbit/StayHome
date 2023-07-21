@@ -33,4 +33,11 @@ public class Order : AggregateRoot
     
     public OrderStage CurrentStage => Stages.OrderByDescending(os => os.DateTime).First();
     public string CurrentStageName => Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString();
+    
+    public void Handle(Guid driverId, Guid vehicleId, Guid employeeHandlerId)
+    {
+        DriverId = driverId;
+        EmployeeHandlerId = employeeHandlerId;
+        VehicleId = vehicleId;
+    }
 }

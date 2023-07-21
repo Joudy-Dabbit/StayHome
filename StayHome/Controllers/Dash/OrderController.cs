@@ -26,9 +26,18 @@ public class OrderController : ApiController
     [AppAuthorize(StayHomeRoles.Employee)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdShippingOrderQuery.Response))]
-    public async Task<IActionResult> GetById(
+    public async Task<IActionResult> GetByIdShippingOrder(
         [FromServices] IRequestHandler<GetByIdShippingOrderQuery.Request,
             OperationResponse<GetByIdShippingOrderQuery.Response>> handler,
         [FromQuery] GetByIdShippingOrderQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();   
+    
+    [AppAuthorize(StayHomeRoles.Employee)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdShippingOrderQuery.Response))]
+    public async Task<IActionResult> Handle(
+        [FromServices] IRequestHandler<HandelOrderCommand.Request,
+            OperationResponse<GetByIdShippingOrderQuery.Response>> handler,
+        [FromBody] HandelOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
 }
