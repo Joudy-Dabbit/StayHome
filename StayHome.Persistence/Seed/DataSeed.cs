@@ -17,11 +17,11 @@ public static class DataSeed
         SeedWwwroot(context);
         await SeedRole(roleManager, context);
         await SeedCitiesWithArea(context);
+        await SeedVehicleTypes(context);
         await SeedUser(userManager, context);
         await SeedCategories(context);
         await SeedShops(context);
-        await SeedVehicleTypes(context);
-        await SeedVehicles(context);
+        // await SeedVehicles(context);
     }
 
     private static async Task SeedUser(UserManager<User> userManager, 
@@ -48,9 +48,13 @@ public static class DataSeed
         await userManager.CreateAsync(customer, "1234");
         await userManager.AddToRoleAsync(customer, nameof(StayHomeRoles.Customer));       
         await context.SaveChangesAsync();
-
+        
+        var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
+        var vehicle = new Vehicle("هوندا", vehicleTypeId, 100, "#FFFF00", "101", AddImage());
+        context.Add(vehicle);
+        await context.SaveChangesAsync();
         var driver = new Driver("default driver", "077777777",
-            new DateTime(2003, 6, 2), "driver@gmail.com");
+            new DateTime(2003, 6, 2), "driver@gmail.com", vehicle.Id);
         await userManager.CreateAsync(driver, "1234");
         await userManager.AddToRoleAsync(driver, nameof(StayHomeRoles.Driver));
         await context.SaveChangesAsync();
@@ -115,18 +119,18 @@ public static class DataSeed
         
         await context.SaveChangesAsync();
     }
-    private static async Task SeedVehicles(StayHomeDbContext context)
-    {
-        if (context.Vehicles.Any())
-        {
-            return;
-        }
-        var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
-
-        context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101", AddImage()));
-        
-        await context.SaveChangesAsync();
-    }
+    // private static async Task SeedVehicles(StayHomeDbContext context)
+    // {
+    //     if (context.Vehicles.Any())
+    //     {
+    //         return;
+    //     }
+    //     var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
+    //
+    //     context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101", AddImage()));
+    //     
+    //     await context.SaveChangesAsync();
+    // }
     private static async Task SeedCitiesWithArea(StayHomeDbContext context)
     {
         if (context.Cities.Any())

@@ -24,9 +24,6 @@ public class Order : AggregateRoot
     public Guid? DriverId { get; set; }
     public Driver? Driver { get; set; }
     
-    public Guid? VehicleId { get; set; }
-    public Vehicle? Vehicle { get; set; }
-    
     
     private readonly List<OrderStage> _stages = new();
     public IReadOnlyCollection<OrderStage> Stages => _stages.AsReadOnly();
@@ -34,10 +31,9 @@ public class Order : AggregateRoot
     public OrderStage CurrentStage => Stages.OrderByDescending(os => os.DateTime).First();
     public string CurrentStageName => Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString();
     
-    public void Handle(Guid driverId, Guid vehicleId, Guid employeeHandlerId)
+    public void Handle(Guid driverId, Guid employeeHandlerId)
     {
         DriverId = driverId;
         EmployeeHandlerId = employeeHandlerId;
-        VehicleId = vehicleId;
     }
 }

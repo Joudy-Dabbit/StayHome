@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
+using StayHome.Contracts.Security;
 
 namespace StayHome.Application.Dashboard.Drivers;
 
@@ -12,7 +13,6 @@ public class GetAllDriversQuery
     {
 
     }
-
     public class Response
     {
         public Guid Id { get; set; }
@@ -21,7 +21,7 @@ public class GetAllDriversQuery
         public bool IsAvailable { get; set; }
         public DateTime? BirthDate { get; set; }
         public int OrderCount { get; set; }
-
+        
         public static Expression<Func<Driver, Response>> Selector() => d
             => new()
             {

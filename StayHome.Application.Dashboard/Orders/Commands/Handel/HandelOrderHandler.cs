@@ -27,8 +27,7 @@ public class HandelOrderHandler: IRequestHandler<HandelOrderCommand.Request,
         var order = await _repository.TrackingQuery<Order>()
             .FirstAsync(o => o.Id == request.Id, cancellationToken);
 
-        order.Handle(request.DriverId, request.VehicleId, 
-            _httpService.CurrentUserId!.Value);
+        order.Handle(request.DriverId,_httpService.CurrentUserId!.Value);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(order.Id, GetByIdShippingOrderQuery.Response.Selector);    
     }

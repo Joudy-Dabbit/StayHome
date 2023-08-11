@@ -184,49 +184,6 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateBlocked = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Customer_DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<int>(type: "int", nullable: true),
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
                 {
@@ -331,6 +288,104 @@ namespace StayHome.Persistence.Migrations
                         name: "FK_Shops_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateBlocked = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Customer_DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkTimes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkTimes_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -483,26 +538,6 @@ namespace StayHome.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RefreshTokens",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RefreshTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -510,18 +545,13 @@ namespace StayHome.Persistence.Migrations
                     ScheduleDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeliveryCoast = table.Column<double>(type: "float", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DestinationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    SourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DestinationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EmployeeHandlerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Coast = table.Column<double>(type: "float", nullable: true),
-                    PersonInfo_FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PersonInfo_Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PersonInfo_PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PersonInfo_Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NumberOfPassenger = table.Column<int>(type: "int", nullable: true),
                     ShippingOrder_Coast = table.Column<double>(type: "float", nullable: true),
@@ -551,7 +581,8 @@ namespace StayHome.Persistence.Migrations
                         name: "FK_Orders_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_DriverId",
                         column: x => x.DriverId,
@@ -577,80 +608,24 @@ namespace StayHome.Persistence.Migrations
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Orders_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "RefreshTokens",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
-                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Shops_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shops",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkTimes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkTimes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkTimes_Shops_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shops",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderStage",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CurrentStage = table.Column<int>(type: "int", nullable: false),
-                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderStage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderStage_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -682,6 +657,29 @@ namespace StayHome.Persistence.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderStage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CurrentStage = table.Column<int>(type: "int", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderStage_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -781,6 +779,11 @@ namespace StayHome.Persistence.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_VehicleId",
+                table: "AspNetUsers",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -846,11 +849,6 @@ namespace StayHome.Persistence.Migrations
                 name: "IX_Orders_SourceId",
                 table: "Orders",
                 column: "SourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_VehicleId",
-                table: "Orders",
-                column: "VehicleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderStage_OrderId",
@@ -971,19 +969,19 @@ namespace StayHome.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
-
-            migrationBuilder.DropTable(
                 name: "Shops");
 
             migrationBuilder.DropTable(
-                name: "VehicleTypes");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Areas");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "VehicleTypes");
 
             migrationBuilder.DropTable(
                 name: "Cities");

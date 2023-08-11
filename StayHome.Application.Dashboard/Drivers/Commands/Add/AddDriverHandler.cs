@@ -12,10 +12,12 @@ public class AddDriverHandler : IRequestHandler<AddDriverCommand.Request,
     OperationResponse<GetAllDriversQuery.Response>>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IFileService _fileService;
 
-    public AddDriverHandler(IUserRepository userRepository)
+    public AddDriverHandler(IUserRepository userRepository, IFileService fileService)
     {
         _userRepository = userRepository;
+        _fileService = fileService;
     } 
     public async Task<OperationResponse<GetAllDriversQuery.Response>> HandleAsync(AddDriverCommand.Request request, 
         CancellationToken cancellationToken = new())
@@ -23,8 +25,14 @@ public class AddDriverHandler : IRequestHandler<AddDriverCommand.Request,
         if(await _userRepository.IsEmailExist<Driver>(request.Email))
             return DomainError.User.EmailAlreadyUsed(request.Email);
 
-        var driver = new Driver(request.FullName,
-            request.PhoneNumber, request.BirthDate, request.Email);
+        var image = await _fileService.Upload(request.Vehicle.ImageFile);
+        var vehicle = new Vehicle(request.Vehicle.Name,
+            request.Vehicle.VehicleTypeId, request.Vehicle.MaxCapacity,
+            request.Vehicle.Color, request.Vehicle.Name, image);
+        
+        var driver = new Driver( request.FullName,
+            request.PhoneNumber, request.BirthDate, 
+            request.Email, vehicle.Id);
 
         var identityResult = await _userRepository.AddWithRole(driver, StayHomeRoles.Driver, request.Password);
         

@@ -12,8 +12,8 @@ using StayHome.Persistence.Context;
 namespace StayHome.Persistence.Migrations
 {
     [DbContext(typeof(StayHomeDbContext))]
-    [Migration("20230717055804_OrderSource")]
-    partial class OrderSource
+    [Migration("20230811140628_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -407,9 +407,6 @@ namespace StayHome.Persistence.Migrations
                     b.Property<DateTimeOffset?>("UtcDateUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid?>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -421,8 +418,6 @@ namespace StayHome.Persistence.Migrations
                     b.HasIndex("EmployeeHandlerId");
 
                     b.HasIndex("SourceId");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Orders");
 
@@ -1009,6 +1004,11 @@ namespace StayHome.Persistence.Migrations
                     b.Property<string>("DeviceToken")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("VehicleId");
+
                     b.HasDiscriminator().HasValue("Driver");
                 });
 
@@ -1145,10 +1145,6 @@ namespace StayHome.Persistence.Migrations
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Orders")
-                        .HasForeignKey("VehicleId");
-
                     b.Navigation("Customer");
 
                     b.Navigation("Destination");
@@ -1158,8 +1154,6 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("EmployeeHandler");
 
                     b.Navigation("Source");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderStage", b =>
@@ -1339,6 +1333,17 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Driver", b =>
+                {
+                    b.HasOne("Domain.Entities.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("Domain.Entities.AddressOrder", b =>
                 {
                     b.Navigation("DestinationOrders");
@@ -1390,11 +1395,6 @@ namespace StayHome.Persistence.Migrations
                     b.Navigation("ShippingOrders");
 
                     b.Navigation("WorkTimes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleType", b =>

@@ -21,7 +21,6 @@ public class GetByIdShippingOrderQuery
         public double Coast { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
-        public VehicleRes Vehicle { get; set; }
         public string? Note { get; set; }
         public double? Weight { get; set; }    
         public List<ProductsCartMobileDto>? Cart { get; set; } = new();
@@ -47,13 +46,6 @@ public class GetByIdShippingOrderQuery
                     : string.Join(", ", o.Shop!.Area.City.Name, o.Shop.Area.Name, o.Shop.Name),
                 Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime,
                 Coast = o.Coast + o.DeliveryCoast,
-                Vehicle = new VehicleRes()
-                {
-                    VehicleType = o.Vehicle!.VehicleType.Name,
-                    Name = o.Vehicle.Name,
-                    Number = o.Vehicle.Number,
-                    ImageUrl = o.Vehicle.ImageUrl,
-                },
                 Cart = o.Carts.Select(c => new ProductsCartMobileDto()
                 {
                     Name = c.Product.Name,

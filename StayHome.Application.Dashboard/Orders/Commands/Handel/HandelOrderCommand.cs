@@ -9,6 +9,5 @@ public class HandelOrderCommand
     {  
         public Guid Id { get; set; }
         public Guid DriverId { get; set; }
-        public Guid VehicleId { get; set; }
     }
 }
