@@ -6,7 +6,7 @@ namespace StayHome.Application.Mobile.Orders;
 
 public class AddDeliveryOrderCommand
 {
-    public class Request : IRequest<OperationResponse>
+    public class Request : IRequest<OperationResponse<Response>>
     {
         public AddressOrderDto Source { get; set; }
         public string? Note { get; private set; }
@@ -18,5 +18,14 @@ public class AddDeliveryOrderCommand
         
         public double? Weight { get; set; }
         public List<ProductsCartDto>? Cart { get; set; } = new();
+    }
+    public class Response
+    {
+        public Guid Id { get; set; }
+
+        public Response(Guid id)
+        {
+            Id = id;
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace StayHome.Application.Mobile.Orders;
 
 public class AddPassengerOrderCommand
 {
-    public class Request : IRequest<OperationResponse>
+    public class Request : IRequest<OperationResponse<Response>>
     {
         public string? Note { get; private set; }
         public DateTime? ScheduleDate { get; set; }
@@ -15,5 +15,14 @@ public class AddPassengerOrderCommand
         public AddressOrderDto Destination { get; set; }
 
         public int NumberOfPassenger { get; set; }
+    }
+    public class Response
+    {
+        public Guid Id { get; set; }
+
+        public Response(Guid id)
+        {
+            Id = id;
+        }
     }
 }

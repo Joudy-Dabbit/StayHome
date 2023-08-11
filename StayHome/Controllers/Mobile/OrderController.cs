@@ -24,25 +24,26 @@ public class OrderController : ApiController
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OperationResponse<AddShippingOrderCommand.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddShippingOrder(
-        [FromServices] IRequestHandler<AddShippingOrderCommand.Request, OperationResponse> handler,
+        [FromServices] IRequestHandler<AddShippingOrderCommand.Request,
+            OperationResponse<AddShippingOrderCommand.Response>> handler,
         [FromQuery] AddShippingOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OperationResponse<AddDeliveryOrderCommand.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddDeliveryOrder(
-        [FromServices] IRequestHandler<AddDeliveryOrderCommand.Request, OperationResponse> handler,
+        [FromServices] IRequestHandler<AddDeliveryOrderCommand.Request, OperationResponse<AddDeliveryOrderCommand.Response>> handler,
         [FromQuery] AddDeliveryOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync(); 
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OperationResponse<AddPassengerOrderCommand.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddPassengerOrder(
-        [FromServices] IRequestHandler<AddPassengerOrderCommand.Request, OperationResponse> handler,
+        [FromServices] IRequestHandler<AddPassengerOrderCommand.Request, OperationResponse<AddPassengerOrderCommand.Response>> handler,
         [FromQuery] AddPassengerOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();    
     

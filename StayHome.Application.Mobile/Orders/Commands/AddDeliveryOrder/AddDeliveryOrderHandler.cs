@@ -8,7 +8,7 @@ using StayHome.Application.Dashboard.Core.Abstractions.Http;
 namespace StayHome.Application.Mobile.Orders;
 
 public class AddDeliveryOrderHandler : IRequestHandler<AddDeliveryOrderCommand.Request,
-    OperationResponse>
+    OperationResponse<AddDeliveryOrderCommand.Response>>
 {
     private readonly IHttpService _httpService;
     private readonly IUserRepository _repository;
@@ -22,7 +22,7 @@ public class AddDeliveryOrderHandler : IRequestHandler<AddDeliveryOrderCommand.R
         _orderRepository = orderRepository;
     }
 
-    public async Task<OperationResponse> HandleAsync(AddDeliveryOrderCommand.Request request,
+    public async Task<OperationResponse<AddDeliveryOrderCommand.Response>> HandleAsync(AddDeliveryOrderCommand.Request request,
         CancellationToken cancellationToken = new CancellationToken())
     {
         var user = await _orderRepository.TrackingQuery<Customer>()
@@ -59,6 +59,6 @@ public class AddDeliveryOrderHandler : IRequestHandler<AddDeliveryOrderCommand.R
 
         _repository.Add(order);
         await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResponse.WithOk();
+        return new AddDeliveryOrderCommand.Response(order.Id);
     }
 }
