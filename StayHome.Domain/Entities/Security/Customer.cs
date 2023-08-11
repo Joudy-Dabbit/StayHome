@@ -72,4 +72,27 @@ public class Customer : User
             destinationId, sourceId, Id);
         return order;
     }
+    
+    public DeliveryOrder AddDeliveryOrder(double coast, double? weight,
+        Guid? shopId, DateTime? scheduleDate,
+        double deliveryCoast, string? note,
+        Guid destinationId, Guid? sourceId)
+    {
+        var order = new DeliveryOrder(coast, weight, 
+            shopId, scheduleDate,
+            deliveryCoast, note,
+            destinationId, sourceId, Id);
+        return order;
+    }   
+    
+    public PassengerOrder AddPassengerOrder(int numberOfPassenger,
+        DateTime? scheduleDate,
+        double deliveryCoast, string? note,
+        Guid destinationId, Guid sourceId)
+    {
+        var order = new PassengerOrder(numberOfPassenger, scheduleDate,
+            deliveryCoast, note,destinationId, sourceId, Id);
+        
+        return order;
+    }
 }

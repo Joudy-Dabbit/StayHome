@@ -3,6 +3,8 @@ namespace Domain.Entities;
 
 public class ShippingOrder : Order
 {
+    private ShippingOrder() { }
+
     public ShippingOrder(double coast, double? weight,
         Guid? shopId, DateTime? scheduleDate, 
         double deliveryCoast, string? note,

@@ -29,4 +29,28 @@ public class OrderController : ApiController
         [FromServices] IRequestHandler<AddShippingOrderCommand.Request, OperationResponse> handler,
         [FromQuery] AddShippingOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AddDeliveryOrder(
+        [FromServices] IRequestHandler<AddDeliveryOrderCommand.Request, OperationResponse> handler,
+        [FromQuery] AddDeliveryOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync(); 
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AddPassengerOrder(
+        [FromServices] IRequestHandler<AddPassengerOrderCommand.Request, OperationResponse> handler,
+        [FromQuery] AddPassengerOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();    
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Rate(
+        [FromServices] IRequestHandler<RateOrderCommand.Request, OperationResponse> handler,
+        [FromQuery] RateOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
 }

@@ -14,6 +14,6 @@ public class AddPassengerOrderCommand
         public AddressOrderDto Source { get; set; }
         public AddressOrderDto Destination { get; set; }
 
-        public double NumberOfPassenger { get; set; }
+        public int NumberOfPassenger { get; set; }
     }
 }
