@@ -48,9 +48,9 @@ public class Shop : AggregateRoot
         _workTimes.Clear();
     }
     
-    public Product AddProduct(string name, string imagUrl, double cost)
+    public Product AddProduct(string name, string imagUrl, double cost, bool isAvailable)
      { 
-         var product = new Product(name, imagUrl, cost, Id);
+         var product = new Product(name, imagUrl, cost, Id, isAvailable);
          _products.Add(product);
          return product;
      }

@@ -12,5 +12,7 @@ public class AddProductCommand
         public IFormFile ImageFile { get; set; }
         public double Cost { get; set; }
         public Guid ShopId { get; set; }
+        public bool IsAvailable { get; set; }
+
     }
 }

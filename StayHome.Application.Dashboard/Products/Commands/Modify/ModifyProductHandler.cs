@@ -27,7 +27,7 @@ public class ModifyProductHandler : IRequestHandler<ModifyProductCommand.Request
             .Where(p => p.Id == request.Id).FirstAsync(cancellationToken);
 
         var  Image = await _fileService.Modify(product.ImageUrl, request.ImageFile);
-        product.Modify(request.Name, Image, request.Cost);
+        product.Modify(request.Name, Image, request.Cost, request.IsAvailable);
      
         _repository.Update(product);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);

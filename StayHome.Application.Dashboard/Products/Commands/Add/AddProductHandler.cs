@@ -25,9 +25,9 @@ public class AddProductHandler : IRequestHandler<AddProductCommand.Request,
         var shop = await _repository.TrackingQuery<Shop>()
             .Where(b => b.Id == request.ShopId).FirstAsync(cancellationToken);
         var image = await _fileService.Upload(request.ImageFile);
-        shop.AddProduct(request.Name,image, request.Cost);
+        var product = shop.AddProduct(request.Name,image, request.Cost, request.IsAvailable);
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return (await _repository.GetAsync(s => s.ShopId == shop.Id, GetAllProductsByShopIdQuery.Response.Selector())).First();
+        return (await _repository.GetAsync(s => s.ShopId == shop.Id && s.Id == product.Id, GetAllProductsByShopIdQuery.Response.Selector())).First();
     }
 }

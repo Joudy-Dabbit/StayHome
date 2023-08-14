@@ -15,9 +15,10 @@ public class GetByIdProductQuery
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public double Cost { get; set; }
         public Guid ShopId { get; set; }
+        public bool IsAvailable { get; set; }
 
         
         public static Expression<Func<Product, Response>> Selector()
@@ -27,7 +28,8 @@ public class GetByIdProductQuery
                 Name =  s.Name,
                 ImageUrl = s.ImageUrl,
                 Cost = s.Cost,
-                ShopId = s.ShopId
+                ShopId = s.ShopId,
+                IsAvailable = s.IsAvailable
             };
     }
 }

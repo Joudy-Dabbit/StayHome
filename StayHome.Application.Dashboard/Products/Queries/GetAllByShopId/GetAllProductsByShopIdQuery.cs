@@ -18,14 +18,16 @@ public class GetAllProductsByShopIdQuery
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public double Cost { get; set; }
-        
+        public bool IsAvailable { get; set; }
+
         public static Expression<Func<Product, Response>> Selector()
             => s => new Response()
             {
                 Id = s.Id,
                 Name =  s.Name,
                 ImageUrl = s.ImageUrl,
-                Cost = s.Cost
+                Cost = s.Cost,
+                IsAvailable = s.IsAvailable
             };
     }
 }

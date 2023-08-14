@@ -12,5 +12,6 @@ public class ModifyProductCommand
         public string Name { get; set; }
         public IFormFile ImageFile { get; set; }
         public double Cost { get; set; }
+        public bool IsAvailable { get;  set; }
     }
 }
