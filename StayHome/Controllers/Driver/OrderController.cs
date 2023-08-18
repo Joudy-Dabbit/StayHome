@@ -30,5 +30,23 @@ public class OrderController : ApiController
         [FromServices] IRequestHandler<GetByIdShippingOrderQuery.Request,
             OperationResponse<GetByIdShippingOrderQuery.Response>> handler,
         [FromQuery] GetByIdShippingOrderQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();     
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdDeliveryOrderQuery.Response))]
+    public async Task<IActionResult> GetByIdDeliveryOrder(
+        [FromServices] IRequestHandler<GetByIdDeliveryOrderQuery.Request,
+            OperationResponse<GetByIdDeliveryOrderQuery.Response>> handler,
+        [FromQuery] GetByIdDeliveryOrderQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();     
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdPassengerOrderQuery.Response))]
+    public async Task<IActionResult> GetByIdPassengerOrder(
+        [FromServices] IRequestHandler<GetByIdPassengerOrderQuery.Request,
+            OperationResponse<GetByIdPassengerOrderQuery.Response>> handler,
+        [FromQuery] GetByIdPassengerOrderQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
 }
