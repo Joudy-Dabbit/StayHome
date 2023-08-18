@@ -48,13 +48,14 @@ public class GetByIdShopQuery
                IsOnline = s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek &&
                                                 (wt.StartTime <= DateTime.Now.TimeOfDay
                                                  && DateTime.Now.TimeOfDay <= wt.EndTime)),
-               Products = s.Products.Select(p => new ProductRes()
-               {
-                   Id = p.Id,
-                   Name = p.Name,
-                   ImageUrl = p.ImageUrl,
-                   Cost = p.Cost
-               }).ToList()
+               Products = s.Products.Where(p => p.IsAvailable)
+                   .Select(p => new ProductRes()
+                   {
+                       Id = p.Id,
+                       Name = p.Name,
+                       ImageUrl = p.ImageUrl,
+                       Cost = p.Cost
+                   }).ToList()
             };
     }
 }

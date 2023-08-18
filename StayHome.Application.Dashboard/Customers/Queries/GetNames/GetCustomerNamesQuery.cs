@@ -14,13 +14,13 @@ public class GetCustomerNamesQuery
     public class Response
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
 
         public static Expression<Func<Customer, Response>> Selector() => c
             => new()
             {
                 Id = c.Id,
-                Name = c.FullName
+                FullName = c.FullName
             };
     }
 

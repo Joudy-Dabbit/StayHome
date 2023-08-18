@@ -16,7 +16,7 @@ public class GetAllDriversQuery
     public class Response
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsAvailable { get; set; }
         public DateTime? BirthDate { get; set; }
@@ -26,7 +26,7 @@ public class GetAllDriversQuery
             => new()
             {
                 Id = d.Id,
-                Name = d.FullName,
+                FullName = d.FullName,
                 PhoneNumber = d.PhoneNumber,
                 BirthDate = d.BirthDate,
                 OrderCount = d.Orders.Count(),

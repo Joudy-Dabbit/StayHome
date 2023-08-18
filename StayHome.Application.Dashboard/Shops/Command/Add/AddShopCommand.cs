@@ -10,7 +10,7 @@ public class AddShopCommand
     public class Request : IRequest<OperationResponse<GetAllSopsQuery.Response>>
     {
         public string Name { get;  set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     
         public Guid CategoryId { get; set; }
         public Guid AreaId { get; set; }

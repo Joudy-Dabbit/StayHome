@@ -10,7 +10,7 @@ public class ModifyProductCommand
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public double Cost { get; set; }
         public bool IsAvailable { get;  set; }
     }

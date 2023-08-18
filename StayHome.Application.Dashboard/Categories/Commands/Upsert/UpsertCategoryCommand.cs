@@ -10,6 +10,6 @@ public class UpsertCategoryCommand
     {
         public Guid? Id { get; set; }
         public string Name { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     }
 }

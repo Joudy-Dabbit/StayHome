@@ -11,7 +11,7 @@ public class ModifyShopCommand
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public Guid AreaId { get; set; }
         public Guid CategoryId { get; set; }
         
