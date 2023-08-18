@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <Folder Include="Drivers\" />
+      <Folder Include="Orders\Queries\" />
     </ItemGroup>
 
 </Project>

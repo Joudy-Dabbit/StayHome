@@ -22,7 +22,9 @@ public class GetAllAssignedOrdersHandler: IRequestHandler<GetAllAssignedOrdersQu
       => new GetAllAssignedOrdersQuery.Response()
                 {
                     PassengerOrder = await _repository.GetAsync(e => 
-                            !e.UtcDateDeleted.HasValue && e.DriverId == _httpService.CurrentUserId!.Value,
+                            !e.UtcDateDeleted.HasValue
+                            && e.DriverId == _httpService.CurrentUserId!.Value
+                            && e.Stages.Any(),
                         GetAllAssignedOrdersQuery.Response.PassengerOrderSelector()),
                     ShippingOrder = await _repository.GetAsync(e => 
                             !e.UtcDateDeleted.HasValue && e.DriverId == _httpService.CurrentUserId!.Value,
