@@ -34,7 +34,7 @@ public class EmployeeController: ApiController
             OperationResponse<List<GetAllEmployeesQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdEmployeeQuery.Response))]
     public async Task<IActionResult> GetById(
@@ -44,7 +44,7 @@ public class EmployeeController: ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();   
     
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetAllEmployeesQuery.Response))]
      public async Task<IActionResult> Add(
@@ -53,7 +53,7 @@ public class EmployeeController: ApiController
         [FromForm] AddEmployeeCommand.Request request)  
         => await handler.HandleAsync(request).ToJsonResultAsync();   
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdEmployeeQuery.Response))]
      public async Task<IActionResult> Modify(
@@ -62,7 +62,7 @@ public class EmployeeController: ApiController
         [FromForm] ModifyEmployeeCommand.Request request)  
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Block(
@@ -71,7 +71,7 @@ public class EmployeeController: ApiController
         [FromQuery] BlockEmployeeCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();    
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(

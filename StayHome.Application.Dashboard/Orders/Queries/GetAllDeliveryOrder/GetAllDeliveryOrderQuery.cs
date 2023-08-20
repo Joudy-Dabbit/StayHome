@@ -3,11 +3,10 @@ using Domain.Entities;
 using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
-using StayHome.Contracts.Orders;
 
 namespace StayHome.Application.Dashboard.Orders;
 
-public class GetAllShippingOrderQuery
+public class GetAllDeliveryOrderQuery
 {
     public class Request : IRequest<OperationResponse<List<Response>>>
     {
@@ -25,7 +24,7 @@ public class GetAllShippingOrderQuery
         public Guid? ShopId { get; set; }
 
         
-        public static Expression<Func<ShippingOrder, Response>> Selector()
+        public static Expression<Func<DeliveryOrder, Response>> Selector()
             => o => new()
             {
                 Id = o.Id,
@@ -33,10 +32,10 @@ public class GetAllShippingOrderQuery
                 Destination = o.Destination != null ? 
                     string.Join(", ", o.Destination.Area.City.Name, o.Destination.Area.Name, 
                         o.Destination.Street, o.Destination.Additional)
-                     :  string.Join(", ", o.Shop!.Area.City.Name, o.Shop.Area.Name),
+                    :  string.Join(", ", o.Shop!.Area.City.Name, o.Shop.Area.Name),
                 Source = o.Source != null ?
                     string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
-                    o.Source.Street, o.Source.Additional)
+                        o.Source.Street, o.Source.Additional)
                     : null,
                 IsScheduled = o.ScheduleDate.HasValue,
                 ShopId = o.ShopId,

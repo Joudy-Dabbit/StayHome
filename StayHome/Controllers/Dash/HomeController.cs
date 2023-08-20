@@ -14,10 +14,10 @@ public class HomeController: ApiController
 {
     public HomeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-    // [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetHomeQuery.Response), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(
+    public async Task<IActionResult> Get(
         [FromServices] IRequestHandler<GetHomeQuery.Request, 
             OperationResponse<GetHomeQuery.Response>> handler,
         [FromQuery] GetHomeQuery.Request request)

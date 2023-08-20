@@ -15,7 +15,7 @@ public class DriverController : ApiController
 {
     public DriverController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAllDriversQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
@@ -23,7 +23,7 @@ public class DriverController : ApiController
             OperationResponse<List<GetAllDriversQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();    
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdDriverQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
@@ -32,7 +32,7 @@ public class DriverController : ApiController
         [FromQuery] GetByIdDriverQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
 
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetDriverNamesQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetNames(
@@ -41,7 +41,7 @@ public class DriverController : ApiController
         => await handler.HandleAsync(new()).ToJsonResultAsync();
     
         
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetAllDriversQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(
@@ -50,7 +50,7 @@ public class DriverController : ApiController
         [FromForm] AddDriverCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdDriverQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Modify(
@@ -59,7 +59,7 @@ public class DriverController : ApiController
         [FromForm] ModifyDriverCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Block(
@@ -68,7 +68,7 @@ public class DriverController : ApiController
         [FromQuery] BlockDriverCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Admin)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(

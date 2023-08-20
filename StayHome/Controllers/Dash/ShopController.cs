@@ -23,7 +23,7 @@ public class ShopController : ApiController
             OperationResponse<List<GetAllSopsQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdShopQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
@@ -33,7 +33,7 @@ public class ShopController : ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();
 
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetAllSopsQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(
@@ -42,7 +42,7 @@ public class ShopController : ApiController
         [FromForm] AddShopCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdShopQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Modify(
@@ -51,7 +51,7 @@ public class ShopController : ApiController
         [FromForm] ModifyShopCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(

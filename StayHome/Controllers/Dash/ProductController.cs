@@ -24,7 +24,7 @@ public class ProductController : ApiController
         [FromQuery] GetAllProductsByShopIdQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync(); 
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdProductQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
@@ -34,7 +34,7 @@ public class ProductController : ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();
 
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetAllProductsByShopIdQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(
@@ -43,7 +43,7 @@ public class ProductController : ApiController
         [FromForm] AddProductCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdProductQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Modify(
@@ -52,7 +52,7 @@ public class ProductController : ApiController
         [FromForm] ModifyProductCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(
