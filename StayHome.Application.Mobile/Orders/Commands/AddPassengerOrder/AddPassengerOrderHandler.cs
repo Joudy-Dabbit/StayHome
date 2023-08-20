@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enum;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
@@ -47,6 +48,7 @@ public class AddPassengerOrderHandler : IRequestHandler<AddPassengerOrderCommand
             destination.Id, source.Id);
 
         _repository.Add(order);
+        order.AddStage(OrderStages.NewOrder);
         await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddPassengerOrderCommand.Response(order.Id);
     }

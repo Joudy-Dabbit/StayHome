@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Drivers.Orders;
+namespace StayHome.Application.Dashboard.Orders;
 
 public class CancelOrderHandler : IRequestHandler<CancelOrderCommand.Request,
     OperationResponse>
@@ -23,9 +23,7 @@ public class CancelOrderHandler : IRequestHandler<CancelOrderCommand.Request,
         var order = await _repository.TrackingQuery<Order>()
             .Where(o => o.Id == request.Id).FirstAsync(cancellationToken);
         
-        order.AddStage(request.CancelBy == CancelBy.Driver 
-        ? OrderStages.CanselByDriver
-        : OrderStages.CanselByCustomer);
+        order.AddStage(OrderStages.UnConfirmed);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return OperationResponse.WithOk();

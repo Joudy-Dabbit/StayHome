@@ -43,5 +43,10 @@ public class Order : AggregateRoot
     {
         Star = star;
         Comment = comment;
+    }   
+    
+    public void AddStage(OrderStages stage)
+    {
+        _stages.Add(new OrderStage(DateTime.Now, stage, Id));
     }
 }

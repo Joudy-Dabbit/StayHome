@@ -8,7 +8,7 @@ namespace StayHome.Application.Dashboard.Orders;
 
 public class GetAllPassengerOrderQuery
 {
-    public class Request : IRequest<OperationResponse<Response>>
+    public class Request : IRequest<OperationResponse<List<Response>>>
     {
     }
 
@@ -21,7 +21,6 @@ public class GetAllPassengerOrderQuery
         public bool IsScheduled { get; set; }
         public bool IsHandled { get; set; }
         public string? Source { get; set; }
-        public Guid? ShopId { get; set; }
 
         public static Expression<Func<PassengerOrder, Response>> Selector
             => o => new()

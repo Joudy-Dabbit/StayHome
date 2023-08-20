@@ -24,6 +24,7 @@ public class GetByIdDeliveryOrderQuery
         public string? Note { get; set; }
         public double? Weight { get; set; }    
         public List<ProductsCartDto>? Cart { get; set; } = new(); 
+        public string CurrentStage { get; set; }
 
         public static Expression<Func<DeliveryOrder, Response>> Selector
             => o => new()
@@ -44,7 +45,8 @@ public class GetByIdDeliveryOrderQuery
                     Quantity = c.Quantity
                 }).ToList(),
                 Note = o.Note,
-                Weight = o.Weight
+                Weight = o.Weight,
+                CurrentStage = o.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString()
             };
     }
 }

@@ -30,6 +30,7 @@ public class GetByIdShippingOrderQuery
         public List<ProductsCartDto>? Cart { get; set; } = new();
         public double Coast { get; set; }
         public double DeliveryCoast { get; set; }
+        public string CurrentStage { get; set; }
 
         public static Expression<Func<ShippingOrder, Response>> Selector
             => o => new()
@@ -55,6 +56,7 @@ public class GetByIdShippingOrderQuery
                 }).ToList(),
                 Coast = o.Coast,
                 DeliveryCoast = o.DeliveryCoast,
+                CurrentStage = o.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString()
             };
     }
 }

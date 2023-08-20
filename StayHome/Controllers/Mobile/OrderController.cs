@@ -54,4 +54,13 @@ public class OrderController : ApiController
         [FromServices] IRequestHandler<RateOrderCommand.Request, OperationResponse> handler,
         [FromQuery] RateOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Cancel(
+        [FromServices] IRequestHandler<CancelOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] CancelOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
 }

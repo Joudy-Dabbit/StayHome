@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enum;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
@@ -57,6 +58,7 @@ public class AddShippingOrderHandler : IRequestHandler<AddShippingOrderCommand.R
                request.Cart.ForEach(c => order.AddOrderCart(c.ProductId, c.Quantity));
 
         _repository.Add(order);
+        order.AddStage(OrderStages.NewOrder);
         await _orderRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddShippingOrderCommand.Response(order.Id);
     }

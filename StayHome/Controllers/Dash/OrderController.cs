@@ -29,6 +29,14 @@ public class OrderController : ApiController
     public async Task<IActionResult> GetAllDeliveryOrder(
         [FromServices] IRequestHandler<GetAllDeliveryOrderQuery.Request, 
             OperationResponse<List<GetAllDeliveryOrderQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();    
+    
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [ProducesResponseType(typeof(List<GetAllPassengerOrderQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllPassengerOrder(
+        [FromServices] IRequestHandler<GetAllPassengerOrderQuery.Request, 
+            OperationResponse<List<GetAllPassengerOrderQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();  
     
     [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
@@ -63,7 +71,25 @@ public class OrderController : ApiController
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetByIdShippingOrderQuery.Response))]
     public async Task<IActionResult> Handle(
         [FromServices] IRequestHandler<HandelOrderCommand.Request,
-            OperationResponse<GetByIdShippingOrderQuery.Response>> handler,
+            OperationResponse> handler,
         [FromBody] HandelOrderCommand.Request request)
-        => await handler.HandleAsync(request).ToJsonResultAsync();   
+        => await handler.HandleAsync(request).ToJsonResultAsync();      
+    
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Delete(
+        [FromServices] IRequestHandler<DeleteOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] Guid? id, [FromBody] List<Guid> ids)
+        => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
+    
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Cancel(
+        [FromServices] IRequestHandler<CancelOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] CancelOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
 }

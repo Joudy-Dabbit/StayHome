@@ -48,5 +48,32 @@ public class OrderController : ApiController
         [FromServices] IRequestHandler<GetByIdPassengerOrderQuery.Request,
             OperationResponse<GetByIdPassengerOrderQuery.Response>> handler,
         [FromQuery] GetByIdPassengerOrderQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();    
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Accept(
+        [FromServices] IRequestHandler<AcceptOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] AcceptOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();     
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Cancel(
+        [FromServices] IRequestHandler<CancelOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] CancelOrderCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpPost,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> Complete(
+        [FromServices] IRequestHandler<CompleteOrderCommand.Request,
+            OperationResponse> handler,
+        [FromQuery] CompleteOrderCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();   
 }

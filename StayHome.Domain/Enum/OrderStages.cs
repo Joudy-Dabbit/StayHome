@@ -5,8 +5,9 @@ public enum OrderStages
     UnConfirmed,
     Confirmed,
     NewOrder,
-    InProcess,
     OnWay,
-    Done,
-    Cansel
+    Complete,
+    Retract,
+    CanselByCustomer,
+    CanselByDriver,
 }

@@ -21,7 +21,7 @@ public class LogInDriverCommand
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public DateTime? BirthDate { get; set; }
-        
+        public DriverVehicleResponse Vehicle { get; set; }
 
         public static Expression<Func<Driver, Response>> Selector(string accessToken, string refreshToken) 
             => c => new()
@@ -32,7 +32,16 @@ public class LogInDriverCommand
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber,
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                Vehicle = new DriverVehicleResponse()
+                {
+                ImageFile = c.Vehicle.ImageUrl,
+                Name = c.Vehicle.Name,
+                Number = c.Vehicle.Number,
+                Color = c.Vehicle.Color,
+                MaxCapacity = c.Vehicle.MaxCapacity,
+                VehicleTypeId = c.Vehicle.VehicleTypeId
+                }
             };
     }
 }

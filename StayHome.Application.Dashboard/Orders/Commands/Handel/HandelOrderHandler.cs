@@ -11,7 +11,7 @@ using StayHome.Application.Dashboard.Drivers;
 namespace StayHome.Application.Dashboard.Orders;
 
 public class HandelOrderHandler: IRequestHandler<HandelOrderCommand.Request,
-    OperationResponse<GetByIdShippingOrderQuery.Response>>
+    OperationResponse>
 {
     private readonly IStayHomeRepository _repository;
     private readonly IHttpService _httpService;
@@ -21,14 +21,15 @@ public class HandelOrderHandler: IRequestHandler<HandelOrderCommand.Request,
         _repository = repository;
         _httpService = httpService;
     } 
-    public async Task<OperationResponse<GetByIdShippingOrderQuery.Response>> HandleAsync(HandelOrderCommand.Request request, 
+    public async Task<OperationResponse> HandleAsync(HandelOrderCommand.Request request, 
         CancellationToken cancellationToken = new())
     {
         var order = await _repository.TrackingQuery<Order>()
             .FirstAsync(o => o.Id == request.Id, cancellationToken);
 
         order.Handle(request.DriverId,_httpService.CurrentUserId!.Value);
+        order.AddStage(OrderStages.Confirmed);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
-        return await _repository.GetAsync(order.Id, GetByIdShippingOrderQuery.Response.Selector);    
+        return OperationResponse.WithOk();
     }
 }
