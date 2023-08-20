@@ -28,7 +28,7 @@ public class Shop : AggregateRoot
     
     
     private readonly List<WorkTime> _workTimes = new();
-    public IReadOnlyCollection<WorkTime> WorkTimes => _workTimes.AsReadOnly(); 
+    public IReadOnlyCollection<WorkTime> WorkTimes => _workTimes.AsReadOnly();  
     
     
     private readonly List<ShippingOrder> _shippingOrders = new();
