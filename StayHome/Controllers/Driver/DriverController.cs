@@ -26,6 +26,14 @@ public class DriverController : ApiController
     
     [AppAuthorize(StayHomeRoles.Driver)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(LogInDriverCommand.Response))]
+    public async Task<IActionResult> GetAllVehicleTypes(
+        [FromServices] IRequestHandler<GetAllVehicleTypesQuery.Request, 
+            OperationResponse<List<GetAllVehicleTypesQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
     [ProducesResponseType(typeof(GetDriverProfileQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetMyProfile(
         [FromServices] IRequestHandler<GetDriverProfileQuery.Request, OperationResponse<GetDriverProfileQuery.Response>> handler)

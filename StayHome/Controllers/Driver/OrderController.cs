@@ -21,6 +21,22 @@ public class OrderController : ApiController
     public async Task<IActionResult> GetAllAssigned(
         [FromServices] IRequestHandler<GetAllAssignedOrdersQuery.Request, 
             OperationResponse<GetAllAssignedOrdersQuery.Response>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync(); 
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [ProducesResponseType(typeof(GetAllDeliveredQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllDelivered(
+        [FromServices] IRequestHandler<GetAllDeliveredQuery.Request, 
+            OperationResponse<GetAllDeliveredQuery.Response>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [ProducesResponseType(typeof(GetAllOrderEvaluatedQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllOrderEvaluated(
+        [FromServices] IRequestHandler<GetAllOrderEvaluatedQuery.Request, 
+            OperationResponse<GetAllOrderEvaluatedQuery.Response>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();
     
     [AppAuthorize(StayHomeRoles.Driver)]
