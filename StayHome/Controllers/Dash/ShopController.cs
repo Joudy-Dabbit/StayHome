@@ -15,7 +15,7 @@ public class ShopController : ApiController
 {
     public ShopController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAllSopsQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(

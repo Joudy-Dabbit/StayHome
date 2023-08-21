@@ -14,7 +14,7 @@
 // {
 //     public VehicleController(IRequestDispatcher dispatcher) : base(dispatcher) { }
 //     
-//     [AppAuthorize(StayHomeRoles.Employee)]
+//    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
 //     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
 //     [ProducesResponseType(typeof(List<GetAllVehiclesQuery.Response>),StatusCodes.Status200OK)]
 //     public async Task<IActionResult> GetAll(
@@ -22,7 +22,7 @@
 //             OperationResponse<List<GetAllVehiclesQuery.Response>>> handler)
 //         => await handler.HandleAsync(new()).ToJsonResultAsync();    
 //     
-//     [AppAuthorize(StayHomeRoles.Employee)]
+//    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
 //     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
 //     [ProducesResponseType(typeof(GetByIdVehicleQuery.Response),StatusCodes.Status200OK)]
 //     public async Task<IActionResult> GetById(
@@ -31,7 +31,7 @@
 //         GetByIdVehicleQuery.Request request)
 //         => await handler.HandleAsync(request).ToJsonResultAsync();    
 //      
-//     [AppAuthorize(StayHomeRoles.Employee)]
+//    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
 //     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
 //     [ProducesResponseType(typeof(GetAllVehiclesQuery.Response),StatusCodes.Status200OK)]
 //     public async Task<IActionResult> Add(
@@ -40,7 +40,7 @@
 //         [FromForm] AddVehicleCommand.Request request)
 //         => await handler.HandleAsync(request).ToJsonResultAsync(); 
 //     
-//     [AppAuthorize(StayHomeRoles.Employee)]
+//    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
 //     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
 //     [ProducesResponseType(typeof(GetByIdVehicleQuery.Response),StatusCodes.Status200OK)]
 //     public async Task<IActionResult> Modify(
@@ -49,7 +49,7 @@
 //         [FromForm] ModifyVehicleCommand.Request request)
 //         => await handler.HandleAsync(request).ToJsonResultAsync();
 //      
-//     [AppAuthorize(StayHomeRoles.Employee)]
+//    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
 //     [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
 //     [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
 //     public async Task<IActionResult> Delete(

@@ -20,7 +20,7 @@ public class SettingController : ApiController
      public SettingController(IRequestDispatcher dispatcher) : base(dispatcher) { }
 
      #region - Cities -
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllCitiesQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllCities(
@@ -28,7 +28,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetAllCitiesQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();   
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllCitiesWithAreasQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllCitiesWithAreas(
@@ -36,7 +36,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetAllCitiesWithAreasQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(GetAllCitiesQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertCity(
@@ -45,7 +45,7 @@ public class SettingController : ApiController
          [FromBody] UpsertCityCommand.Request request)
          => await handler.HandleAsync(request).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteCity(
@@ -56,7 +56,7 @@ public class SettingController : ApiController
      #endregion    
      
      #region - Areas -
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllAreasQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllAreas(
@@ -64,7 +64,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetAllAreasQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();   
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetNamesAreasQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetNamesAreas(
@@ -72,7 +72,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetNamesAreasQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(GetAllAreasQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertArea(
@@ -81,7 +81,7 @@ public class SettingController : ApiController
          [FromBody] UpsertAreaCommand.Request request)
          => await handler.HandleAsync(request).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteArea(
@@ -92,7 +92,7 @@ public class SettingController : ApiController
      #endregion
 
      #region  - Categories -
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllCategoriesQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllCategories(
@@ -100,7 +100,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetAllCategoriesQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();    
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(GetAllCategoriesQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertCategory(
@@ -109,7 +109,7 @@ public class SettingController : ApiController
          [FromForm] UpsertCategoryCommand.Request request)
          => await handler.HandleAsync(request).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteCategory(
@@ -120,7 +120,7 @@ public class SettingController : ApiController
      #endregion
      
      #region - VehicleTypes -
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(List<GetAllVehicleTypesQuery.Response>),StatusCodes.Status200OK)]
      public async Task<IActionResult> GetAllVehicleTypes(
@@ -128,7 +128,7 @@ public class SettingController : ApiController
              OperationResponse<List<GetAllVehicleTypesQuery.Response>>> handler)
          => await handler.HandleAsync(new()).ToJsonResultAsync();    
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(GetAllVehicleTypesQuery.Response),StatusCodes.Status200OK)]
      public async Task<IActionResult> UpsertVehicleType(
@@ -137,7 +137,7 @@ public class SettingController : ApiController
          [FromForm] UpsertVehicleTypeCommand.Request request)
          => await handler.HandleAsync(request).ToJsonResultAsync();
      
-     [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
      [HttpDelete,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
      [ProducesResponseType(typeof(OperationResponse),StatusCodes.Status200OK)]
      public async Task<IActionResult> DeleteVehicleType(

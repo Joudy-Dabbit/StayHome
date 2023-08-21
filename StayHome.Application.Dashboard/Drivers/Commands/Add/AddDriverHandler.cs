@@ -30,6 +30,8 @@ public class AddDriverHandler : IRequestHandler<AddDriverCommand.Request,
             request.Vehicle.VehicleTypeId, request.Vehicle.MaxCapacity,
             request.Vehicle.Color, request.Vehicle.Name, image);
         
+        _userRepository.Add(vehicle);
+        await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         var driver = new Driver( request.FullName,
             request.PhoneNumber, request.BirthDate, 
             request.Email, vehicle.Id);
