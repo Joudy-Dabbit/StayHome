@@ -34,7 +34,7 @@ public class OrderController : ApiController
     [AppAuthorize(StayHomeRoles.Driver)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
     [ProducesResponseType(typeof(GetAllOrderEvaluatedQuery.Response), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllOrderEvaluated(
+    public async Task<IActionResult> GetAllEvaluated(
         [FromServices] IRequestHandler<GetAllOrderEvaluatedQuery.Request, 
             OperationResponse<GetAllOrderEvaluatedQuery.Response>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();
