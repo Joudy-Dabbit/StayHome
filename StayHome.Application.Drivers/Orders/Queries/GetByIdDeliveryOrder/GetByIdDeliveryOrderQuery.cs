@@ -41,7 +41,8 @@ public class GetByIdDeliveryOrderQuery
                 Cart = o.Carts.Select(c => new ProductsCartMobileDto()
                 {
                     Name = c.Product.Name,
-                    Quantity = c.Quantity
+                    Quantity = c.Quantity,
+                    ImageUrl = c.Product.ImageUrl
                 }).ToList(),
                 Note = o.Note,
                 Weight = o.Weight
