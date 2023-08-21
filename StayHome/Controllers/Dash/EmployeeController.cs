@@ -26,7 +26,7 @@ public class EmployeeController: ApiController
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
 
-  [AppAuthorize(StayHomeRoles.Employee)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
   [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(List<GetAllEmployeesQuery.Response>))]
     public async Task<IActionResult> GetAll(
