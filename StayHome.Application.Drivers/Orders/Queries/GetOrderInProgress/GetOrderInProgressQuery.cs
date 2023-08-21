@@ -23,6 +23,7 @@ public class GetOrderInProgressQuery
         public string? Note { get; set; }
         public double? Weight { get; set; }    
         public List<ProductsCartMobileDto>? Cart { get; set; } = new();
+        public double Distance { get; set; }    
 
         public static Expression<Func<ShippingOrder, Response>> Selector
             => o => new()
@@ -43,7 +44,8 @@ public class GetOrderInProgressQuery
                     Quantity = c.Quantity
                 }).ToList(),
                 Note = o.Note,
-                Weight = o.Weight
+                Weight = o.Weight,
+                Distance = 0
             };
     }
 }

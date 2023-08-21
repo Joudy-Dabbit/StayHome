@@ -24,15 +24,8 @@ public class GetByIdShippingOrderQuery
         public string? Note { get; set; }
         public double? Weight { get; set; }    
         public List<ProductsCartMobileDto>? Cart { get; set; } = new();
-
-        public class VehicleRes
-        {
-            public string VehicleType { get; set; }
-            public string Number { get; set; }    
-            public string Name { get; set; }    
-            public string ImageUrl { get; set; }    
-        }
-
+        public double Distance { get; set; }
+        
         public static Expression<Func<ShippingOrder, Response>> Selector
             => o => new()
             {
@@ -53,7 +46,8 @@ public class GetByIdShippingOrderQuery
                     ImageUrl = c.Product.ImageUrl
                 }).ToList(),
                 Note = o.Note,
-                Weight = o.Weight
+                Weight = o.Weight,
+                Distance = 0
             };
     }
 }

@@ -22,7 +22,7 @@ public class GetByIdPassengerOrderQuery
         public string Destination { get; set; }
         public string? Note { get; set; }
         public int NumberOfPassenger { get; set; }    
-        public double dest { get; set; }    
+        public double Distance { get; set; }    
 
         public static Expression<Func<PassengerOrder, Response>> Selector
             => o => new()
@@ -37,6 +37,7 @@ public class GetByIdPassengerOrderQuery
                 Coast =  o.DeliveryCoast,
                 Note = o.Note,
                 NumberOfPassenger = o.NumberOfPassenger,
+                Distance = 0
             };
     }
 }

@@ -16,5 +16,5 @@ public class GetByIdDeliveryOrderHandler: IRequestHandler<GetByIdDeliveryOrderQu
 
     public async Task<OperationResponse<GetByIdDeliveryOrderQuery.Response>> HandleAsync(GetByIdDeliveryOrderQuery.Request request, 
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(request.Id, GetByIdDeliveryOrderQuery.Response.Selector);
+        => await _repository.GetAsync(request.Id, GetByIdDeliveryOrderQuery.Response.Selector, "Carts");
 }

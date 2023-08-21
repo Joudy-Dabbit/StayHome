@@ -23,6 +23,7 @@ public class GetByIdDeliveryOrderQuery
         public string Destination { get; set; }
         public string? Note { get; set; }
         public double? Weight { get; set; }    
+        public double Distance { get; set; }
         public List<ProductsCartMobileDto>? Cart { get; set; } = new(); 
 
         public static Expression<Func<DeliveryOrder, Response>> Selector
@@ -45,7 +46,8 @@ public class GetByIdDeliveryOrderQuery
                     ImageUrl = c.Product.ImageUrl
                 }).ToList(),
                 Note = o.Note,
-                Weight = o.Weight
+                Weight = o.Weight,
+                Distance = 0
             };
     }
 }
