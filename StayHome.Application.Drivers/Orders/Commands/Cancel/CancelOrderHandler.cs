@@ -25,7 +25,7 @@ public class CancelOrderHandler : IRequestHandler<CancelOrderCommand.Request,
         
         order.AddStage(request.CancelBy == CancelBy.Driver 
         ? OrderStages.CanselByDriver
-        : OrderStages.CanselByCustomer);
+        : OrderStages.Rejected);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return OperationResponse.WithOk();

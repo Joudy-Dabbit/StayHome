@@ -7,7 +7,7 @@ public enum OrderStages
     NewOrder,
     OnWay,
     Complete,
-    Retract,
+    Rejected,
     CanselByCustomer,
     CanselByDriver,
 }

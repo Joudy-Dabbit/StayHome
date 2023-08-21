@@ -1,3 +1,4 @@
+using Domain.Enum;
 using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
@@ -24,13 +25,17 @@ public class GetAllAssignedOrdersHandler: IRequestHandler<GetAllAssignedOrdersQu
                     PassengerOrder = await _repository.GetAsync(e => 
                             !e.UtcDateDeleted.HasValue
                             && e.DriverId == _httpService.CurrentUserId!.Value
-                            && e.Stages.Any(),
+                            && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Confirmed,
                         GetAllAssignedOrdersQuery.Response.PassengerOrderSelector()),
                     ShippingOrder = await _repository.GetAsync(e => 
-                            !e.UtcDateDeleted.HasValue && e.DriverId == _httpService.CurrentUserId!.Value,
+                            !e.UtcDateDeleted.HasValue
+                            && e.DriverId == _httpService.CurrentUserId!.Value
+                            && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Confirmed,
                         GetAllAssignedOrdersQuery.Response.ShippingOrderSelector()),
                     DeliveryOrder = await _repository.GetAsync(e => 
-                            !e.UtcDateDeleted.HasValue && e.DriverId == _httpService.CurrentUserId!.Value,
+                            !e.UtcDateDeleted.HasValue
+                            && e.DriverId == _httpService.CurrentUserId!.Value
+                            && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Confirmed,
                         GetAllAssignedOrdersQuery.Response.DeliveryOrderSelector()),
                 };
 }

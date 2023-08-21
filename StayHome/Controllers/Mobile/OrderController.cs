@@ -20,6 +20,14 @@ public class OrderController : ApiController
     public async Task<IActionResult> Check(
         [FromServices] IRequestHandler<GetDeliveryCostQuery.Request, OperationResponse<GetDeliveryCostQuery.Response>> handler,
         [FromQuery] GetDeliveryCostQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync(); 
+    
+    [AppAuthorize(StayHomeRoles.Customer)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(GetAllOrderQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(
+        [FromServices] IRequestHandler<GetAllOrderQuery.Request, OperationResponse<List<GetAllOrderQuery.Response>>> handler,
+        [FromQuery] GetAllOrderQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
     [AppAuthorize(StayHomeRoles.Customer)]

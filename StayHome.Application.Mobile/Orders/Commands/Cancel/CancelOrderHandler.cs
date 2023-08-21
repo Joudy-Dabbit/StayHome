@@ -23,7 +23,7 @@ public class CancelOrderHandler: IRequestHandler<CancelOrderCommand.Request,
         var  order = await _repository.TrackingQuery<Order>()
             .Where(o => o.Id == request.Id).FirstAsync(cancellationToken);
       
-        order.AddStage(OrderStages.Retract);
+        order.AddStage(OrderStages.CanselByCustomer);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();
     }
