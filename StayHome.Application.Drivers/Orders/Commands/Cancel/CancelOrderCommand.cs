@@ -10,6 +10,6 @@ public class CancelOrderCommand
     {
         public Guid Id { get; set; }
         public CancelBy CancelBy { get; set; }
-        // public string Reason { get; set; }
+        public string Reason { get; set; }
     }
 }
