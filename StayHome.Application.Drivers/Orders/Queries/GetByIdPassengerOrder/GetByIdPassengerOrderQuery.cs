@@ -24,7 +24,7 @@ public class GetByIdPassengerOrderQuery
         public int NumberOfPassenger { get; set; }    
         public double Distance { get; set; }    
 
-        public static Expression<Func<PassengerOrder, Response>> Selector
+        public static Expression<Func<PassengerOrder, Response>> Selector(int distance)
             => o => new()
             {
                 Id = o.Id,
@@ -37,7 +37,7 @@ public class GetByIdPassengerOrderQuery
                 Coast =  o.DeliveryCoast,
                 Note = o.Note,
                 NumberOfPassenger = o.NumberOfPassenger,
-                Distance = 0
+                Distance = distance
             };
     }
 }

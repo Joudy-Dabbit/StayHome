@@ -26,7 +26,7 @@ public class GetByIdDeliveryOrderQuery
         public double Distance { get; set; }
         public List<ProductsCartMobileDto>? Cart { get; set; } = new(); 
 
-        public static Expression<Func<DeliveryOrder, Response>> Selector
+        public static Expression<Func<DeliveryOrder, Response>> Selector(int distance)
             => o => new()
             {
                 Id = o.Id,
@@ -47,7 +47,7 @@ public class GetByIdDeliveryOrderQuery
                 }).ToList(),
                 Note = o.Note,
                 Weight = o.Weight,
-                Distance = 0
+                Distance = distance
             };
     }
 }
