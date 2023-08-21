@@ -6,7 +6,7 @@ using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
 namespace StayHome.Application.Drivers.Orders;
 
-public class GetAllOrderEvaluatedHandler: IRequestHandler<GetAllOrderEvaluatedQuery.Request,
+public class GetAllOrderEvaluatedHandler : IRequestHandler<GetAllOrderEvaluatedQuery.Request,
     OperationResponse<GetAllOrderEvaluatedQuery.Response>>
 {
     private readonly IUserRepository _repository;

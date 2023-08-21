@@ -33,6 +33,14 @@ public class OrderController : ApiController
     
     [AppAuthorize(StayHomeRoles.Driver)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
+    [ProducesResponseType(typeof(GetOrderOnWayQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetOrderOnWay(
+        [FromServices] IRequestHandler<GetOrderOnWayQuery.Request, 
+            OperationResponse<GetOrderOnWayQuery.Response>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();  
+    
+    [AppAuthorize(StayHomeRoles.Driver)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Driver),ApiGroup(ApiGroupNames.Driver)]
     [ProducesResponseType(typeof(GetAllOrderEvaluatedQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllEvaluated(
         [FromServices] IRequestHandler<GetAllOrderEvaluatedQuery.Request, 
