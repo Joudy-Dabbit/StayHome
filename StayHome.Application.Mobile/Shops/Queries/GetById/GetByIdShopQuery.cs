@@ -32,7 +32,7 @@ public class GetByIdShopQuery
         }
 
 
-        public static Expression<Func<Shop, Response>> Selector()
+        public static Func<Shop, Response> Selector()
             => s => new()
             {
                 Id = s.Id,
@@ -40,11 +40,11 @@ public class GetByIdShopQuery
                 Address = string.Join("-", s.Area.City.Name, s.Area.Name),
                 ImageUrl = s.ImageUrl,
                 EndTime = s.WorkTimes
-                    .FirstOrDefault(w => w.DayOfWeek == DateTime.Now.DayOfWeek)!
-                    .EndTime,
+                    .FirstOrDefault(w => w.DayOfWeek == DateTime.Now.DayOfWeek)
+                    ?.EndTime,
                 StartTime = s.WorkTimes
-                    .FirstOrDefault(w => w.DayOfWeek == DateTime.Now.DayOfWeek)!
-                    .StartTime,
+                    .FirstOrDefault(w => w.DayOfWeek == DateTime.Now.DayOfWeek)
+                    ?.StartTime,
                IsOnline = s.WorkTimes.Any(wt => wt.DayOfWeek == DateTime.Now.DayOfWeek &&
                                                 (wt.StartTime <= DateTime.Now.TimeOfDay
                                                  && DateTime.Now.TimeOfDay <= wt.EndTime)),
