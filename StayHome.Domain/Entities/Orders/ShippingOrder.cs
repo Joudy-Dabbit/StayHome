@@ -21,7 +21,6 @@ public class ShippingOrder : Order
         CustomerId = customerId;
     }
     
-    public double Coast { get; private set; }
     public double? Weight { get; private set; }
 
     public Guid? ShopId { get; private set; }

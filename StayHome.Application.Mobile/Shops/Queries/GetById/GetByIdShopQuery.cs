@@ -32,7 +32,7 @@ public class GetByIdShopQuery
         }
 
 
-        public static Func<Shop, Response> Selector()
+        public static Expression<Func<Shop, Response>> Selector
             => s => new()
             {
                 Id = s.Id,

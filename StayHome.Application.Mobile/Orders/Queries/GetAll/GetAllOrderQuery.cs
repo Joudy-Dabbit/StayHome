@@ -24,7 +24,7 @@ public class GetAllOrderQuery
             => o => new()
             {
                 Id = o.Id,
-                Coast =  o.DeliveryCoast,
+                Coast =  o.Coast + o.DeliveryCoast,
                 CanEvaluate = o.Stages.OrderByDescending(os => os.DateTime)
                     .Any(c => c.CurrentStage == OrderStages.Complete),
                 Star = o.Star,

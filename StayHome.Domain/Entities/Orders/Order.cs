@@ -10,7 +10,8 @@ public class Order : AggregateRoot
     public string? Comment { get; set; }
     public string? CancelReason { get; set; }
     public int? Star { get; set; }
-    
+    public double Coast { get; set; }
+
     public AddressOrder Destination { get; set; }
     public Guid DestinationId { get; set; }
     

@@ -20,7 +20,6 @@ public class DeliveryOrder : Order
         CustomerId = customerId;
     }
     
-    public double Coast { get; set; }
     public double? Weight { get; private set; }
 
     public Guid? ShopId { get; private set; }
