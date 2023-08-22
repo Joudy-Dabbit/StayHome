@@ -51,9 +51,8 @@ public class Customer : User
     
     public void Modify(string fullName,
         DateTime? birthDate, string email, 
-        Guid cityId, string phoneNumber, Gender gender)
+        string phoneNumber, Gender gender)
     {
-        CityId = cityId;
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;

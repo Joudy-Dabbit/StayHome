@@ -16,6 +16,5 @@ public class ModifyCustomerCommand
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender Gender { get;  set; }
-        public Guid CityId { get; set; }
     }
 }

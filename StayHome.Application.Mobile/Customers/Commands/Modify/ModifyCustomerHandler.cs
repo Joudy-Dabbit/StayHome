@@ -33,8 +33,7 @@ public class ModifyCustomerHandler: IRequestHandler<ModifyCustomerCommand.Reques
             return DomainError.User.EmailAlreadyUsed(request.Email);
         
         customer.Modify(request.FullName, request.BirthDate,
-            request.Email, request.CityId,
-            request.PhoneNumber, request.Gender);
+            request.Email, request.PhoneNumber, request.Gender);
 
         await _userManager.UpdateAsync(customer);
         await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
