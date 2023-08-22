@@ -25,17 +25,17 @@ public class GetAllDeliveredHandler: IRequestHandler<GetAllDeliveredQuery.Reques
             PassengerOrder = await _repository.GetAsync(e => 
                     !e.UtcDateDeleted.HasValue
                     && e.DriverId == _httpService.CurrentUserId!.Value
-                    && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Complete,
+                    && e.Stages.OrderByDescending(os => os.DateTime).Any(c => c.CurrentStage == OrderStages.Complete),
                 GetAllDeliveredQuery.Response.PassengerOrderSelector()),
             ShippingOrder = await _repository.GetAsync(e => 
                     !e.UtcDateDeleted.HasValue
                     && e.DriverId == _httpService.CurrentUserId!.Value
-                    && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Complete,
+                    && e.Stages.OrderByDescending(os => os.DateTime).Any(c => c.CurrentStage == OrderStages.Complete),
                 GetAllDeliveredQuery.Response.ShippingOrderSelector()),
             DeliveryOrder = await _repository.GetAsync(e => 
                     !e.UtcDateDeleted.HasValue
                     && e.DriverId == _httpService.CurrentUserId!.Value
-                    && e.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage == OrderStages.Complete,
+                    && e.Stages.OrderByDescending(os => os.DateTime).Any(c => c.CurrentStage == OrderStages.Complete),
                 GetAllDeliveredQuery.Response.DeliveryOrderSelector()),
         };
 }
