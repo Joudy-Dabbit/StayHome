@@ -59,6 +59,18 @@ public class Customer : User
         Email = email;
         Gender = gender;
     }
+    public void Modify(string fullName,
+        DateTime? birthDate, string email, 
+        Guid cityId,
+        string phoneNumber, Gender gender)
+    {
+        CityId = cityId;
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        Email = email;
+        Gender = gender;
+    }
 
     public ShippingOrder AddShippingOrder(double coast, double? weight,
         Guid? shopId, DateTime? scheduleDate,
