@@ -18,7 +18,7 @@ public class GetByIdShopHandler : IRequestHandler<GetByIdShopQuery.Request,
 
     public async Task<OperationResponse<GetByIdShopQuery.Response>> HandleAsync(GetByIdShopQuery.Request request,
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(request.Id, GetByIdShopQuery.Response.Selector);
+        => await _repository.GetAsync(request.Id, GetByIdShopQuery.Response.Selector());
     
         // =>  (await _repository.Query<Shop>()
         //     .Include(s => s.WorkTimes)

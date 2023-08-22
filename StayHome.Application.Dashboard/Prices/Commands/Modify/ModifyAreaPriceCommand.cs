@@ -9,6 +9,6 @@ public class ModifyAreaPriceCommand
     {
         public Guid Id { get; set; }
         public double Price { get; set; }
-        public int TimeBetween { get; set; }
+        public int KmBetween { get; set; }
     }
 }

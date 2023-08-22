@@ -20,7 +20,7 @@ public class ModifyAreaPriceHandler: IRequestHandler<ModifyAreaPriceCommand.Requ
         var areaPrice = await _repository.TrackingQuery<AreaPrice>()
             .Where(ap => ap.Id == request.Id)
             .FirstAsync(cancellationToken);
-        areaPrice.Modify(request.Price, request.TimeBetween);
+        areaPrice.Modify(request.Price, request.KmBetween);
 
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(areaPrice.Id, GetAllAreaPricesQuery.Response.Selector());
