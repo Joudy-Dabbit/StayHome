@@ -40,9 +40,9 @@ public class GetAllShippingOrderQuery
                     : null,
                 IsScheduled = o.ScheduleDate.HasValue,
                 ShopId = o.ShopId,
-                IsHandled = o.Stages.OrderByDescending(os => os.DateTime).Any(s => 
-                    s.CurrentStage == OrderStages.Confirmed 
-                    ||  s.CurrentStage == OrderStages.UnConfirmed)
+                IsHandled = ! o.Stages.OrderByDescending(os => os.DateTime).Any(s => 
+                    s.CurrentStage == OrderStages.Rejected 
+                    ||  s.CurrentStage == OrderStages.NewOrder)
             };
     }
 }

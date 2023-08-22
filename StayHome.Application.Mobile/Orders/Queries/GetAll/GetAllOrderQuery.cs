@@ -19,6 +19,7 @@ public class GetAllOrderQuery
         public string CurrentStage { get; set; }
         public bool CanEvaluate { get; set; }
         public int? Star { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
 
         public static Expression<Func<Order, Response>> Selector
             => o => new()
@@ -28,6 +29,7 @@ public class GetAllOrderQuery
                 CanEvaluate = o.Stages.OrderByDescending(os => os.DateTime)
                     .Any(c => c.CurrentStage == OrderStages.Complete),
                 Star = o.Star,
+                DateCreated = o.UtcDateCreated,
                 CurrentStage = o.Stages.OrderByDescending(os => os.DateTime).First().CurrentStage.ToString()
             };
     }

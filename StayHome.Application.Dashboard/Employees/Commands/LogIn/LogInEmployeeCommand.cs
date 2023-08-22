@@ -19,6 +19,7 @@ public class LogInEmployeeCommand
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
+        public string FullName { get; set; }
         
         public static Expression<Func<Employee, Response>> Selector(string accessToken, string refreshToken)
             => e => new()
@@ -27,6 +28,7 @@ public class LogInEmployeeCommand
                 Email = e.Email,
                 RefreshToken = refreshToken,
                 AccessToken = accessToken,
+                FullName = e.FullName
             };
     }
 }
