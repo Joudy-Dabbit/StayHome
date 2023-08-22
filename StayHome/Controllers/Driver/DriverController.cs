@@ -45,6 +45,6 @@ public class DriverController : ApiController
     public async Task<IActionResult> Modify(    
         [FromServices] IRequestHandler<ModifyDriverCommand.Request,
             OperationResponse<GetDriverProfileQuery.Response>> handler,
-        [FromBody] ModifyDriverCommand.Request request)
+        [FromForm] ModifyDriverCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
 }
