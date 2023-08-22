@@ -1,7 +1,7 @@
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Dashboard.Prices;
+namespace StayHome.Application.Dashboard;
 
 public class ModifyAreaPriceCommand
 {

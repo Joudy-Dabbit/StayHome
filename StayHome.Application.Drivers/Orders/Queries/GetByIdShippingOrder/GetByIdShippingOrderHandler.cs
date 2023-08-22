@@ -24,8 +24,8 @@ public class GetByIdShippingOrderHandler: IRequestHandler<GetByIdShippingOrderQu
             .Include(o => o.Source)
             .Include(o => o.Shop)
             .FirstAsync(o => o.Id == request.Id, cancellationToken);
-        var distance = await _repository.DistanceBetween(order.Destination.AreaId, order.Source!.AreaId);
-        
+        var distance = await _repository.DistanceBetween(order.Destination.AreaId, 
+            order.ShopId ?? order.Source!.AreaId);        
         return await _repository.GetAsync(request.Id, GetByIdShippingOrderQuery.Response.Selector(distance));
     } 
 }

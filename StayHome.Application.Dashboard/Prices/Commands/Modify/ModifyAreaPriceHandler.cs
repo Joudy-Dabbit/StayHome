@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace StayHome.Application.Dashboard.Prices;
+namespace StayHome.Application.Dashboard;
 
 public class ModifyAreaPriceHandler: IRequestHandler<ModifyAreaPriceCommand.Request,OperationResponse<GetAllAreaPricesQuery.Response>>
 {

@@ -15,17 +15,19 @@ public class GetAllAreaPricesQuery
     public class Response
     {
         public Guid Id { get; set; }
-        public string Area1Name { get; set; }
-        public string Area2Name { get; set; }
+        public Guid Area1Name { get; set; }
+        public Guid Area2Name { get; set; }
         public double Price { get; set; }
+        public int KmBetween { get; set; }
 
         public static Expression<Func<AreaPrice, Response>> Selector() 
             => ap => new()
             {
-                Area1Name = ap.Area1.Name,
-                Area2Name = ap.Area2.Name,
+                Area1Name = ap.Area1.Id,
+                Area2Name = ap.Area2.Id,
                 Id = ap.Id,
                 Price = ap.Price,
+                KmBetween = ap.KmBetween
             };
     }
 }

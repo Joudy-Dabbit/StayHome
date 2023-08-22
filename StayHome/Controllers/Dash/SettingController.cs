@@ -5,6 +5,7 @@ using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
+using StayHome.Application.Dashboard;
 using StayHome.Application.Dashboard.Areas;
 using StayHome.Application.Dashboard.Cities;
 using StayHome.Application.Dashboard.Categories;
@@ -89,6 +90,25 @@ public class SettingController : ApiController
              OperationResponse> handler,
          [FromQuery] Guid? id, [FromBody] List<Guid> ids)
          => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();
+     #endregion
+     
+     #region - AreaPrice -
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(List<GetAllAreaPricesQuery.Response>),StatusCodes.Status200OK)]
+     public async Task<IActionResult> GetAllAreaPrices(
+         [FromServices] IRequestHandler<GetAllAreaPricesQuery.Request, 
+             OperationResponse<List<GetAllAreaPricesQuery.Response>>> handler)
+         => await handler.HandleAsync(new()).ToJsonResultAsync();
+     
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+     [ProducesResponseType(typeof(GetAllAreaPricesQuery.Response),StatusCodes.Status200OK)]
+     public async Task<IActionResult> ModifyAreaPrice(
+         [FromServices] IRequestHandler<ModifyAreaPriceCommand.Request, 
+             OperationResponse<GetAllAreaPricesQuery.Response>> handler,
+         [FromBody] ModifyAreaPriceCommand.Request request)
+         => await handler.HandleAsync(request).ToJsonResultAsync();
      #endregion
 
      #region  - Categories -
