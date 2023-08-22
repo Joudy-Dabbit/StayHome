@@ -33,7 +33,7 @@ public class GetByIdPassengerOrderQuery
                     o.Destination.Street, o.Destination.Additional),
                 Source = string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
                         o.Source.Street, o.Source.Additional),
-                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime,
+                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime.AddHours(3),
                 Coast =  o.DeliveryCoast,
                 Note = o.Note,
                 NumberOfPassenger = o.NumberOfPassenger,

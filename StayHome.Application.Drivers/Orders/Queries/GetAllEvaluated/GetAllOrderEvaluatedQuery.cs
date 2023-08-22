@@ -39,7 +39,7 @@ public class GetAllOrderEvaluatedQuery
                     string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
                         o.Source.Street, o.Source.Additional)
                     : string.Join(", ", o.Shop!.Area.City.Name, o.Shop.Area.Name, o.Shop.Name),
-                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime,
+                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime.AddHours(3),
                 Coast = o.Coast + o.DeliveryCoast,
                 Star = o.Star!.Value
             }; 
@@ -57,7 +57,7 @@ public class GetAllOrderEvaluatedQuery
                     string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
                         o.Source.Street, o.Source.Additional)
                     : null,
-                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime,
+                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime.AddHours(3),
                 Coast = o.Coast + o.DeliveryCoast,
                 Star = o.Star!.Value
             };     
@@ -71,7 +71,7 @@ public class GetAllOrderEvaluatedQuery
                         o.Destination.Street, o.Destination.Additional),
                 Source = string.Join(", ", o.Source!.Area.City.Name, o.Source.Area.Name, 
                         o.Source.Street, o.Source.Additional),
-                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime,
+                Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime.AddHours(3),
                 Coast = o.DeliveryCoast,
                 Star = o.Star!.Value
             };
