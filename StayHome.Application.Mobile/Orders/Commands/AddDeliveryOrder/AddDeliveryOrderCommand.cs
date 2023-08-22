@@ -8,13 +8,13 @@ public class AddDeliveryOrderCommand
 {
     public class Request : IRequest<OperationResponse<Response>>
     {
-        public AddressOrderDto Source { get; set; }
-        public string? Note { get; private set; }
+        public AddressOrderDto? Source { get; set; }
+        public string? Note { get;  set; }
         
         public DateTime? ScheduleDate { get; set; }
         
         public Guid? ShopId { get; set; }
-        public AddressOrderDto? Destination { get; set; }
+        public AddressOrderDto Destination { get; set; }
         
         public double? Weight { get; set; }
         public List<ProductsCartDto>? Cart { get; set; } = new();

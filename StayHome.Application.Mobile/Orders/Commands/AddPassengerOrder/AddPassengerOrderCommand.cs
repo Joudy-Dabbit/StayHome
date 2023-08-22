@@ -8,7 +8,7 @@ public class AddPassengerOrderCommand
 {
     public class Request : IRequest<OperationResponse<Response>>
     {
-        public string? Note { get; private set; }
+        public string? Note { get; set; }
         public DateTime? ScheduleDate { get; set; }
         
         public AddressOrderDto Source { get; set; }

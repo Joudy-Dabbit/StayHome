@@ -9,7 +9,7 @@ public class AddShippingOrderCommand
     public class Request : IRequest<OperationResponse<Response>>
     {
         public AddressOrderDto Destination { get; set; }
-        public string? Note { get; private set; }
+        public string? Note { get; set; }
         
         public DateTime? ScheduleDate { get; set; }
         

@@ -26,9 +26,9 @@ public class OrderController : ApiController
     [HttpGet,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(GetAllOrderQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
-        [FromServices] IRequestHandler<GetAllOrderQuery.Request, OperationResponse<List<GetAllOrderQuery.Response>>> handler,
-        [FromQuery] GetAllOrderQuery.Request request)
-        => await handler.HandleAsync(request).ToJsonResultAsync();  
+        [FromServices] IRequestHandler<GetAllOrderQuery.Request, 
+            OperationResponse<List<GetAllOrderQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();  
     
     [AppAuthorize(StayHomeRoles.Customer)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
