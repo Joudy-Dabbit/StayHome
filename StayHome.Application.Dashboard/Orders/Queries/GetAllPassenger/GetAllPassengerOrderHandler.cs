@@ -4,7 +4,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace StayHome.Application.Dashboard.Orders;
 
-public class GetAllPassengerOrderHandler: IRequestHandler<GetAllPassengerOrderQuery.Request,
+public class GetAllPassengerOrderHandler : IRequestHandler<GetAllPassengerOrderQuery.Request,
     OperationResponse<List<GetAllPassengerOrderQuery.Response>>>
 {
     private readonly IStayHomeRepository _repository;

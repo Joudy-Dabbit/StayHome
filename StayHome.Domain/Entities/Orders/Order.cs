@@ -8,6 +8,7 @@ public class Order : AggregateRoot
     public double DeliveryCoast { get; set; }
     public string? Note { get; set; }
     public string? Comment { get; set; }
+    public string? CancelReason { get; set; }
     public int? Star { get; set; }
     
     public AddressOrder Destination { get; set; }
@@ -43,6 +44,11 @@ public class Order : AggregateRoot
     {
         Star = star;
         Comment = comment;
+    }
+    
+    public void Reason(string cancelReason)
+    {
+        CancelReason = cancelReason;
     }   
     
     public void AddStage(OrderStages stage)

@@ -17,6 +17,14 @@ public class OrderController : ApiController
     
     [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [ProducesResponseType(typeof(List<GetAllRejectedOrderQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllRejectedOrder(
+        [FromServices] IRequestHandler<GetAllRejectedOrderQuery.Request, 
+            OperationResponse<List<GetAllRejectedOrderQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync(); 
+    
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAllShippingOrderQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllShippingOrder(
         [FromServices] IRequestHandler<GetAllShippingOrderQuery.Request, 

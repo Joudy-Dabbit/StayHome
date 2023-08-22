@@ -22,7 +22,7 @@ public class CancelOrderHandler : IRequestHandler<CancelOrderCommand.Request,
     {
         var order = await _repository.TrackingQuery<Order>()
             .Where(o => o.Id == request.Id).FirstAsync(cancellationToken);
-        
+        order.Reason(request.Reason);
         order.AddStage(request.CancelBy == CancelBy.Driver 
         ? OrderStages.CanselByDriver
         : OrderStages.Rejected);
