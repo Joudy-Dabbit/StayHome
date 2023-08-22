@@ -54,7 +54,7 @@ public class GetAllAssignedOrdersQuery
                 Source = o.Source != null ?
                     string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
                         o.Source.Street, o.Source.Additional)
-                    : null,
+                    : string.Join(", ", o.Shop!.Area.City.Name, o.Shop.Area.Name, o.Shop.Name),
                 Date = o.ScheduleDate!.HasValue ? o.ScheduleDate.Value : o.UtcDateCreated.DateTime.AddHours(3),
                 Coast = o.Coast + o.DeliveryCoast
             };     
