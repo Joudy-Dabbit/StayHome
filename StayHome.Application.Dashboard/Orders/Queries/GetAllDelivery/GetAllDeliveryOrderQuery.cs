@@ -40,7 +40,7 @@ public class GetAllDeliveryOrderQuery
                 IsScheduled = o.ScheduleDate.HasValue,
                 ShopId = o.ShopId,
                 IsHandled = o.Stages.OrderByDescending(os => os.DateTime)
-                                .First().CurrentStage != OrderStages.Rejected
+                                .First().CurrentStage != OrderStages.CanselByDriver
                             &&
                             o.Stages.OrderByDescending(os => os.DateTime)
                                 .First().CurrentStage != OrderStages.NewOrder

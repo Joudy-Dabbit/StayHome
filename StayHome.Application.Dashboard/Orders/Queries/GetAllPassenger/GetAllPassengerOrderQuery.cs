@@ -33,7 +33,7 @@ public class GetAllPassengerOrderQuery
                     o.Source.Street, o.Source.Additional),
                 IsScheduled = o.ScheduleDate.HasValue,
                 IsHandled = o.Stages.OrderByDescending(os => os.DateTime)
-                                .First().CurrentStage != OrderStages.Rejected
+                                .First().CurrentStage != OrderStages.CanselByDriver
                             &&
                             o.Stages.OrderByDescending(os => os.DateTime)
                                 .First().CurrentStage != OrderStages.NewOrder
