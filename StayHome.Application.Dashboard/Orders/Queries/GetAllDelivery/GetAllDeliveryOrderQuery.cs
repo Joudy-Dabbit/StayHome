@@ -39,9 +39,11 @@ public class GetAllDeliveryOrderQuery
                     : null,
                 IsScheduled = o.ScheduleDate.HasValue,
                 ShopId = o.ShopId,
-                IsHandled = ! o.Stages.OrderByDescending(os => os.DateTime).Any(s => 
-                    s.CurrentStage == OrderStages.Rejected 
-                    ||  s.CurrentStage == OrderStages.NewOrder)
+                IsHandled = o.Stages.OrderByDescending(os => os.DateTime)
+                                .First().CurrentStage != OrderStages.Rejected
+                            &&
+                            o.Stages.OrderByDescending(os => os.DateTime)
+                                .First().CurrentStage != OrderStages.NewOrder
             };
     }
 }

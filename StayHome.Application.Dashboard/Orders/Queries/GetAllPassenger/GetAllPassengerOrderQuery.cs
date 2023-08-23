@@ -32,9 +32,11 @@ public class GetAllPassengerOrderQuery
                 Source = string.Join(", ", o.Source.Area.City.Name, o.Source.Area.Name, 
                     o.Source.Street, o.Source.Additional),
                 IsScheduled = o.ScheduleDate.HasValue,
-                IsHandled = ! o.Stages.OrderByDescending(os => os.DateTime).Any(s => 
-                    s.CurrentStage == OrderStages.Rejected 
-                    ||  s.CurrentStage == OrderStages.NewOrder)
+                IsHandled = o.Stages.OrderByDescending(os => os.DateTime)
+                                .First().CurrentStage != OrderStages.Rejected
+                            &&
+                            o.Stages.OrderByDescending(os => os.DateTime)
+                                .First().CurrentStage != OrderStages.NewOrder
             };
     }
 }

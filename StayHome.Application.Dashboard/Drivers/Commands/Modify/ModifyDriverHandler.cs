@@ -38,7 +38,7 @@ public class ModifyDriverHandler : IRequestHandler<ModifyDriverCommand.Request,
             var image = await _fileService.Upload(request.Vehicle!.ImageFile);
             var vehicle = new Vehicle(request.Vehicle.Name,
                 request.Vehicle.VehicleTypeId, request.Vehicle.MaxCapacity,
-                request.Vehicle.Color, request.Vehicle.Name, image);
+                request.Vehicle.Color, request.Vehicle.Number, image);
             _userRepository.Add(vehicle);
             await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
             vehicleId = vehicle.Id;
