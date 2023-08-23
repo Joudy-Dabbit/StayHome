@@ -8,7 +8,7 @@ using StayHome.Application.Dashboard.Core.Abstractions.Http;
 
 namespace StayHome.Application.Mobile.Orders;
 
-public class AddPassengerOrderHandler : IRequestHandler<AddPassengerOrderCommand.Request,
+public class       AddPassengerOrderHandler : IRequestHandler<AddPassengerOrderCommand.Request,
     OperationResponse<AddPassengerOrderCommand.Response>>
 {
     private readonly IHttpService _httpService;
