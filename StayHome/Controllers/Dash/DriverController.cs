@@ -40,7 +40,7 @@ public class DriverController : ApiController
             OperationResponse<List<GetDriverNamesQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
-    // [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
     [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAvailableDriversQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAvailable(
