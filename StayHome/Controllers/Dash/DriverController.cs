@@ -38,8 +38,15 @@ public class DriverController : ApiController
     public async Task<IActionResult> GetNames(
         [FromServices] IRequestHandler<GetDriverNamesQuery.Request, 
             OperationResponse<List<GetDriverNamesQuery.Response>>> handler)
-        => await handler.HandleAsync(new()).ToJsonResultAsync();
+        => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
+    // [AppAuthorize(StayHomeRoles.Employee, StayHomeRoles.Admin)]
+    [HttpGet,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [ProducesResponseType(typeof(List<GetAvailableDriversQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAvailable(
+        [FromServices] IRequestHandler<GetAvailableDriversQuery.Request, 
+            OperationResponse<List<GetAvailableDriversQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();
         
     [AppAuthorize(StayHomeRoles.Admin)]
     [HttpPost,StayHomeRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
